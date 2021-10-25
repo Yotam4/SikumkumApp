@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SikumkumApp.Views.Login">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="Enter Username:"/>
+            <Entry Placeholder="Username" Text="{Binding Username}"/>
+            
+            <Label Text="Enter Password:"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+
+            <Button Text="Login" Command="{Binding LoginCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

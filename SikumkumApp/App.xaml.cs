@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SikumkumApp.Views;
 
 namespace SikumkumApp
 {
@@ -10,7 +11,7 @@ namespace SikumkumApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Login();
         }
 
         protected override void OnStart()

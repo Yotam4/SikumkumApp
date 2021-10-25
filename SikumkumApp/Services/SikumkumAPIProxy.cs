@@ -79,14 +79,14 @@ namespace ContactsApp.Services
         //    this.basePhotosUri = basePhotosUri;
         //}
 
-        public string GetBasePhotoUri() { return this.basePhotosUri; }
+        //public string GetBasePhotoUri() { return this.basePhotosUri; }
 
         //Login!
-        public async Task<User> LoginAsync(string email, string pass)
+        public async Task<User> LoginAsync(string username, string pass)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Login?email={email}&pass={pass}");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Login?username={username}&pass={pass}");
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
