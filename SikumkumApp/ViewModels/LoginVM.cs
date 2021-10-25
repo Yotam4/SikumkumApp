@@ -9,6 +9,9 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SikumkumApp.Models;
+using SikumkumApp.Services;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SikumkumApp.ViewModels
 {
@@ -57,10 +60,32 @@ namespace SikumkumApp.ViewModels
 
         #region Commands
 
-        public ICommand LoginCommand => new Command(LoginFunction);
-        private void LoginFunction()
+        public ICommand LoginCommand => new Command(LoginFunctionAsync);
+        private async void LoginFunctionAsync()
         {
-            
+            try
+            {
+                SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+
+                User loggingUser = new User();
+
+                loggingUser = await API.LoginAsync(this.Username, this.Password);
+
+                if (loggingUser != null) //User logged in.
+                {
+                    MainPage mn = new MainPage(); //PLACEHOLDER
+                    App.Current.MainPage = mn;
+                }
+                else
+                {
+
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         #endregion

@@ -12,7 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.IO;
 
-namespace ContactsApp.Services
+namespace SikumkumApp.Services
 {
     class SikumkumAPIProxy
     {
@@ -30,54 +30,54 @@ namespace ContactsApp.Services
         private string basePhotosUri;
         private static SikumkumAPIProxy proxy = null;
 
-        //public static SikumkumAPIProxy CreateProxy()
-        //{
-        //    string baseUri;
-        //    string basePhotosUri;
-        //    if (App.IsDevEnv)
-        //    {
-        //        if (Device.RuntimePlatform == Device.Android)
-        //        {
-        //            if (DeviceInfo.DeviceType == DeviceType.Virtual)
-        //            {
-        //                baseUri = DEV_ANDROID_EMULATOR_URL;
-        //                basePhotosUri = DEV_ANDROID_EMULATOR_PHOTOS_URL;
-        //            }
-        //            else
-        //            {
-        //                baseUri = DEV_ANDROID_PHYSICAL_URL;
-        //                basePhotosUri = DEV_ANDROID_PHYSICAL_PHOTOS_URL;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            baseUri = DEV_WINDOWS_URL;
-        //            basePhotosUri = DEV_WINDOWS_PHOTOS_URL;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        baseUri = CLOUD_URL;
-        //        basePhotosUri = CLOUD_PHOTOS_URL;
-        //    }
+        public static SikumkumAPIProxy CreateProxy()
+        {
+            string baseUri;
+            string basePhotosUri;
+            if (App.IsDevEnv)
+            {
+                if (Device.RuntimePlatform == Device.Android)
+                {
+                    if (DeviceInfo.DeviceType == DeviceType.Virtual)
+                    {
+                        baseUri = DEV_ANDROID_EMULATOR_URL;
+                        basePhotosUri = DEV_ANDROID_EMULATOR_PHOTOS_URL;
+                    }
+                    else
+                    {
+                        baseUri = DEV_ANDROID_PHYSICAL_URL;
+                        basePhotosUri = DEV_ANDROID_PHYSICAL_PHOTOS_URL;
+                    }
+                }
+                else
+                {
+                    baseUri = DEV_WINDOWS_URL;
+                    basePhotosUri = DEV_WINDOWS_PHOTOS_URL;
+                }
+            }
+            else
+            {
+                baseUri = CLOUD_URL;
+                basePhotosUri = CLOUD_PHOTOS_URL;
+            }
 
-        //    if (proxy == null)
-        //        proxy = new ContactsAPIProxy(baseUri, basePhotosUri);
-        //    return proxy;
-        //}
+            if (proxy == null)
+                proxy = new SikumkumAPIProxy(baseUri, basePhotosUri);
+            return proxy;
+        }
 
 
-        //private ContactsAPIProxy(string baseUri, string basePhotosUri)
-        //{
-        //    //Set client handler to support cookies!!
-        //    HttpClientHandler handler = new HttpClientHandler();
-        //    handler.CookieContainer = new System.Net.CookieContainer();
+        private SikumkumAPIProxy(string baseUri, string basePhotosUri)
+        {
+            //Set client handler to support cookies!!
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.CookieContainer = new System.Net.CookieContainer();
 
-        //    //Create client with the handler!
-        //    this.client = new HttpClient(handler, true);
-        //    this.baseUri = baseUri;
-        //    this.basePhotosUri = basePhotosUri;
-        //}
+            //Create client with the handler!
+            this.client = new HttpClient(handler, true);
+            this.baseUri = baseUri;
+            this.basePhotosUri = basePhotosUri;
+        }
 
         //public string GetBasePhotoUri() { return this.basePhotosUri; }
 

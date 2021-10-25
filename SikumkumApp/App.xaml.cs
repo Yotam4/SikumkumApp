@@ -7,6 +7,8 @@ namespace SikumkumApp
 {
     public partial class App : Application
     {
+        public static bool IsDevEnv { get; internal set; }
+
         public App()
         {
             InitializeComponent();
