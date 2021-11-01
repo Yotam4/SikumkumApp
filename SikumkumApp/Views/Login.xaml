@@ -2,6 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.Login">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Inputs" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="AliceBlue"/>
+            </Style>
+            <Style x:Key="Buttons" TargetType="Button">
+                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="BorderColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
 
