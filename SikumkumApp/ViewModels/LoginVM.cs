@@ -73,8 +73,7 @@ namespace SikumkumApp.ViewModels
 
                 if (loggingUser != null) //User logged in.
                 {
-                    MainPage mn = new MainPage(); //PLACEHOLDER
-                    App.Current.MainPage = mn;
+                    username = "success";
                 }
                 else
                 {
