@@ -12,6 +12,7 @@ using SikumkumApp.Models;
 using SikumkumApp.Services;
 using System.Threading;
 using System.Threading.Tasks;
+using SikumkumApp.Views;
 
 namespace SikumkumApp.ViewModels
 {
@@ -73,7 +74,10 @@ namespace SikumkumApp.ViewModels
 
                 if (loggingUser != null) //User logged in.
                 {
-                    username = "success";
+                    UserPage up = new UserPage();
+                    up.BindingContext = loggingUser; 
+                    App.Current.MainPage = up;
+
                 }
                 else
                 {
