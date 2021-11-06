@@ -77,13 +77,13 @@ namespace SikumkumApp.ViewModels
             try
             {
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                User signedUp = new User();
-                signedUp = await API.SignUpAsync(this.Username, this.Email, this.Password);
+                User signingUp = new User(this.Username, this.Email, this.Password);
+                signingUp = await API.SignUpAsync(signingUp);
 
-                if (signedUp != null) 
+                if (signingUp != null) 
                 {
                     UserPage up = new UserPage();
-                    up.BindingContext = signedUp; //Temporary to test if it works.
+                    up.BindingContext = signingUp; //Temporary to test if it works.
                     App.Current.MainPage = up;
                 }
                 else
@@ -94,7 +94,7 @@ namespace SikumkumApp.ViewModels
 
             catch (Exception e)
             {
-                return null;
+                return;
             }
         }
 
