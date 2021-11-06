@@ -16,10 +16,9 @@ using SikumkumApp.Views;
 
 namespace SikumkumApp.ViewModels
 {
-    class LoginVM : INotifyPropertyChanged
+    class SignUpVM: INotifyPropertyChanged
     {
-        
-        public LoginVM()
+        public SignUpVM()
         {
 
         }
@@ -57,37 +56,45 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private string email { get; set; }
+        public string Email
+        {
+            get { return this.email; }
+            set
+            {
+                this.email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+
         #endregion
 
         #region Commands
 
-        public ICommand LoginCommand => new Command(LoginFunctionAsync);
-        private async void LoginFunctionAsync()
+        public ICommand SignUpCommand => new Command(SignUpAsync);
+        private async void SignUpAsync()
         {
             try
             {
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+                User signedUp = new User();
+                signedUp = await API.SignUpAsync(this.Username, this.Email, this.Password);
 
-                User loggingUser = new User();
-
-                loggingUser = await API.LoginAsync(this.Username, this.Password);
-
-                if (loggingUser != null) //User logged in.
+                if (signedUp != null) 
                 {
                     UserPage up = new UserPage();
-                    up.BindingContext = loggingUser;  //Temporary to test if it works.
+                    up.BindingContext = signedUp; //Temporary to test if it works.
                     App.Current.MainPage = up;
-
                 }
                 else
                 {
-
+                    throw new Exception("Could not sign up. Please try again");
                 }
             }
 
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 

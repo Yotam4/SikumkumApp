@@ -111,6 +111,12 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<User> SignUpAsync(string username, string email, string pass)
+        {
+
+
+            HttpResponseMessage response = await this.client.PostAsync()
+        }
         
 
        
