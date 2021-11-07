@@ -85,7 +85,7 @@ namespace SikumkumApp.ViewModels
                 {
                     UserPage up = new UserPage();
                     up.BindingContext = signingUp; //Temporary to test if it works.
-                    App.Current.MainPage = up;
+                    App.Current.MainPage.Navigation.PushAsync(up);
                 }
                 else
                 {

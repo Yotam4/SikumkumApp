@@ -76,7 +76,7 @@ namespace SikumkumApp.ViewModels
                 {
                     UserPage up = new UserPage();
                     up.BindingContext = loggingUser;  //Temporary to test if it works.
-                    App.Current.MainPage = up;
+                    App.Current.MainPage.Navigation.PushAsync(up);
 
                 }
                 else
@@ -95,7 +95,7 @@ namespace SikumkumApp.ViewModels
         private void ToSignUpFunction()
         {
             SignUp su = new SignUp();
-            App.Current.MainPage = su;
+            App.Current.MainPage.Navigation.PushAsync(su);
         }
 
         #endregion

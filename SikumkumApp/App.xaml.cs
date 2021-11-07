@@ -13,7 +13,7 @@ namespace SikumkumApp
         {
             InitializeComponent();
 
-            MainPage = new Login();
+            MainPage = new NavigationPage(new Login());
         }
 
         protected override void OnStart()
