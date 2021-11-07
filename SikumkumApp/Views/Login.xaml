@@ -26,6 +26,9 @@
 
             <Button Text="Login" Command="{Binding LoginCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
 
+            <Button Text="SignUp" Command="{Binding ToSignUp}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Beige"/>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -91,6 +91,13 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        public ICommand ToSignUp => new Command(ToSignUpFunction);
+        private void ToSignUpFunction()
+        {
+            SignUp su = new SignUp();
+            App.Current.MainPage = su;
+        }
+
         #endregion
     }
 }

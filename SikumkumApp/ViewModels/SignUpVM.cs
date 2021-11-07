@@ -78,9 +78,10 @@ namespace SikumkumApp.ViewModels
             {
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 User signingUp = new User(this.Username, this.Email, this.Password);
-                signingUp = await API.SignUpAsync(signingUp);
 
-                if (signingUp != null) 
+                bool isSigned = await API.SignUpAsync(signingUp);
+
+                if (isSigned) 
                 {
                     UserPage up = new UserPage();
                     up.BindingContext = signingUp; //Temporary to test if it works.

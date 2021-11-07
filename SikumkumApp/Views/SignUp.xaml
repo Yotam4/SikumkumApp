@@ -30,6 +30,8 @@
             <Label Text="Enter Password:"/>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
 
+            <Button Text="SignUp" Command="{Binding SignUpCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+
         </StackLayout>
         
     </ContentPage.Content>

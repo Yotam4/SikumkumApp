@@ -111,15 +111,41 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<User> SignUpAsync(User signingUp)
+        public async Task<bool> SignUpAsync(User signingUp)
         {
-             
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
 
-            HttpResponseMessage response = await this.client.PostAsync()
+                string jsonUser = JsonSerializer.Serialize<User>(signingUp, options);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUp", content);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully signed up.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
         }
-        
 
-       
+
+
 
         //public async Task<bool> RemoveContact(UserContact uc)
         //{
@@ -151,7 +177,7 @@ namespace SikumkumApp.Services
         //    }
         //}
 
-        
+
 
         ////Upload file to server (only images!)
         //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
