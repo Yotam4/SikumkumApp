@@ -13,6 +13,8 @@ using SikumkumApp.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using SikumkumApp.Views;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace SikumkumApp.ViewModels
 {
@@ -20,6 +22,9 @@ namespace SikumkumApp.ViewModels
     {
         public SignUpVM()
         {
+            this.ShowNameError = false;
+            this.ShowEmailError = false;
+            this.ShowPasswordError = false;
 
         }
 
@@ -44,6 +49,27 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Username");
             }
         }
+        private bool showNameError { get; set; }
+        public bool ShowNameError
+        {
+            get => showNameError;
+            set
+            {
+                showNameError = value;
+                OnPropertyChanged("ShowNameError");
+            }
+        }
+
+        private string nameError { get; set; }
+        public string NameError
+        {
+            get => nameError;
+            set
+            {
+                nameError = value;
+                OnPropertyChanged("NameError");
+            }
+        }
 
         private string password { get; set; }
         public string Password
@@ -56,6 +82,29 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showPasswordError { get; set; }
+        public bool ShowPasswordError
+        {
+            get => showPasswordError;
+            set
+            {
+                showPasswordError = value;
+                OnPropertyChanged("ShowPasswordError");
+            }
+        }
+
+        private string passwordError { get; set; }
+        public string PasswordError
+        {
+            get => passwordError;
+            set
+            {
+                passwordError = value;
+                OnPropertyChanged("PasswordError");
+            }
+        }
+
+
         private string email { get; set; }
         public string Email
         {
@@ -67,15 +116,89 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showEmailError { get; set; }
+        public bool ShowEmailError
+        {
+            get => showEmailError;
+            set
+            {
+                showEmailError = value;
+                OnPropertyChanged("ShowEmailError");
+            }
+        }
+
+        private string emailError { get; set; }
+        public string EmailError
+        {
+            get => emailError;
+            set
+            {
+                emailError = value;
+                OnPropertyChanged("EmailError");
+            }
+        }
+
         #endregion
 
         #region Commands
+        private void ValidateEmail()
+        {
+            this.ShowEmailError = string.IsNullOrEmpty(Email);
+            if (this.ShowEmailError)            
+                this.EmailError = "נא למלא את כתובת האימייל שלך.";
+            
+        }
+        private void ValidateName()
+        {
+            this.ShowNameError = string.IsNullOrEmpty(Username);
+            if (this.ShowNameError)
+                this.NameError = "שם משתמש לא יכול להיות ריק.";
+        }
+        private void ValidatePassword()
+        {
+            this.ShowPasswordError = string.IsNullOrEmpty(Password);
+            if (this.ShowPasswordError)
+                this.PasswordError = "סיסמה לא יכולה להיות ריקה. נא הכנס סיסמה בת 8-16 תווים.";
+            if(this.Password.Length > 0 && (this.Password.Length < 8 || this.Password.Length > 16)) //If user's password is not 8-16 chars or empty.
+            {
+                this.ShowPasswordError = true;
+                this.PasswordError = "נא הכנס סיסמה בת 8-16 תווים.";
+                return;
+            }
 
+            Regex rgx = new Regex("[^A-Za-z0-9]");
+            bool hasSpecialChar = rgx.IsMatch(this.Password);
+            if (!hasSpecialChar)
+            {
+                this.ShowPasswordError = true;
+                this.PasswordError = "הסיסמה צריכה לכלול אותיות מיוחדות .";
+            }
+            bool hasNumbers = this.Password.Any(char.IsDigit);
+            if (!hasNumbers)
+            {
+                this.ShowPasswordError = true;
+                this.PasswordError = "הסיסמה צריכה לכלול מספרים .";
+            }
+        }
+
+        private bool ValidateSignUp()
+        {
+            ValidateEmail();
+            ValidateName();
+            ValidatePassword();
+
+            if (ShowNameError || ShowEmailError || showPasswordError)
+                return false;
+            return true;
+        }
         public ICommand SignUpCommand => new Command(SignUpAsync);
         private async void SignUpAsync()
         {
             try
             {
+                if (!ValidateSignUp())
+                    return;
+
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 User signingUp = new User(this.Username, this.Email, this.Password);
 

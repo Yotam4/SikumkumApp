@@ -3,6 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BorderWidth" Value="4"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="ForestGreen"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="WidthRequest" Value="175"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="FontFamily" Value="Sans-serif"/>
+            </Style>
+            <Style x:Key="WarningsStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="IndianRed"/>
+                <Setter Property="Opacity" Value="90"/>
+                <Setter Property="FontFamily" Value="Helvetica"/>
+                <Setter Property="FontAttributes" Value="Italic"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

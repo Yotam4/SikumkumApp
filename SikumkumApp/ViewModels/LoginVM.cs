@@ -46,6 +46,28 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showNameError { get; set; }
+        public bool ShowNameError
+        {
+            get => showNameError;
+            set
+            {
+                showNameError = value;
+                OnPropertyChanged("ShowNameError");
+            }
+        }
+
+        private string nameError { get; set; }
+        public string NameError
+        {
+            get => nameError;
+            set
+            {
+                nameError = value;
+                OnPropertyChanged("NameError");
+            }
+        }
+
         private string password { get; set; }
         public string Password
         {
@@ -57,15 +79,65 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showPasswordError { get; set; }
+        public bool ShowPasswordError
+        {
+            get => showPasswordError;
+            set
+            {
+                showPasswordError = value;
+                OnPropertyChanged("ShowPasswordError");
+            }
+        }
+
+        private string passwordError { get; set; }
+        public string PasswordError
+        {
+            get => passwordError;
+            set
+            {
+                passwordError = value;
+                OnPropertyChanged("PasswordError");
+            }
+        }
+
+        private bool ShowUsernameError { get; set; }
+        public string UsernameError { get; set; }
+
         #endregion
 
         #region Commands
 
+        private void ValidateName()
+        {
+            this.ShowNameError = string.IsNullOrEmpty(Username);
+            if (this.ShowNameError)
+                this.NameError = "שם משתמש לא יכול להיות ריק.";
+        }
+        private void ValidatePassword()
+        {
+            this.ShowPasswordError = string.IsNullOrEmpty(Password);
+            if (this.ShowPasswordError)
+                this.PasswordError = "סיסמה לא יכולה להיות ריקה.";
+   
+        }
+        private bool ValidateLogin()
+        {
+            ValidateName();
+            ValidatePassword();
+
+            if (ShowNameError || showPasswordError)
+                return false;
+            return true;
+        }
         public ICommand LoginCommand => new Command(LoginFunctionAsync);
         private async void LoginFunctionAsync()
         {
             try
             {
+                if (ValidateLogin())
+                    return;
+
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
 
                 User loggingUser = new User();

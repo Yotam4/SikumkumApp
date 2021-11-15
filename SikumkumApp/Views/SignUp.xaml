@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SikumkumApp.Views.SignUp">
+             x:Class="SikumkumApp.Views.SignUp"
+             Title="הרשמה"
+             FlowDirection="RightToLeft">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -21,16 +23,19 @@
         
         <StackLayout>
 
-            <Label Text="Enter Username:"/>
-            <Entry Placeholder="Username" Text="{Binding Username}"/>
+            <Label Text="שם משתמש:"/>
+            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource WarningsStyle}"/>
+            <Entry Placeholder="שם משתמש" Text="{Binding Username}"/>
             
-            <Label Text="Enter Email:"/>
-            <Entry Placeholder="Email" Text="{Binding Email}"/>
+            <Label Text="אימייל:"/>
+            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource WarningsStyle}"/>
+            <Entry Placeholder="אימייל" Text="{Binding Email}"/>
 
-            <Label Text="Enter Password:"/>
-            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+            <Label Text="סיסמה:"/>
+            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
+            <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
 
-            <Button Text="SignUp" Command="{Binding SignUpCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+            <Button Text="הרשמה" Command="{Binding SignUpCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
 
         </StackLayout>
         
