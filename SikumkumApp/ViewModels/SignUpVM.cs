@@ -187,7 +187,7 @@ namespace SikumkumApp.ViewModels
             ValidateName();
             ValidatePassword();
 
-            if (ShowNameError || ShowEmailError || showPasswordError)
+            if (!ShowNameError || !ShowEmailError || !showPasswordError)
                 return false;
             return true;
         }
@@ -196,7 +196,7 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                if (!ValidateSignUp())
+                if (ValidateSignUp())
                     return;
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();

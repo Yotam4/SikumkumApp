@@ -126,7 +126,7 @@ namespace SikumkumApp.ViewModels
             ValidateName();
             ValidatePassword();
 
-            if (ShowNameError || showPasswordError)
+            if (!ShowNameError || !showPasswordError)
                 return false;
             return true;
         }
