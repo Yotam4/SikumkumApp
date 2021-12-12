@@ -143,7 +143,29 @@ namespace SikumkumApp.Services
                 return false;
             }
         }
+        public async Task<List<Subject>> GetSubjects()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Login?GetSubjects");
 
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true                                       
+                };
+
+                string content = await response.Content.ReadAsStringAsync();
+                List<Subject> subjects = JsonSerializer.Deserialize<List<Subject>>(content, options);
+                return subjects;
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
 
 
 
