@@ -19,12 +19,10 @@ namespace SikumkumApp.ViewModels
 {
     class OpeningVM : INotifyPropertyChanged
     {
-        private ObservableCollection<Subject> subjectsCollec;
-        public OpeningVM()
+        public ObservableCollection<Subject> subjectsCollec { get; set; }
+        public OpeningVM(List<Subject> subjectsL)
         {
-            SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-            Task<List<Subject>> subjectsList = API.GetSubjects();
-            this.subjectsCollec = new ObservableCollection<Subject>(subjectsList.Result);
+            this.subjectsCollec = new ObservableCollection<Subject>(subjectsL); 
         }
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,6 +32,8 @@ namespace SikumkumApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+
 
     }
 }

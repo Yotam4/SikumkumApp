@@ -143,11 +143,12 @@ namespace SikumkumApp.Services
                 return false;
             }
         }
+
         public async Task<List<Subject>> GetSubjects()
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Login?GetSubjects");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetSubjects");
 
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {

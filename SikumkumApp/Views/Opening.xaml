@@ -4,11 +4,10 @@
              x:Class="SikumkumApp.Views.Opening">
     <ContentPage.Content>
         <StackLayout>
-
-            <CollectionView ItemsSource="{Binding SubjectsCollection}">
+            <CollectionView ItemsSource="{Binding subjectsCollec}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Button Text="{Binding Subject1}"/>
+                            <Button Text="{Binding SubjectName}" HorizontalOptions="StartAndExpand" HeightRequest="75" BorderColor="Black" Command="{Binding ClickedOnSubjectCommand}" BackgroundColor="White" FontFamily="Luminari"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

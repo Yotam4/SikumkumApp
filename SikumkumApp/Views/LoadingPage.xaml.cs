@@ -6,23 +6,14 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using SikumkumApp.ViewModels;
-using SikumkumApp.Services;
-using SikumkumApp.Models;
-using System.Collections.ObjectModel;
 
 namespace SikumkumApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Opening : ContentPage
+    public partial class LoadingPage : ContentPage
     {
-        OpeningVM oV;
-        public Opening(List<Subject> subjects)
+        public LoadingPage()
         {
-            oV = new OpeningVM(subjects);
-
-            this.BindingContext = oV;
-
             InitializeComponent();
         }
     }

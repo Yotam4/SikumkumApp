@@ -2,6 +2,10 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SikumkumApp.Views;
+using SikumkumApp.Services;
+using SikumkumApp.Models;
+using System.Collections.Generic;
+
 
 namespace SikumkumApp
 {
@@ -13,11 +17,22 @@ namespace SikumkumApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Login());
+            MainPage = new LoadingPage(); //Change to new loading page.
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
+            SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+            try
+            {
+                List<Subject> subjects = await API.GetSubjects();
+                Opening openingPage = new Opening(subjects);
+                MainPage = new NavigationPage(openingPage);
+            }
+            catch (Exception e)
+            {
+                Application.Current.Quit();
+            }
         }
 
         protected override void OnSleep()
