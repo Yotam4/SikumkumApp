@@ -191,7 +191,7 @@ namespace SikumkumApp.ViewModels
                 return false;
             return true;
         }
-        public ICommand SignUpCommand => new Command(SignUpAsync);
+        public Command SignUpCommand => new Command(SignUpAsync);
         private async void SignUpAsync()
         {
             try

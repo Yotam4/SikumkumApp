@@ -1,16 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
              x:Class="SikumkumApp.Views.Opening">
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView ItemsSource="{Binding subjectsCollec}">
+        <StackLayout Margin="10">
+
+            <Label Text=":מקצועות" HorizontalOptions="End" Style="{StaticResource Key=Headers}"/>
+
+            <CollectionView ItemsSource="{Binding subjectsCollec}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                            <Button Text="{Binding SubjectName}" HorizontalOptions="StartAndExpand" HeightRequest="75" BorderColor="Black" Command="{Binding ClickedOnSubjectCommand}" BackgroundColor="White" FontFamily="Luminari"/>
+                        <Button Text="{Binding SubjectName}" Command="{Binding ClickedOnSubject}" Style="{StaticResource Key=Subjects}"  />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="47"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Text="Login" Style="{StaticResource ButtonStyle}" Grid.Column="0" Command="{Binding ClickedOnLogin}" />
+                <Button Text="Sign Up" Style="{StaticResource ButtonStyle}" Grid.Column="1" Command="{Binding ClickedOnSignUp}" />
+            </Grid>
+            
         </StackLayout>
         
     </ContentPage.Content>

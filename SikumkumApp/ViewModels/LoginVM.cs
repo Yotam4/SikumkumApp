@@ -130,7 +130,7 @@ namespace SikumkumApp.ViewModels
                 return false;
             return true;
         }
-        public ICommand LoginCommand => new Command(LoginFunctionAsync);
+        public Command LoginCommand => new Command(LoginFunctionAsync);
         private async void LoginFunctionAsync()
         {
             try
@@ -163,7 +163,7 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        public ICommand ToSignUp => new Command(ToSignUpFunction);
+        public Command ToSignUp => new Command(ToSignUpFunction);
         private void ToSignUpFunction()
         {
             SignUp su = new SignUp();

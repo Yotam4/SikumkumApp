@@ -34,6 +34,31 @@ namespace SikumkumApp.ViewModels
         #endregion
 
 
+        #region Commands
+        public Command ClickedOnLogin => new Command(OpenLoginPage);
+        private void OpenLoginPage()
+        {
+            Login loginPage = new Login();
+            App.Current.MainPage.Navigation.PushAsync(loginPage);
+        }
+
+        public Command ClickedOnSignUp => new Command(OpenSignUpPage);
+        private void OpenSignUpPage()
+        {
+            SignUp SignupPage = new SignUp();
+            App.Current.MainPage.Navigation.PushAsync(SignupPage);
+        }
+
+        public Command ClickedOnSubject => new Command<Subject>(OpenSubjectPage);
+        private void OpenSubjectPage(Subject s)
+        {
+            int a = 0;
+
+        }
+
+        #endregion
+
+
 
     }
 }

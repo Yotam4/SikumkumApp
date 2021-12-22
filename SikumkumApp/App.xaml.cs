@@ -5,7 +5,9 @@ using SikumkumApp.Views;
 using SikumkumApp.Services;
 using SikumkumApp.Models;
 using System.Collections.Generic;
-
+[assembly: ExportFont("Rubik-Italic.ttf", Alias = "RubikItalic")]
+[assembly: ExportFont("Rubik-Regular.ttf", Alias = "RubikRegular")]
+[assembly: ExportFont("MiriamLibreR.ttf", Alias = "MiriamLibre")]
 
 namespace SikumkumApp
 {

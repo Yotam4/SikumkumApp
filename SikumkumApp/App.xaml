@@ -5,19 +5,36 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="BorderWidth" Value="4"/>
+                <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="BorderColor" Value="Black"/>
-                <Setter Property="BackgroundColor" Value="ForestGreen"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Beige"/>
+                <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="WidthRequest" Value="175"/>
-                <Setter Property="HeightRequest" Value="40"/>
-                <Setter Property="FontFamily" Value="Sans-serif"/>
+                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="FontFamily" Value="MiriamLibre"/>
+                <Setter Property="CornerRadius" Value="17" />
             </Style>
             <Style x:Key="WarningsStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="IndianRed"/>
                 <Setter Property="Opacity" Value="90"/>
                 <Setter Property="FontFamily" Value="Helvetica"/>
                 <Setter Property="FontAttributes" Value="Italic"/>
+            </Style>
+
+            <Style x:Key="Headers" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily"  Value="RubikItalic" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Style>
+
+            <Style x:Key="Subjects" TargetType="Button">
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontFamily"  Value="RubikRegular" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BackgroundColor" Value="White"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
