@@ -3,10 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.SubjectPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Text="סיכומים" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" IsEnabled="True"/>
+            <CheckBox IsChecked="{Binding isSummary}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+
+            <Label Text="תרגולים" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"/>
+            <CheckBox IsChecked="{Binding isPractice}" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center"/>
+
+            <Label Text="מטלות" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
+            <CheckBox IsChecked="{Binding isEssay}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center"/>
+
+            <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="4" Grid.Row="0" Command="{Binding SearchCommand}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

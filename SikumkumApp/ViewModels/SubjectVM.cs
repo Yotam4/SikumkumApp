@@ -29,5 +29,56 @@ namespace SikumkumApp.ViewModels
         }
         #endregion
 
+        #region Variables
+        private Subject currentSubject;
+
+        private string isSummary { get; set; }
+        public string IsSummary
+        {
+            get { return this.isSummary; }
+            set
+            {
+                this.isSummary = value;
+                this.OnPropertyChanged("IsSummary");
+            }
+        }
+
+        private string isPractice { get; set; }
+        public string IsPractice
+        {
+            get { return this.isPractice; }
+            set
+            {
+                this.isPractice = value;
+                this.OnPropertyChanged("IsPractice");
+            }
+        }
+
+        private string isEssay { get; set; }
+        public string IsEssay
+        {
+            get { return this.isEssay; }
+            set
+            {
+                this.isEssay = value;
+                this.OnPropertyChanged("IsEssay");
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public SubjectVM(Subject chosen)
+        {
+            this.currentSubject = chosen;
+        }
+
+        #endregion
+
+        #region Commands
+
+        #endregion
     }
+
 }

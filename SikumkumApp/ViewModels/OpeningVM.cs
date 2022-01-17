@@ -50,10 +50,10 @@ namespace SikumkumApp.ViewModels
         }
 
         public Command ClickedOnSubject => new Command<Subject>(OpenSubjectPage);
-        private void OpenSubjectPage(Subject s)
+        private void OpenSubjectPage(Subject chosen)
         {
-            int a = 0;
-
+            SubjectPage subjectPage = new SubjectPage(chosen);
+            App.Current.MainPage.Navigation.PushAsync(subjectPage); 
         }
 
         #endregion
