@@ -3,24 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.SubjectPage">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Label Text="סיכומים" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" IsEnabled="True"/>
-            <CheckBox IsChecked="{Binding isSummary}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+        <StackLayout>
+            <Grid ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
+                <Label Text="סיכומים" FontSize="12" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" IsEnabled="True" HorizontalOptions="Center" />
+                <CheckBox IsChecked="{Binding IsSummary}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
 
-            <Label Text="תרגולים" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"/>
-            <CheckBox IsChecked="{Binding isPractice}" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center"/>
+                <Label Text="תרגולים" FontSize="12" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"/>
+                <CheckBox IsChecked="{Binding IsPractice}" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" />
 
-            <Label Text="מטלות" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
-            <CheckBox IsChecked="{Binding isEssay}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center"/>
+                <Label Text="מטלות" FontSize="12" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" />
+                <CheckBox IsChecked="{Binding IsEssay}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" />
 
-            <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="4" Grid.Row="0" Command="{Binding SearchCommand}" />
-        </Grid>
+                <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="4" Grid.Row="1" Command="{Binding SearchCommand}" HeightRequest="35"  />
+            </Grid>
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

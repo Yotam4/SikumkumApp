@@ -32,8 +32,8 @@ namespace SikumkumApp.ViewModels
         #region Variables
         private Subject currentSubject;
 
-        private string isSummary { get; set; }
-        public string IsSummary
+        private bool isSummary { get; set; }
+        public bool IsSummary
         {
             get { return this.isSummary; }
             set
@@ -43,8 +43,8 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        private string isPractice { get; set; }
-        public string IsPractice
+        private bool isPractice { get; set; }
+        public bool IsPractice
         {
             get { return this.isPractice; }
             set
@@ -54,8 +54,8 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        private string isEssay { get; set; }
-        public string IsEssay
+        private bool isEssay { get; set; }
+        public bool IsEssay
         {
             get { return this.isEssay; }
             set
@@ -72,6 +72,9 @@ namespace SikumkumApp.ViewModels
         public SubjectVM(Subject chosen)
         {
             this.currentSubject = chosen;
+            this.isSummary = true; //Only lookup summaries when page is opened.
+            this.isEssay = false;
+            this.isPractice = false;
         }
 
         #endregion
