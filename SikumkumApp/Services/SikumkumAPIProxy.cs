@@ -168,7 +168,29 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<List<SikumFile>> GetSikumFiles(bool getSummary, bool getEssay, bool getPractice)
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetFiles?getSummary={getSummary}&getEssay={getEssay}&getPractice={getPractice}");
 
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string content = await response.Content.ReadAsStringAsync();
+                List<SikumFile> files = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
+                return files;
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
 
         //public async Task<bool> RemoveContact(UserContact uc)
         //{

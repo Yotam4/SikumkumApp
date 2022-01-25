@@ -31,37 +31,60 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
         private Subject currentSubject;
+        public ObservableCollection<SikumFile> files { get; set; }
 
-        private bool isSummary { get; set; }
-        public bool IsSummary
+        private bool getSummary { get; set; }
+        public bool GetSummary
         {
-            get { return this.isSummary; }
+            get { return this.getSummary; }
             set
             {
-                this.isSummary = value;
-                this.OnPropertyChanged("IsSummary");
+                this.getSummary = value;
+                this.OnPropertyChanged("GetSummary");
             }
         }
 
-        private bool isPractice { get; set; }
-        public bool IsPractice
+        private bool getPractice { get; set; }
+        public bool GetPractice
         {
-            get { return this.isPractice; }
+            get { return this.getPractice; }
             set
             {
-                this.isPractice = value;
-                this.OnPropertyChanged("IsPractice");
+                this.getPractice = value;
+                this.OnPropertyChanged("GetPractice");
             }
         }
 
-        private bool isEssay { get; set; }
-        public bool IsEssay
+        private bool getEssay { get; set; }
+        public bool GetEssay
         {
-            get { return this.isEssay; }
+            get { return this.getEssay; }
             set
             {
-                this.isEssay = value;
-                this.OnPropertyChanged("IsEssay");
+                this.getEssay = value;
+                this.OnPropertyChanged("GetEssay");
+            }
+        }
+
+        //Errors
+        private bool isEmpty { get; set; }
+        public bool IsEmpty
+        {
+            get { return this.isEmpty; }
+            set
+            {
+                this.isEmpty = value;
+                this.OnPropertyChanged("IsEmpty");
+            }
+        }
+        private string errorEmpty { get; set; }
+        public string ErrorEmpty
+        {
+            get { return this.errorEmpty; }
+            set
+            {
+                this.errorEmpty = value;
+                this.OnPropertyChanged("ErrorEmpty");
             }
         }
 
@@ -71,16 +94,49 @@ namespace SikumkumApp.ViewModels
 
         public SubjectVM(Subject chosen)
         {
+            this.IsEmpty = false;
+            GetSikumFiles();
+
             this.currentSubject = chosen;
-            this.isSummary = true; //Only lookup summaries when page is opened.
-            this.isEssay = false;
-            this.isPractice = false;
+            this.GetSummary = true; //Only lookup summaries when page gets opened.
+            this.GetEssay = false;
+            this.GetPractice = false;
         }
 
         #endregion
 
         #region Commands
+        public Command ClickedOnFile => new Command<SikumFile>(FileClicked);
+        private async void FileClicked(SikumFile sf)
+        {
+            FilePage fp = new FilePage(sf);
+            await App.Current.MainPage.Navigation.PushAsync(fp); //SHOULD THgetBE AWAITABLE?
+        }
 
+        private async void GetSikumFiles()
+        {
+            try
+            {
+                if (!this.getSummary && !this.getPractice && !this.getEssay) //If user checked no boxes.
+                    return;
+
+                SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay);
+                this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list, if listFiles is null, it will create an empty one.
+
+                if(files.Count == 0) //If search found nothing.
+                {
+                    this.IsEmpty = false;
+                    this.ErrorEmpty = "There are no matchs currently";
+                    return;
+                }                    
+            }
+
+            catch
+            {
+
+            }
+        }
         #endregion
     }
 

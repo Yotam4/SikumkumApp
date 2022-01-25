@@ -19,7 +19,7 @@ namespace SikumkumApp.ViewModels
 {
     class OpeningVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Subject> subjectsCollec { get; set; }
+        public ObservableCollection<Subject> subjectsCollec { get;}
         public OpeningVM(List<Subject> subjectsL)
         {
             this.subjectsCollec = new ObservableCollection<Subject>(subjectsL); 
