@@ -95,12 +95,13 @@ namespace SikumkumApp.ViewModels
         public SubjectVM(Subject chosen)
         {
             this.IsEmpty = false;
-            GetSikumFiles();
 
             this.currentSubject = chosen;
             this.GetSummary = true; //Only lookup summaries when page gets opened.
             this.GetEssay = false;
             this.GetPractice = false;
+
+            GetSikumFiles();
         }
 
         #endregion
@@ -110,24 +111,32 @@ namespace SikumkumApp.ViewModels
         private async void FileClicked(SikumFile sf)
         {
             FilePage fp = new FilePage(sf);
-            await App.Current.MainPage.Navigation.PushAsync(fp); //SHOULD THgetBE AWAITABLE?
+            await App.Current.MainPage.Navigation.PushAsync(fp); //SHOULD THAT BE AWAITABLE?
         }
 
-        private async void GetSikumFiles()
+        public Command SearchCommand => new Command(GetSikumFiles);
+        private async void GetSikumFiles() //Don't forget the subject! TO BE DONE. 
         {
             try
             {
-                if (!this.getSummary && !this.getPractice && !this.getEssay) //If user checked no boxes.
+                if (!this.getSummary && !this.getPractice && !this.getEssay)
+                { //If user checked no boxes, lookup nothing.
                     return;
+                    this.files = new ObservableCollection<SikumFile>();
+                }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay);
-                this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list, if listFiles is null, it will create an empty one.
-
-                if(files.Count == 0) //If search found nothing.
+                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName ); //Add subject name. TBD
+                if (listFiles != null)
                 {
+                    this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list.
                     this.IsEmpty = false;
-                    this.ErrorEmpty = "There are no matchs currently";
+                }
+
+                if(files == null) //If search found nothing.
+                {
+                    this.IsEmpty = true;
+                    this.ErrorEmpty = "We're sorry! There are currently no matches.";
                     return;
                 }                    
             }

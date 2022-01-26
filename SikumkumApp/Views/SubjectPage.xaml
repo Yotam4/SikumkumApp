@@ -19,7 +19,7 @@
                 <Label Text="מטלות" FontSize="12" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" />
                 <CheckBox IsChecked="{Binding GetEssay}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" />
 
-                <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="4" Grid.Row="1" Command="{Binding SearchCommand}" HeightRequest="35"  />
+                <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="3" Grid.Row="1" Command="{Binding SearchCommand}" HeightRequest="50"  />
             </Grid>
             
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding IsEmpty}" Style="{StaticResource WarningsStyle}" />

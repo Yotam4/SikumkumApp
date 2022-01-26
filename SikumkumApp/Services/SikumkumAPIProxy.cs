@@ -168,26 +168,35 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<List<SikumFile>> GetSikumFiles(bool getSummary, bool getEssay, bool getPractice)
+        public async Task<List<SikumFile>> GetSikumFiles(bool getSummary, bool getEssay, bool getPractice, string subjectName)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetFiles?getSummary={getSummary}&getEssay={getEssay}&getPractice={getPractice}");
-
-                JsonSerializerOptions options = new JsonSerializerOptions
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetFiles?getSummary={getSummary}&getEssay={getEssay}&getPractice={getPractice}&subjectName={subjectName}");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) //Returned more than one file.
                 {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-                    PropertyNameCaseInsensitive = true
-                };
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve,
+                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                        PropertyNameCaseInsensitive = true
+                    };
 
-                string content = await response.Content.ReadAsStringAsync();
-                List<SikumFile> files = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
-                return files;
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<SikumFile> files = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
+                    return files;
+                }
+                if(response.StatusCode == System.Net.HttpStatusCode.NoContent) //No files were found.
+                {
+                    return null;
+                }
+
+                return null;
             }
 
-            catch
+            catch (Exception e)
             {
+                string a = e.Message;
                 return null;
             }
         }
