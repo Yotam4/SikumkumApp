@@ -206,6 +206,9 @@ namespace SikumkumApp.ViewModels
 
                 if (isSigned) 
                 {
+                    App currentApp = (App)App.Current;
+                    currentApp.CurrentUser = signingUp;
+
                     UserPage up = new UserPage();
                     up.BindingContext = signingUp; //Temporary to test if it works.
                     App.Current.MainPage.Navigation.PushAsync(up);

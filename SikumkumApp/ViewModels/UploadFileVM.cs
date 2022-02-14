@@ -16,7 +16,7 @@ using SikumkumApp.Views;
 
 namespace SikumkumApp.ViewModels
 {
-    class FilePageVM
+    class UploadFileVM
     {
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,17 +30,18 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
 
-        public SikumFile chosenFile { get; }
         #endregion
 
         #region Constructor
-        public FilePageVM(SikumFile chosen)
+        public UploadFileVM()
         {
-            this.chosenFile = chosen;
+
         }
         #endregion
 
 
+        #region Commands
 
+        #endregion
     }
 }
