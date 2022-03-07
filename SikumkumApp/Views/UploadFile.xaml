@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SikumkumApp.Views.UploadFile">
+             x:Class="SikumkumApp.Views.UploadFile"
+             Title="העלאת קובץ"
+             FlowDirection="RightToLeft">
     <ContentPage.Content>
         <StackLayout Padding="0,20,0,0">
             
@@ -9,7 +11,7 @@
             <Entry Placeholder="כותרת" Text="{Binding Headline}"/>
 
             <Label Text="תיאור"/>
-            <Entry Placeholder="אימייל" Text="{Binding TextDesc}"/>
+            <Entry Placeholder="תיאור הקובץ" Text="{Binding TextDesc}"/>
 
             <Label Text="סוג קובץ"/>
             <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeName}"/>
@@ -17,20 +19,8 @@
             <Label Text="מיועד ל - "/>
             <Picker ItemsSource="{Binding yearNamesList}" SelectedIndex ="{Binding YearName}"/>
 
-            <!-- תמונה -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="150" />
-                </Grid.RowDefinitions>
-                <Image x:Name="theImage" Source="{Binding SikumFileSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-                <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
-                <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
-            </Grid>
+            <Image x:Name="theImage"  Source="{Binding SikumFileSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Button Text="בחר תמונה" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
 
             <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
 

@@ -38,8 +38,8 @@ namespace SikumkumApp.ViewModels
         #region Variables
         private SikumFile uploadSikumFile;
 
-        public List<string> yearNamesList; //The given year and types the user can choose from in the picker.
-        public List<string> typeNamesList;
+        public List<string> yearNamesList { get; set; } //The given year and types the user can choose from in the picker.
+        public List<string> typeNamesList { get; set; }
 
         private string username { get; set; }
         public string Username
@@ -119,7 +119,7 @@ namespace SikumkumApp.ViewModels
             this.typeNamesList.Add("סיכום"); this.typeNamesList.Add("מטלה"); this.typeNamesList.Add("תרגול"); //Adds the 3 type values in DB. If changed DB, must change it here!
 
             this.yearNamesList = new List<string>();
-            this.yearNamesList.Add("יסודי"); this.typeNamesList.Add("חטיבה"); this.typeNamesList.Add("תיכון"); this.typeNamesList.Add("אוניברסיטה"); //Adds the 4 year values in DB. If changed DB, must change it here!
+            this.yearNamesList.Add("יסודי"); this.yearNamesList.Add("חטיבה"); this.yearNamesList.Add("תיכון"); this.yearNamesList.Add("אוניברסיטה"); //Adds the 4 year values in DB. If changed DB, must change it here!
 
 
         }
@@ -135,6 +135,47 @@ namespace SikumkumApp.ViewModels
             this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server.
 
         }
+
+        ///The following command handle the pick photo button
+        FileResult imageFileResult;
+        public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand PickImageCommand => new Command(OnPickImage);
+        public async void OnPickImage()
+        {
+            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            {
+                Title = "בחר תמונה"
+            });
+            
+            if (result != null)
+            {
+                this.imageFileResult = result;
+
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
+/*        ///The following command handle the take photo button
+        public ICommand CameraImageCommand => new Command(OnCameraImage);
+        public async void OnCameraImage()
+        {
+            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+            {
+                Title = "צלם תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }*/
         #endregion
     }
 }
