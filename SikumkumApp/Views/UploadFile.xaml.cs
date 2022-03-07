@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SikumkumApp.Models;
+using SikumkumApp.ViewModels;
 
 namespace SikumkumApp.Views
 {
@@ -14,6 +16,8 @@ namespace SikumkumApp.Views
     {
         public UploadFile()
         {
+            UploadFileVM uvm = new UploadFileVM();
+            this.BindingContext = uvm;
             InitializeComponent();
         }
     }

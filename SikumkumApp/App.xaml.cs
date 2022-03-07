@@ -15,6 +15,7 @@ namespace SikumkumApp
     {
         public static bool IsDevEnv { get; internal set; }
         public User CurrentUser { get; set; }
+        public List<Subject> SubjectsList { get; set; }
 
         public App()
         {
@@ -26,16 +27,17 @@ namespace SikumkumApp
         protected async override void OnStart()
         {            
             SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-            try
-            {
-                List<Subject> subjects = await API.GetSubjects();
-                Opening openingPage = new Opening(subjects);
-                MainPage = new NavigationPage(openingPage);
-            }
-            catch (Exception e)
-            {
-                Application.Current.Quit();
-            }
+            MainPage = new UploadFile();
+            //try
+            //{
+            //    SubjectsList =  await API.GetSubjects();
+            //    Opening openingPage = new Opening(SubjectsList);
+            //    MainPage = new NavigationPage(openingPage);
+            //}
+            //catch (Exception e)
+            //{
+            //    Application.Current.Quit();
+            //}
         }
 
         protected override void OnSleep()

@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.IO;
 
+
 namespace SikumkumApp.Services
 {
     class SikumkumAPIProxy
@@ -233,8 +234,8 @@ namespace SikumkumApp.Services
 
 
 
-        ////Upload file to server (only images!)
-        //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+        //Upload file to server (only images!)
+        //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName) //FileInfo??
         //{
         //    try
         //    {

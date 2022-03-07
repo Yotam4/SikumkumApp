@@ -3,21 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.UploadFile">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="0,20,0,0">
             
-            <Label Text="שם משתמש:"/>
-            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource WarningsStyle}"/>
-            <Entry Placeholder="שם משתמש" Text="{Binding Username}"/>
+            <Label Text="כותרת:"/>
+            <Entry Placeholder="כותרת" Text="{Binding Headline}"/>
 
-            <Label Text="אימייל:"/>
-            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource WarningsStyle}"/>
-            <Entry Placeholder="אימייל" Text="{Binding Email}"/>
+            <Label Text="תיאור"/>
+            <Entry Placeholder="אימייל" Text="{Binding TextDesc}"/>
 
-            <Label Text="סיסמה:"/>
-            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
-            <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
+            <Label Text="סוג קובץ"/>
+            <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeName}"/>
 
-            <Button Text="הרשמה" Command="{Binding SignUpCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+            <Label Text="מיועד ל - "/>
+            <Picker ItemsSource="{Binding yearNamesList}" SelectedIndex ="{Binding YearName}"/>
+
+            <!-- תמונה -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+                <Image x:Name="theImage" Source="{Binding SikumFileSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+                <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+            </Grid>
+
+            <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
 
         </StackLayout>
     </ContentPage.Content>

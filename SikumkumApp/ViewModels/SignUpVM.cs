@@ -145,8 +145,13 @@ namespace SikumkumApp.ViewModels
         {
             this.ShowEmailError = string.IsNullOrEmpty(Email);
             if (this.ShowEmailError)            
-                this.EmailError = "נא למלא את כתובת האימייל שלך.";
-            
+                this.EmailError = "זהו שדה חובה.";
+            if (!Regex.IsMatch(this.Email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+            {
+                this.ShowEmailError = true;
+                this.EmailError = ERROR_MESSAGES.BAD_EMAIL;
+            }
+
         }
         private void ValidateName()
         {
