@@ -202,6 +202,41 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<bool> TryChangePassword(User u, string newPassword)
+        {
+            try
+            {
+                if (u.Password == newPassword)
+                    return false;
+                User newPassUser = new User(u.Username, u.Email, newPassword);
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string changePassString = JsonSerializer.Serialize<User>(newPassUser, options);
+                StringContent content = new StringContent(changePassString, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/ChangePassword", content);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully changed password
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
+
         //public async Task<bool> RemoveContact(UserContact uc)
         //{
         //    try
