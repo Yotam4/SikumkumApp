@@ -155,11 +155,11 @@ namespace SikumkumApp.ViewModels
         }
         private void ValidateName()
         {
-            this.ShowNameError = string.IsNullOrEmpty(Username);
+            this.ShowNameError = string.IsNullOrEmpty(Username); //Checks that password is not null.
             if (this.ShowNameError)
                 this.NameError = "שם משתמש לא יכול להיות ריק.";
         }
-        private void ValidatePassword()
+        public void ValidatePassword() //Also Exists in change password. DO NOT FORGOT, IF CHANGED HERE.
         {
             this.ShowPasswordError = string.IsNullOrEmpty(Password);
             if (this.ShowPasswordError)
@@ -171,14 +171,14 @@ namespace SikumkumApp.ViewModels
                 return;
             }
 
-            Regex rgx = new Regex("[^A-Za-z0-9]");
+            Regex rgx = new Regex("[^A-Za-z0-9]"); //Checks that it has special chars. If i ever make this App public, remove this part. it's annoying for the user. Although its cool technical wise, just wanted to see how regex works.
             bool hasSpecialChar = rgx.IsMatch(this.Password);
             if (!hasSpecialChar)
             {
                 this.ShowPasswordError = true;
                 this.PasswordError = "הסיסמה צריכה לכלול אותיות מיוחדות .";
             }
-            bool hasNumbers = this.Password.Any(char.IsDigit);
+            bool hasNumbers = this.Password.Any(char.IsDigit); //Check that passwords has numbers. Also might be a little annoying for user, but not as special chars.
             if (!hasNumbers)
             {
                 this.ShowPasswordError = true;
@@ -192,16 +192,16 @@ namespace SikumkumApp.ViewModels
             ValidateName();
             ValidatePassword();
 
-            if (!ShowNameError || !ShowEmailError || !showPasswordError)
-                return false;
-            return true;
+            if (!ShowNameError && !ShowEmailError && !showPasswordError) //If none of the warnings are displayed, return true, validation complete.
+                return true;
+            return false;
         }
         public Command SignUpCommand => new Command(SignUpAsync);
         private async void SignUpAsync()
         {
             try
             {
-                if (ValidateSignUp())
+                if (!ValidateSignUp()) //If validation was not successful.
                     return;
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();

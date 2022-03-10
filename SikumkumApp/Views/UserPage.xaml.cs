@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SikumkumApp.Models;
+using SikumkumApp.ViewModels;
 
 namespace SikumkumApp.Views
 {
@@ -14,6 +16,9 @@ namespace SikumkumApp.Views
     {
         public UserPage()
         {
+            UserPageVM upVM = new UserPageVM();
+            this.BindingContext = upVM;
+
             InitializeComponent();
         }
     }

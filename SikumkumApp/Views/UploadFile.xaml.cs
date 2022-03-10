@@ -18,6 +18,7 @@ namespace SikumkumApp.Views
         {
             UploadFileVM uvm = new UploadFileVM();
             this.BindingContext = uvm;
+
             InitializeComponent();
         }
     }
