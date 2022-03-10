@@ -100,14 +100,14 @@ namespace SikumkumApp.Services
                     User u = JsonSerializer.Deserialize<User>(content, options);
                     return u;
                 }
-                else 
+                else
                 {
                     return null;
                 }
             }
             catch (Exception e)
-            {  
-                
+            {
+
                 return null;
             }
         }
@@ -155,7 +155,7 @@ namespace SikumkumApp.Services
                 {
                     ReferenceHandler = ReferenceHandler.Preserve,
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-                    PropertyNameCaseInsensitive = true                                       
+                    PropertyNameCaseInsensitive = true
                 };
 
                 string content = await response.Content.ReadAsStringAsync();
@@ -187,7 +187,7 @@ namespace SikumkumApp.Services
                     List<SikumFile> files = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
                     return files;
                 }
-                if(response.StatusCode == System.Net.HttpStatusCode.NoContent) //No files were found.
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent) //No files were found.
                 {
                     return null;
                 }
@@ -237,59 +237,9 @@ namespace SikumkumApp.Services
                 return false;
             }
 
-        //public async Task<bool> RemoveContact(UserContact uc)
-        //{
-        //    try
-        //    {
-        //        JsonSerializerOptions options = new JsonSerializerOptions
-        //        {
-        //            ReferenceHandler = ReferenceHandler.Preserve,
-        //            Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-        //            PropertyNameCaseInsensitive = true
-        //        };
-        //        string jsonObject = JsonSerializer.Serialize<UserContact>(uc, options);
-        //        StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/RemoveContact", content);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ee)
-        //    {
-        //        Console.WriteLine(ee.Message);
-        //        return false;
-        //    }
-        //}
 
 
 
-        //Upload file to server (only images!)
-        //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName) //FileInfo??
-        //{
-        //    try
-        //    {
-        //        var multipartFormDataContent = new MultipartFormDataContent();
-        //        var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
-        //        multipartFormDataContent.Add(fileContent, "file", targetFileName);
-        //        HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //            return false;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        return false;
-        //    }
-        //}
+        }
     }
 }

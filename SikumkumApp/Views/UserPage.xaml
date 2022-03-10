@@ -5,7 +5,19 @@
              FlowDirection="RightToLeft">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Username}" HorizontalOptions="Start"/>
+            <Grid Padding="1">
+                <Label Text="ברוך הבא: " HorizontalOptions="Center" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="{Binding Username}" HorizontalOptions="Center" Grid.Column="1" Grid.Row="0"/>
+            </Grid>
+
+            <Label Text="שנה סיסמה:" HorizontalOptions="Start" />
+
+            <Entry IsPassword="True" Text="{Binding oldPassword}" Placeholder="סיסמה ישנה"/>
+            <Entry IsPassword="True" Text="{Binding newPassword}" Placeholder="סיסמה חדשה"/>
+            <Entry IsPassword="True" Text="{Binding newConfirm}" Placeholder="אשר סיסמה"/>
+
+            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
+            <Label Text="{Binding ShowPasswordChanged}" IsVisible="{Binding ShowPasswordChanged}" Style="{StaticResource AssuranceStyle}"/>
 
             <Button Text="Change Password" Style="{StaticResource ButtonStyle}" Command="{Binding GoToChangePassCommand}" />
         </StackLayout>

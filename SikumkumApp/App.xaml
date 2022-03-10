@@ -36,6 +36,14 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="BackgroundColor" Value="White"/>
             </Style>
+
+            <Style x:Key="AssuranceStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="LightGreen"/>
+                <Setter Property="Opacity" Value="90"/>
+                <Setter Property="FontFamily" Value="Helvetica"/>
+                <Setter Property="FontAttributes" Value="Italic"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

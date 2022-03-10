@@ -150,7 +150,6 @@ namespace SikumkumApp.ViewModels
                     currentApp.CurrentUser = loggingUser;
 
                     UserPage up = new UserPage();
-                    up.BindingContext = loggingUser;  //Temporary to test if it works.
                     App.Current.MainPage.Navigation.PushAsync(up);
 
                 }
