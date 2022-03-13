@@ -94,7 +94,7 @@ namespace SikumkumApp.Services
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
                         ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
-                        PropertyNameCaseInsensitive = true
+                        PropertyNameCaseInsensitive = false
                     };
                     string content = await response.Content.ReadAsStringAsync();
                     User u = JsonSerializer.Deserialize<User>(content, options);
@@ -120,7 +120,7 @@ namespace SikumkumApp.Services
                 {
                     ReferenceHandler = ReferenceHandler.Preserve,
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-                    PropertyNameCaseInsensitive = true
+                    PropertyNameCaseInsensitive = false
                 };
 
                 string jsonUser = JsonSerializer.Serialize<User>(signingUp, options);
@@ -202,6 +202,39 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<List<SikumFile>> GetUserSikumFiles(string username)
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUserFiles?username={username}");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) 
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve,
+                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<SikumFile> userFiles = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
+                    return userFiles;
+                }
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent) //No files were found.
+                {
+                    return null;
+                }
+
+                return null;
+            }
+
+            catch (Exception e)
+            {
+                string a = e.Message;
+                return null;
+            }
+        }
+
         public async Task<bool> TryChangePassword(User u, string newPassword)
         {
             try
@@ -237,9 +270,29 @@ namespace SikumkumApp.Services
                 return false;
             }
 
+        }
 
-
-
+        //Upload file to server (only images!)
+        public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+        {
+            try
+            {
+                var multipartFormDataContent = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
+                multipartFormDataContent.Add(fileContent, "file", targetFileName);
+                HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

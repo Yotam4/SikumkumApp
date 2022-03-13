@@ -26,5 +26,22 @@ namespace SikumkumApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        #region Variables
+        protected App currentApp;
+        protected static SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+        #endregion
+
+        #region Constructor
+        public BaseVM()
+        {
+            this.currentApp = (App)App.Current;
+            
+        }
+        #endregion
+
+        #region Commands
+
+        #endregion
     }
 }

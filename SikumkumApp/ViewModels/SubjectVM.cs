@@ -115,7 +115,7 @@ namespace SikumkumApp.ViewModels
         }
 
         public Command SearchCommand => new Command(GetSikumFiles);
-        private async void GetSikumFiles() //Don't forget the subject! TO BE DONE. 
+        private async void GetSikumFiles() 
         {
             try
             {
@@ -126,7 +126,7 @@ namespace SikumkumApp.ViewModels
                 }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName ); //Add subject name. TBD
+                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName );
                 if (listFiles != null)
                 {
                     this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list.

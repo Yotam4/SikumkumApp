@@ -162,6 +162,14 @@ namespace SikumkumApp.ViewModels
         {
             this.ShowPasswordError = false;
             this.ShowPasswordChanged = false;
+
+            if(this.NewPassword == this.currentApp.CurrentUser.Password) //User's new password matches his current one.
+            {
+                this.ShowPasswordError = true;
+                this.PasswordError = "אנא הכנס סיסמה חדשה שונה";
+                return false;
+            }
+
             if (this.OldPassword != this.currentApp.CurrentUser.Password) //Check that user inputted his real old password.
             {
                 this.ShowPasswordError = true;
@@ -175,14 +183,14 @@ namespace SikumkumApp.ViewModels
                 this.PasswordError = "הסיסמאות לא מתאימות.";
                 return false;
             }
-            if (!ValidatePassword())
+            if (!ValidatePassword()) //Validates the characters in the password.
                 return false;
 
             return true; //Input is correct.
         }
 
         private bool ValidatePassword() //Validates that the new password has correct values.
-        {
+        {            
             this.ShowPasswordError = string.IsNullOrEmpty(this.NewPassword); //Checks that password is not null.
             if (this.ShowPasswordError)
                 this.PasswordError = "סיסמה לא יכולה להיות ריקה. נא הכנס סיסמה בת 8-16 תווים.";

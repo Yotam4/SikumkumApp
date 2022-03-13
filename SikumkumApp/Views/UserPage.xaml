@@ -12,7 +12,7 @@
 
             <Label Text="שנה סיסמה:" HorizontalOptions="Start" />
 
-            <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding OldPassword}"/>
+            <Entry Placeholder="סיסמה ישנה" IsPassword="True" Text="{Binding OldPassword}"/>
             <Entry IsPassword="True" Text="{Binding NewPassword}" Placeholder="סיסמה חדשה"/>
             <Entry IsPassword="True" Text="{Binding NewConfirm}" Placeholder="אשר סיסמה"/>
 
@@ -20,6 +20,9 @@
             <Label Text="{Binding PasswordError}"/>
 
             <Button Text="Change Password" Style="{StaticResource ButtonStyle}" Command="{Binding GoToChangePassCommand}" />
+
+
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
