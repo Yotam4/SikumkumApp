@@ -40,6 +40,8 @@ namespace SikumkumApp.ViewModels
 
         public List<string> yearNamesList { get; set; } //The given year and types the user can choose from in the picker.
         public List<string> typeNamesList { get; set; }
+        private bool clickedOnPDF;
+        private bool clickdOnImages;
 
         private string username { get; set; }
         public string Username
@@ -121,14 +123,45 @@ namespace SikumkumApp.ViewModels
             this.yearNamesList = new List<string>();
             this.yearNamesList.Add("יסודי"); this.yearNamesList.Add("חטיבה"); this.yearNamesList.Add("תיכון"); this.yearNamesList.Add("אוניברסיטה"); //Adds the 4 year values in DB. If changed DB, must change it here!
 
-
+            this.clickdOnImages = false;
+            this.clickedOnPDF = false;
         }
 
         #endregion
 
 
         #region Commands
-        public Command UploadSikumFileCommand => new Command(UploadSikumFile);
+        public Command UploadSikumFileCommandPDF => new Command(UploadSikumFile);
+        private async void ClickedOnPDF() //Work in progress
+        {
+            var pickResult = await FilePicker.PickMultipleAsync(new PickOptions()
+            {
+                FileTypes = FilePickerFileType.Pdf,
+                PickerTitle = "Pick PDF"
+            }); ;
+
+        }
+        public Command UploadSikumFileCommandImages => new Command(UploadSikumFile);
+        private async void ClickedOnImages()//Work in progress.
+        {
+            var pickResult = await FilePicker.PickMultipleAsync(new PickOptions()
+            {
+                FileTypes = FilePickerFileType.Images,
+                PickerTitle = "Pick Images" 
+            }); ;
+
+            if(pickResult != null)
+            {
+                var imageList = new List<ImageSource>();
+                foreach(var image in pickResult)
+                {
+                    var stream =  await image.OpenReadAsync();
+                    imageList.Add(ImageSource.FromStream(() => stream));
+                }
+
+                
+            }
+        }
         private void UploadSikumFile()
         {
             App currentApp = (App)App.Current;
@@ -142,15 +175,27 @@ namespace SikumkumApp.ViewModels
         public ICommand PickImageCommand => new Command(OnPickImage);
         public async void OnPickImage()
         {
-            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            if (this.clickdOnImages) //User chose to upload photos.
             {
-                Title = "בחר תמונה"
-            });
-            
+                var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
+                {
+                    FileTypes = FilePickerFileType.Images,
+                    PickerTitle = "Pick Image"
+                }); ;
+            }
+
+            if (this.clickedOnPDF) //User chose to upload PDFs
+            {
+                var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
+                {
+                    FileTypes = FilePickerFileType.Pdf,
+                    PickerTitle = "Pick PDF"
+                }); ;
+            }
             if (result != null)
             {
                 this.imageFileResult = result;
-
+                
                 var stream = await result.OpenReadAsync();
                 ImageSource imgSource = ImageSource.FromStream(() => stream);
                 if (SetImageSourceEvent != null)

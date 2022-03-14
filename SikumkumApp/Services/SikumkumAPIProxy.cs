@@ -273,13 +273,17 @@ namespace SikumkumApp.Services
         }
 
         //Upload file to server (only images!)
-        public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+        public async Task<bool> UploadImage(Models.FileInfo[] fileInfoFiles, string targetFileName)
         {
             try
             {
+
                 var multipartFormDataContent = new MultipartFormDataContent();
-                var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
-                multipartFormDataContent.Add(fileContent, "file", targetFileName);
+                for (int i = 0; i <fileInfoFiles.Length; i++)
+                {
+                    var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfoFiles[i].Name));
+                    multipartFormDataContent.Add(fileContent, "file", $"{targetFileName}{i+1}");
+                }
                 HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
                 if (response.IsSuccessStatusCode)
                 {
