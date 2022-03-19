@@ -19,8 +19,11 @@
             <Label Text="מיועד ל - "/>
             <Picker ItemsSource="{Binding yearNamesList}" SelectedIndex ="{Binding YearName}"/>
 
-            <Image x:Name="theImage"  Source="{Binding SikumFileSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-            <Button Text="בחר תמונה" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+
+
+            <Button Text="בחר תמונות" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+            <Button Text="בחר קובץ PDF" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickPDFCommand}"/>
+
 
             <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
 

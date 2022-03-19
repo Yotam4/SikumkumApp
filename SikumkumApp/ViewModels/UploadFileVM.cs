@@ -97,7 +97,30 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("TextDesc");
             }
         }
+
         #region מקור התמונה
+        private List<ImageSource> sikumListSrc;
+        public List<ImageSource> SikumListSrc
+        {
+            get => sikumListSrc;
+            set
+            {
+                sikumListSrc = value;
+                OnPropertyChanged("SikumListSrc");
+            }
+        }
+
+        private List<FileResult> fileResultsList;
+        public List<FileResult> FileResultsList
+        {
+            get => fileResultsList;
+            set
+            {
+                fileResultsList = value;
+                OnPropertyChanged("FileResultsList");
+            }
+        }
+
         private string sikumFileSrc;
 
         public string SikumFileSrc
@@ -131,46 +154,92 @@ namespace SikumkumApp.ViewModels
 
 
         #region Commands
-        public Command UploadSikumFileCommandPDF => new Command(UploadSikumFile);
+        public Command PickPDFCommand => new Command(ClickedOnPDF);
         private async void ClickedOnPDF() //Work in progress
         {
-            var pickResult = await FilePicker.PickMultipleAsync(new PickOptions()
+            try
             {
-                FileTypes = FilePickerFileType.Pdf,
-                PickerTitle = "Pick PDF"
-            }); ;
+                var pickResult = await FilePicker.PickMultipleAsync(new PickOptions() //Maybe only let user pick one? WORK IN PROGRESS.
+                {
+                    FileTypes = FilePickerFileType.Pdf,
+                    PickerTitle = "Pick PDF"
+                }); ;
+
+                if (pickResult != null)
+                {
+                    this.SikumListSrc.Clear(); //Delete old values.
+                    foreach (var pdf in pickResult)
+                    {
+                        var stream = await pdf.OpenReadAsync();                        
+                        this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
+                    }
+
+                }
+            }
+
+            catch //User opted out or something went wrong
+            {
+
+            }
 
         }
-        public Command UploadSikumFileCommandImages => new Command(UploadSikumFile);
+        public Command PickImageCommand => new Command(ClickedOnImages);
         private async void ClickedOnImages()//Work in progress.
         {
-            var pickResult = await FilePicker.PickMultipleAsync(new PickOptions()
+            try
             {
-                FileTypes = FilePickerFileType.Images,
-                PickerTitle = "Pick Images" 
-            }); ;
-
-            if(pickResult != null)
-            {
-                var imageList = new List<ImageSource>();
-                foreach(var image in pickResult)
+                var pickResult = await FilePicker.PickMultipleAsync(new PickOptions()
                 {
-                    var stream =  await image.OpenReadAsync();
-                    imageList.Add(ImageSource.FromStream(() => stream));
-                }
+                    FileTypes = FilePickerFileType.Images,
+                    PickerTitle = "Pick Images"
+                }); ;
 
-                
+                if (pickResult != null)
+                {
+                    this.SikumListSrc.Clear(); //Delete old values.
+                    foreach (var image in pickResult)
+                    {
+                        var stream = await image.OpenReadAsync();
+                        this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
+                    }
+
+                }
+            }
+
+            catch  //User opted out or something went wrong
+            {
+
             }
         }
+
+        public Command UploadSikumFileCommand => new Command(UploadSikumFile);
         private void UploadSikumFile()
         {
-            App currentApp = (App)App.Current;
-            this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server.
+            try
+            {
+                if (this.SikumListSrc.Count <= 0)
+                    return;
 
+                App currentApp = (App)App.Current;
+                //this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+                SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+                ImageSource[] filesSrcsArr = this.SikumListSrc.ToArray();
+                FileInfo a = new FileInfo();
+
+                for (int i = 0; i < filesSrcsArr.Length; i++)
+                {
+
+                }
+            }
+
+            catch
+            {
+
+            }
         }
 
         ///The following command handle the pick photo button
-        FileResult imageFileResult;
+ /*       FileResult imageFileResult;
         public event Action<ImageSource> SetImageSourceEvent;
         public ICommand PickImageCommand => new Command(OnPickImage);
         public async void OnPickImage()
@@ -192,7 +261,7 @@ namespace SikumkumApp.ViewModels
                     PickerTitle = "Pick PDF"
                 }); ;
             }
-            if (result != null)
+            if (pickResults != null)
             {
                 this.imageFileResult = result;
                 
@@ -201,7 +270,7 @@ namespace SikumkumApp.ViewModels
                 if (SetImageSourceEvent != null)
                     SetImageSourceEvent(imgSource);
             }
-        }
+        }*/
 
 /*        ///The following command handle the take photo button
         public ICommand CameraImageCommand => new Command(OnCameraImage);
