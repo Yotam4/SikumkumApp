@@ -277,18 +277,21 @@ namespace SikumkumApp.Services
         {
             try
             {
-
                 var multipartFormDataContent = new MultipartFormDataContent();
-                for (int i = 0; i < fileInfoFiles.Length; i++)
+
+                for (int i = 0; i < fileInfoFiles.Length; i++) //Adds files to multipart.
                 {
                     var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfoFiles[i].Name));
                     multipartFormDataContent.Add(fileContent, "file", $"{targetFileName}{i+1}");
                 }
-                HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadFiles", multipartFormDataContent);
+
+                HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadFiles", multipartFormDataContent); //Posts files
+
                 if (response.IsSuccessStatusCode)
                 {
                     return true;
                 }
+
                 else
                     return false;
             }

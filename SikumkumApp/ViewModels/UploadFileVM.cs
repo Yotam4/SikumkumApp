@@ -171,6 +171,8 @@ namespace SikumkumApp.ViewModels
                 if (pickResult != null)
                 {
                     this.SikumListSrc.Clear(); //Delete old values.
+                    this.FileResultsList.Clear();
+
                     foreach (var pdf in pickResult)
                     {
                         this.FileResultsList.Add(pdf);
@@ -201,6 +203,8 @@ namespace SikumkumApp.ViewModels
                 if (pickResult != null)
                 {
                     this.SikumListSrc.Clear(); //Delete old values.
+                    this.FileResultsList.Clear();
+
                     foreach (var image in pickResult)
                     {
                         this.FileResultsList.Add(image);
@@ -218,7 +222,7 @@ namespace SikumkumApp.ViewModels
         }
 
         public Command UploadSikumFileCommand => new Command(UploadSikumFile);
-        private void UploadSikumFile()
+        private async void UploadSikumFile()
         {
             try
             {
@@ -230,12 +234,18 @@ namespace SikumkumApp.ViewModels
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 List<FileInfo> filesInfoList = new List<FileInfo>();
 
-                foreach (FileResult result in this.FileResultsList)
+                foreach (FileResult result in this.FileResultsList) //creates file info for each file in list.
                 {
                     filesInfoList.Add(new FileInfo() { Name = result.FullPath });
                 }
-                
-                API.UploadFiles(filesInfoList, )
+
+                FileInfo[] filesInfoArr = filesInfoList.ToArray(); //Function gets it as array.
+                bool uploaded = await API.UploadFiles(filesInfoArr, $"{ this.Username}-{this.Headline}-" );
+
+                if (!uploaded) //Something didn't work.
+                {
+                    //Add error message
+                }
             }
 
             catch
