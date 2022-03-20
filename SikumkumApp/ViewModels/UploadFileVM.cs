@@ -109,7 +109,7 @@ namespace SikumkumApp.ViewModels
                 OnPropertyChanged("SikumListSrc");
             }
         }
-
+        private List<FileInfo> filesInfoList;
         private List<FileResult> fileResultsList;
         public List<FileResult> FileResultsList
         {
@@ -148,13 +148,15 @@ namespace SikumkumApp.ViewModels
 
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
-        }
+
+/*            this.FileResultsList = new 
+*/        }
 
         #endregion
 
 
         #region Commands
-        public Command PickPDFCommand => new Command(ClickedOnPDF);
+        public Command PickPDFCommand => new Command(ClickedOnPDF); //User chose to upload pdf files.
         private async void ClickedOnPDF() //Work in progress
         {
             try
@@ -170,6 +172,7 @@ namespace SikumkumApp.ViewModels
                     this.SikumListSrc.Clear(); //Delete old values.
                     foreach (var pdf in pickResult)
                     {
+                        this.FileResultsList.Add(pdf);
                         var stream = await pdf.OpenReadAsync();                        
                         this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
                     }
@@ -183,7 +186,7 @@ namespace SikumkumApp.ViewModels
             }
 
         }
-        public Command PickImageCommand => new Command(ClickedOnImages);
+        public Command PickImageCommand => new Command(ClickedOnImages); //User chose to upload images
         private async void ClickedOnImages()//Work in progress.
         {
             try
@@ -199,6 +202,7 @@ namespace SikumkumApp.ViewModels
                     this.SikumListSrc.Clear(); //Delete old values.
                     foreach (var image in pickResult)
                     {
+                        this.FileResultsList.Add(image);
                         var stream = await image.OpenReadAsync();
                         this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
                     }
@@ -223,12 +227,11 @@ namespace SikumkumApp.ViewModels
                 App currentApp = (App)App.Current;
                 //this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                ImageSource[] filesSrcsArr = this.SikumListSrc.ToArray();
-                FileInfo a = new FileInfo();
+                List<FileInfo> filesInfoList = new List<FileInfo>();
 
-                for (int i = 0; i < filesSrcsArr.Length; i++)
+                foreach (ImageSource src in this.SikumListSrc)
                 {
-
+                    filesInfoList.Add(new FileInfo(){ Name=src.)
                 }
             }
 
