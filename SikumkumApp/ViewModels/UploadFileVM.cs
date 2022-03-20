@@ -149,8 +149,9 @@ namespace SikumkumApp.ViewModels
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
 
-/*            this.FileResultsList = new 
-*/        }
+            this.FileResultsList = new List<FileResult>(); //Creates new lists.
+            this.SikumListSrc = new List<ImageSource>();
+        }
 
         #endregion
 
@@ -229,10 +230,12 @@ namespace SikumkumApp.ViewModels
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 List<FileInfo> filesInfoList = new List<FileInfo>();
 
-                foreach (ImageSource src in this.SikumListSrc)
+                foreach (FileResult result in this.FileResultsList)
                 {
-                    filesInfoList.Add(new FileInfo(){ Name=src.)
+                    filesInfoList.Add(new FileInfo() { Name = result.FullPath });
                 }
+                
+                API.UploadFiles(filesInfoList, )
             }
 
             catch
