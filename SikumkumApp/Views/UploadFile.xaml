@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.UploadFile"
              Title="העלאת קובץ"
-             FlowDirection="RightToLeft">
+             FlowDirection="RightToLeft"
+              >
     <ContentPage.Content>
         <StackLayout Padding="0,20,0,0">
             
@@ -26,6 +27,7 @@
 
 
             <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+            <Label Text="{Binding UploadError}" IsVisible="{Binding ShowUploadError}" Style="{StaticResource WarningsStyle}"/>
 
         </StackLayout>
     </ContentPage.Content>

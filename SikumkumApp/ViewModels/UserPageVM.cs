@@ -19,7 +19,7 @@ using SikumkumApp.ViewModels;
 
 namespace SikumkumApp.ViewModels
 {
-    class UserPageVM
+    class UserPageVM : INotifyPropertyChanged
     {
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;

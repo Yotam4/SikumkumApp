@@ -273,7 +273,7 @@ namespace SikumkumApp.Services
         }
 
         //Upload files to server
-        public async Task<bool> UploadFiles(Models.FileInfo[] fileInfoFiles, string targetFileName)
+        public async Task<bool> UploadFiles(Models.FileInfo[] fileInfoFiles, string targetFileName, string contentType)
         {
             try
             {
@@ -284,9 +284,15 @@ namespace SikumkumApp.Services
                     var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfoFiles[i].Name));
                     multipartFormDataContent.Add(fileContent, "file", $"{targetFileName}{i+1}");
                 }
+                HttpResponseMessage response = null; //Sets default null value.
 
-                HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadFiles", multipartFormDataContent); //Posts files
+                if (contentType == "image")
+                     response = await client.PostAsync($"{this.baseUri}/UploadImages", multipartFormDataContent); //Posts images
 
+
+                if (contentType == "pdf")
+                    response = await client.PostAsync($"{this.baseUri}/UploadPdfs", multipartFormDataContent); //Posts images
+                
                 if (response.IsSuccessStatusCode)
                 {
                     return true;

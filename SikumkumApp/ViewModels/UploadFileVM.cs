@@ -23,7 +23,13 @@ namespace SikumkumApp.ViewModels
         public const string BAD_EMAIL = "מייל לא תקין";
     }
 
-    class UploadFileVM
+    public static class FileTypeNames //File types user chose, or null.
+    {
+        public const string NULL_TYPE = "null";
+        public const string PDF_TYPE = "pdf";
+        public const string IMAGE_TYPE = "image";
+    }
+    class UploadFileVM : INotifyPropertyChanged
     {
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,8 +46,12 @@ namespace SikumkumApp.ViewModels
 
         public List<string> yearNamesList { get; set; } //The given year and types the user can choose from in the picker.
         public List<string> typeNamesList { get; set; }
-        private bool clickedOnPDF;
+
+        private string contentType; //To allow the server to know which file is being uploaded.
+
+        private bool clickedOnPDF; //No use of it so far. might be needed for UI purposes.
         private bool clickdOnImages;
+
 
         private string username { get; set; }
         public string Username
@@ -98,6 +108,28 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private string uploadError { get; set; }
+        public string UploadError
+        {
+            get { return this.uploadError; }
+            set
+            {
+                this.uploadError = value;
+                this.OnPropertyChanged("UploadError");
+            }
+        }
+
+        private bool showUploadError { get; set; }
+        public bool ShowUploadError
+        {
+            get { return this.showUploadError; }
+            set
+            {
+                this.showUploadError = value;
+                this.OnPropertyChanged("ShowUploadError");
+            }
+        }
+
         #region מקור התמונה
         private List<ImageSource> sikumListSrc;
         public List<ImageSource> SikumListSrc
@@ -148,9 +180,13 @@ namespace SikumkumApp.ViewModels
 
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
+            this.ShowUploadError = false;
+            this.UploadError = "";
 
             this.FileResultsList = new List<FileResult>(); //Creates new lists.
             this.SikumListSrc = new List<ImageSource>();
+
+            this.contentType = FileTypeNames.NULL_TYPE;
         }
 
         #endregion
@@ -179,7 +215,7 @@ namespace SikumkumApp.ViewModels
                         var stream = await pdf.OpenReadAsync();                        
                         this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
                     }
-
+                    this.contentType = FileTypeNames.PDF_TYPE;
                 }
             }
 
@@ -212,12 +248,14 @@ namespace SikumkumApp.ViewModels
                         this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
                     }
 
+                    this.contentType = FileTypeNames.IMAGE_TYPE;
+
                 }
             }
 
-            catch  //User opted out or something went wrong
+            catch  
             {
-
+                
             }
         }
 
@@ -226,11 +264,39 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                if (this.SikumListSrc.Count <= 0)
+
+                if (!ValidateForm()) //Form was not validated.
                     return;
 
+                if (await TryUploadSikumFile() == false) //Sikumfile upload to database didn't work.
+                    return;
+
+                if (await TryUploadFiles() == false) //File didn't upload to server.
+                    return;
+                
+            }
+
+            catch
+            {
+                return;
+            }
+        }
+
+        private async Task<bool> TryUploadSikumFile() //Work in progress.
+        {
+            //this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+
+            return true;
+        }
+
+        private async Task<bool> TryUploadFiles() //Uploads files and return true if they were sucessfully uploaded to the server.
+        {
+            try
+            {
+                if (this.SikumListSrc.Count <= 0)
+                    return false;
+
                 App currentApp = (App)App.Current;
-                //this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 List<FileInfo> filesInfoList = new List<FileInfo>();
 
@@ -238,20 +304,31 @@ namespace SikumkumApp.ViewModels
                 {
                     filesInfoList.Add(new FileInfo() { Name = result.FullPath });
                 }
+                FileInfo[] filesInfoArr = filesInfoList.ToArray(); //Function gets array, so conversion is needed.
 
-                FileInfo[] filesInfoArr = filesInfoList.ToArray(); //Function gets it as array.
-                bool uploaded = await API.UploadFiles(filesInfoArr, $"{ this.Username}-{this.Headline}-" );
+                bool uploadedFiles = await API.UploadFiles(filesInfoArr, $"{ this.Username}-{this.Headline}-", this.contentType);
 
-                if (!uploaded) //Something didn't work.
+                if (!uploadedFiles) //Something didn't work.
                 {
+                    this.ShowUploadError = true;
+                    this.UploadError = "העלאת הקבצים לא עברה בהצלחה";
+                    return false;
                     //Add error message
                 }
+
+                return true;
             }
 
-            catch
+            catch 
             {
-
+                return false;
             }
+        }
+
+        private bool ValidateForm() //Validates that all credentials are correct.
+        {
+            //Work in progress.
+            return true;
         }
 
         ///The following command handle the pick photo button

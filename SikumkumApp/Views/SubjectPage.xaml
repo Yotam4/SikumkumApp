@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.SubjectPage"
-             x:Name="SubjectPage">
+             x:Name="SubjectPageName">
     <ContentPage.Content>
         <StackLayout>
             <Grid ColumnSpacing="0" RowSpacing="0">
@@ -28,7 +28,7 @@
             <CollectionView ItemsSource="{Binding files}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Button Text="{Binding files.Headline}" Command="{Binding Source={x:Reference SubjectPage}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}"  />
+                        <Button Text="{Binding files.Headline}" Command="{Binding Source={x:Reference SubjectPageName}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}"  />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
