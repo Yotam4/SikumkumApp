@@ -46,6 +46,9 @@ namespace SikumkumApp.ViewModels
 
         public List<string> yearNamesList { get; set; } //The given year and types the user can choose from in the picker.
         public List<string> typeNamesList { get; set; }
+        public List<string> subjectNamesList { get; set; }
+
+        private App currentApp;
 
         private string contentType; //To allow the server to know which file is being uploaded.
 
@@ -61,6 +64,17 @@ namespace SikumkumApp.ViewModels
             {
                 this.username = value;
                 this.OnPropertyChanged("Username");
+            }
+        }
+
+        private string subjectName { get; set; }
+        public string SubjectName
+        {
+            get { return this.subjectName; }
+            set
+            {
+                this.subjectName = value;
+                this.OnPropertyChanged("SubjectName");
             }
         }
 
@@ -92,8 +106,32 @@ namespace SikumkumApp.ViewModels
             get { return this.headline; }
             set
             {
-                this.headline = value;
-                this.OnPropertyChanged("Headline");
+                if (!ValidateHeadline(value))
+                    return;
+                    this.headline = value;
+                    this.OnPropertyChanged("Headline");                
+            }
+        }
+
+        private string headlineError { get; set; }
+        public string HeadlineError
+        {
+            get { return this.headlineError; }
+            set
+            {
+                this.headlineError = value;
+                this.OnPropertyChanged("HeadlineError");
+            }
+        }
+
+        private bool showHeadlineError { get; set; }
+        public bool ShowHeadlineError
+        {
+            get { return this.showHeadlineError; }
+            set
+            {
+                this.showHeadlineError = value;
+                this.OnPropertyChanged("ShowHeadlineError");
             }
         }
 
@@ -172,11 +210,19 @@ namespace SikumkumApp.ViewModels
         #region Constructor
         public UploadFileVM()
         {
+            this.currentApp = (App)App.Current;
+
             this.typeNamesList = new List<string>();
             this.typeNamesList.Add("סיכום"); this.typeNamesList.Add("מטלה"); this.typeNamesList.Add("תרגול"); //Adds the 3 type values in DB. If changed DB, must change it here!
 
             this.yearNamesList = new List<string>();
             this.yearNamesList.Add("יסודי"); this.yearNamesList.Add("חטיבה"); this.yearNamesList.Add("תיכון"); this.yearNamesList.Add("אוניברסיטה"); //Adds the 4 year values in DB. If changed DB, must change it here!
+
+            this.subjectNamesList = new List<string>();
+            foreach(Subject s in this.currentApp.SubjectsList)
+            {
+                this.subjectNamesList.Add(s.SubjectName);
+            }
 
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
@@ -276,7 +322,7 @@ namespace SikumkumApp.ViewModels
                 
             }
 
-            catch
+            catch (Exception e)
             {
                 return;
             }
@@ -284,9 +330,24 @@ namespace SikumkumApp.ViewModels
 
         private async Task<bool> TryUploadSikumFile() //Work in progress.
         {
-            //this.uploadSikumFile = new SikumFile(currentApp.CurrentUser.Username, this.Headline, this.SikumFileSrc, this.YearName, this.TypeName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+            try
+            {
+                string username = currentApp.CurrentUser.Username;
+                this.uploadSikumFile = new SikumFile(username, this.Headline, "", this.YearName, this.TypeName, this.SubjectName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
 
-            return true;
+                
+                if (this.uploadSikumFile == null)
+                    return false;
+
+                SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+                bool uploaded = await API.UploadSikumFile(this.uploadSikumFile);
+                return uploaded;
+            }
+
+            catch
+            {
+                return false;
+            }
         }
 
         private async Task<bool> TryUploadFiles() //Uploads files and return true if they were sucessfully uploaded to the server.
@@ -295,8 +356,7 @@ namespace SikumkumApp.ViewModels
             {
                 if (this.SikumListSrc.Count <= 0)
                     return false;
-
-                App currentApp = (App)App.Current;
+                
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
                 List<FileInfo> filesInfoList = new List<FileInfo>();
 
@@ -324,65 +384,88 @@ namespace SikumkumApp.ViewModels
                 return false;
             }
         }
-
+        #region Validations
         private bool ValidateForm() //Validates that all credentials are correct.
         {
             //Work in progress.
+           // return (ValidateHeadline());
+            return true;
+            
+        }
+
+        private bool ValidateHeadline(string val)
+        {
+            if (val.Length > 32)
+            {
+                this.ShowHeadlineError = true;
+                this.HeadlineError = "אורך הכותרת עד 32 תווים";
+                return false;                
+            }
+
+/*            if(Headline.Contains("/") || Headline.Contains("'") || Headline.Contains("*")) //Prevent sql injections, might not be necessary.
+            {
+                this.ShowHeadlineError = true;
+                this.HeadlineError = "אורך הכותרת עד 32 תווים";
+                return false;
+            }*/
+
             return true;
         }
 
+        #endregion
+
         ///The following command handle the pick photo button
- /*       FileResult imageFileResult;
-        public event Action<ImageSource> SetImageSourceEvent;
-        public ICommand PickImageCommand => new Command(OnPickImage);
-        public async void OnPickImage()
-        {
-            if (this.clickdOnImages) //User chose to upload photos.
-            {
-                var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
+        /*       FileResult imageFileResult;
+               public event Action<ImageSource> SetImageSourceEvent;
+               public ICommand PickImageCommand => new Command(OnPickImage);
+               public async void OnPickImage()
+               {
+                   if (this.clickdOnImages) //User chose to upload photos.
+                   {
+                       var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
+                       {
+                           FileTypes = FilePickerFileType.Images,
+                           PickerTitle = "Pick Image"
+                       }); ;
+                   }
+
+                   if (this.clickedOnPDF) //User chose to upload PDFs
+                   {
+                       var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
+                       {
+                           FileTypes = FilePickerFileType.Pdf,
+                           PickerTitle = "Pick PDF"
+                       }); ;
+                   }
+                   if (pickResults != null)
+                   {
+                       this.imageFileResult = result;
+
+                       var stream = await result.OpenReadAsync();
+                       ImageSource imgSource = ImageSource.FromStream(() => stream);
+                       if (SetImageSourceEvent != null)
+                           SetImageSourceEvent(imgSource);
+                   }
+               }*/
+
+        /*        ///The following command handle the take photo button
+                public ICommand CameraImageCommand => new Command(OnCameraImage);
+                public async void OnCameraImage()
                 {
-                    FileTypes = FilePickerFileType.Images,
-                    PickerTitle = "Pick Image"
-                }); ;
-            }
+                    var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+                    {
+                        Title = "צלם תמונה"
+                    });
 
-            if (this.clickedOnPDF) //User chose to upload PDFs
-            {
-                var pickResults = await FilePicker.PickMultipleAsync(new PickOptions()
-                {
-                    FileTypes = FilePickerFileType.Pdf,
-                    PickerTitle = "Pick PDF"
-                }); ;
-            }
-            if (pickResults != null)
-            {
-                this.imageFileResult = result;
-                
-                var stream = await result.OpenReadAsync();
-                ImageSource imgSource = ImageSource.FromStream(() => stream);
-                if (SetImageSourceEvent != null)
-                    SetImageSourceEvent(imgSource);
-            }
-        }*/
-
-/*        ///The following command handle the take photo button
-        public ICommand CameraImageCommand => new Command(OnCameraImage);
-        public async void OnCameraImage()
-        {
-            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
-            {
-                Title = "צלם תמונה"
-            });
-
-            if (result != null)
-            {
-                this.imageFileResult = result;
-                var stream = await result.OpenReadAsync();
-                ImageSource imgSource = ImageSource.FromStream(() => stream);
-                if (SetImageSourceEvent != null)
-                    SetImageSourceEvent(imgSource);
-            }
-        }*/
+                    if (result != null)
+                    {
+                        this.imageFileResult = result;
+                        var stream = await result.OpenReadAsync();
+                        ImageSource imgSource = ImageSource.FromStream(() => stream);
+                        if (SetImageSourceEvent != null)
+                            SetImageSourceEvent(imgSource);
+                    }
+                }*/
         #endregion
     }
 }

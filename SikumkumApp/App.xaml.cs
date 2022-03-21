@@ -27,18 +27,18 @@ namespace SikumkumApp
         protected async override void OnStart()
         {
             SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+            this.SubjectsList = await API.GetSubjects();
 
-            MainPage = new UploadFile();
-            //try
-            //{
-            //    SubjectsList = await API.GetSubjects();
-            //    Opening openingPage = new Opening(SubjectsList);
-            //    MainPage = new NavigationPage(openingPage);
-            //}
-            //catch (Exception e)
-            //{
-            //    Application.Current.Quit();
-            //}
+            try
+            {
+                this.SubjectsList = await API.GetSubjects();
+                Opening openingPage = new Opening(SubjectsList);
+                MainPage = new NavigationPage(openingPage);
+            }
+            catch (Exception e)
+            {
+                Application.Current.Quit();
+            }
         }
 
         protected override void OnSleep()

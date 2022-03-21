@@ -14,6 +14,9 @@
             <Label Text="תיאור"/>
             <Entry Placeholder="תיאור הקובץ" Text="{Binding TextDesc}"/>
 
+            <Label Text="נושא הקובץ "/>
+            <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectName}"/>
+
             <Label Text="סוג קובץ"/>
             <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeName}"/>
 

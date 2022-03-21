@@ -272,6 +272,39 @@ namespace SikumkumApp.Services
 
         }
 
+        public async Task<bool> UploadSikumFile(SikumFile uploadSikum)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = false
+                };
+
+                string jsonUser = JsonSerializer.Serialize<SikumFile>(uploadSikum, options);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/UploadSikumFile", content);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully signed up.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
+        }   
+
         //Upload files to server
         public async Task<bool> UploadFiles(Models.FileInfo[] fileInfoFiles, string targetFileName, string contentType)
         {

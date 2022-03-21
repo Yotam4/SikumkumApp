@@ -45,7 +45,7 @@ namespace SikumkumApp.ViewModels
         public Command ClickedOnSignUp => new Command(OpenSignUpPage);
         private void OpenSignUpPage()
         {
-            SignUp SignupPage = new SignUp();
+            UploadFile SignupPage = new UploadFile();
             App.Current.MainPage.Navigation.PushAsync(SignupPage);
         }
 
