@@ -94,7 +94,7 @@ namespace SikumkumApp.Services
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
                         ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
-                        PropertyNameCaseInsensitive = false
+                        PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
                     User u = JsonSerializer.Deserialize<User>(content, options);
@@ -120,7 +120,7 @@ namespace SikumkumApp.Services
                 {
                     ReferenceHandler = ReferenceHandler.Preserve,
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-                    PropertyNameCaseInsensitive = false
+                    PropertyNameCaseInsensitive = true
                 };
 
                 string jsonUser = JsonSerializer.Serialize<User>(signingUp, options);
@@ -280,7 +280,7 @@ namespace SikumkumApp.Services
                 {
                     ReferenceHandler = ReferenceHandler.Preserve,
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
-                    PropertyNameCaseInsensitive = false
+                    PropertyNameCaseInsensitive = true
                 };
 
                 string jsonUser = JsonSerializer.Serialize<SikumFile>(uploadSikum, options);

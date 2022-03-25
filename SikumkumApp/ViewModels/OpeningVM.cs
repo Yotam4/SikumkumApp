@@ -19,11 +19,39 @@ namespace SikumkumApp.ViewModels
 {
     class OpeningVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Subject> subjectsCollec { get;}
+
+#region Variables
+        public ObservableCollection<Subject> subjectsCollec { get; set; }
+
+        private bool canLogIn { get; set; }
+        public bool CanLogIn
+        {
+            get => canLogIn;
+            set
+            {
+                canLogIn = value;
+                OnPropertyChanged("CanLogIn");
+            }
+        }
+
+        private bool isLoggedIn { get; set; }
+        public bool IsLoggedIn
+        {
+            get => isLoggedIn;
+            set
+            {
+                isLoggedIn = value;
+                OnPropertyChanged("IsLoggedIn");
+            }
+        }
+        #endregion
         public OpeningVM(List<Subject> subjectsL)
         {
-            this.subjectsCollec = new ObservableCollection<Subject>(subjectsL); 
+            this.subjectsCollec = new ObservableCollection<Subject>(subjectsL);
+            this.CanLogIn = true;
+            this.IsLoggedIn = false;
         }
+
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +62,10 @@ namespace SikumkumApp.ViewModels
         #endregion
 
 
+
         #region Commands
+        
+
         public Command ClickedOnLogin => new Command(OpenLoginPage);
         private void OpenLoginPage()
         {
@@ -45,8 +76,15 @@ namespace SikumkumApp.ViewModels
         public Command ClickedOnSignUp => new Command(OpenSignUpPage);
         private void OpenSignUpPage()
         {
-            UploadFile SignupPage = new UploadFile();
+            SignUp SignupPage = new SignUp();
             App.Current.MainPage.Navigation.PushAsync(SignupPage);
+        }
+
+        public Command ToUserPageCommand => new Command(ToUserPage);
+        private void ToUserPage()
+        {
+            UserPage userPage = new UserPage();
+            App.Current.MainPage.Navigation.PushAsync(userPage);
         }
 
         public Command ClickedOnSubject => new Command<Subject>(OpenSubjectPage);

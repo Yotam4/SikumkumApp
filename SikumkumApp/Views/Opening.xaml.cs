@@ -25,5 +25,15 @@ namespace SikumkumApp.Views
 
             InitializeComponent();
         }
+
+        protected override void OnAppearing()
+        {
+            App currentApp = (App)App.Current;
+            if (currentApp.CurrentUser != null) //Changes UI if user is logged in.
+            {
+                oV.CanLogIn = false; //No longer shcws signup and log in.
+                oV.IsLoggedIn = true; //Shows user page button. 
+            }
+        }
     }
 }

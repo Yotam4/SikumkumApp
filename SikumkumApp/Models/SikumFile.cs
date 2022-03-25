@@ -21,8 +21,8 @@ namespace SikumkumApp.Models
             this.Url = url;
             this.YearName = yearName;
             this.TypeName = typeName;
-            this.SubjectName = subjectName;
             this.TextDesc = textDesc;
+            this.SubjectName = subjectName;
 
         }
 

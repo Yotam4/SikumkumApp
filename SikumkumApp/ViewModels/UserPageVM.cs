@@ -126,7 +126,7 @@ namespace SikumkumApp.ViewModels
         }
         #endregion
         #region Commands
-        public Command GoToChangePassCommand => new Command(ChangePassword);
+        public Command ChangePassCommand => new Command(ChangePassword);
         private async void ChangePassword() //Should be Async??
         {
             try
@@ -158,12 +158,21 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        public Command GoToUploadFileCommand => new Command(UploadFileFunc);
+        private void UploadFileFunc()
+        {
+            UploadFile uf = new UploadFile();
+            App.Current.MainPage.Navigation.PushAsync(uf);
+        }
+        #endregion
+
+        #region Validations
         private bool ValidateInput() //Returns false if input was incorrect, and displays errors accordingly.
         {
             this.ShowPasswordError = false;
             this.ShowPasswordChanged = false;
 
-            if(this.NewPassword == this.currentApp.CurrentUser.Password) //User's new password matches his current one.
+            if (this.NewPassword == this.currentApp.CurrentUser.Password) //User's new password matches his current one.
             {
                 this.ShowPasswordError = true;
                 this.PasswordError = "אנא הכנס סיסמה חדשה שונה";
@@ -190,7 +199,7 @@ namespace SikumkumApp.ViewModels
         }
 
         private bool ValidatePassword() //Validates that the new password has correct values.
-        {            
+        {
             this.ShowPasswordError = string.IsNullOrEmpty(this.NewPassword); //Checks that password is not null.
             if (this.ShowPasswordError)
                 this.PasswordError = "סיסמה לא יכולה להיות ריקה. נא הכנס סיסמה בת 8-16 תווים.";
@@ -220,6 +229,7 @@ namespace SikumkumApp.ViewModels
 
             return true;
         }
+
         #endregion
     }
 

@@ -149,8 +149,10 @@ namespace SikumkumApp.ViewModels
                     App currentApp = (App)App.Current;
                     currentApp.CurrentUser = loggingUser;
 
-                    UserPage up = new UserPage();
-                    App.Current.MainPage.Navigation.PushAsync(up);
+                    App.Current.MainPage.Navigation.PopAsync();
+
+                    //UserPage up = new UserPage();
+                    //App.Current.MainPage.Navigation.PushAsync(up);
 
                 }
                 else

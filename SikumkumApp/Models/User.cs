@@ -22,6 +22,13 @@ namespace SikumkumApp.Models
             this.Password = password;
         }
 
+        public User(User u)
+        {
+            this.Username = u.Username;
+            this.Email = u.Email;
+            this.Password = u.Password;
+        }
+
 
     }
 }

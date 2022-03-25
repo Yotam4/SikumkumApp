@@ -9,7 +9,7 @@
 
             <Label Text=":מקצועות" HorizontalOptions="End" Style="{StaticResource Key=Headers}"/>
 
-            <CollectionView ItemsSource="{Binding subjectsCollec}" >
+            <CollectionView ItemsSource="{Binding subjectsCollec}"  >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Button Text="{Binding SubjectName}" Command="{Binding Source={x:Reference OpenPage}, Path=BindingContext.ClickedOnSubject}" Style="{StaticResource Key=Subjects}"  />
@@ -25,10 +25,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Text="Login" Style="{StaticResource ButtonStyle}" Grid.Column="0" Command="{Binding ClickedOnLogin}" />
-                <Button Text="Sign Up" Style="{StaticResource ButtonStyle}" Grid.Column="1" Command="{Binding ClickedOnSignUp}" />
+                <Button Text="להתחברות" Style="{StaticResource ButtonStyle}" Grid.Column="0" Command="{Binding ClickedOnLogin}" IsVisible="{Binding CanLogIn}" />
+                <Button Text="להרשמה" Style="{StaticResource ButtonStyle}" Grid.Column="1" Command="{Binding ClickedOnSignUp}" IsVisible="{Binding CanLogIn}" />
             </Grid>
-            
+            <Button Text="לדף המשתמש" Style="{StaticResource ButtonStyle}" Command="{Binding ToUserPageCommand}" IsVisible="{Binding IsLoggedIn}" HorizontalOptions="Center" />
+
         </StackLayout>
         
     </ContentPage.Content>

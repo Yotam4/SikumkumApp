@@ -19,10 +19,10 @@
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" />
             <Label Text="{Binding PasswordError}"/>
 
-            <Button Text="Change Password" Style="{StaticResource ButtonStyle}" Command="{Binding GoToChangePassCommand}" />
+            <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Command="{Binding ChangePassCommand}" />
 
+            <Button Text="העלה קובץ" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" />
 
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
