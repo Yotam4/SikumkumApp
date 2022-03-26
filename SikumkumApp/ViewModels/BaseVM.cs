@@ -43,5 +43,23 @@ namespace SikumkumApp.ViewModels
         #region Commands
 
         #endregion
+
+        #region CopyRegions
+        #region Variables 
+
+        #endregion
+
+        #region Constructor
+
+        #endregion
+
+        #region Commands
+
+        #endregion
+
+        #region Validations
+
+        #endregion
+        #endregion
     }
 }

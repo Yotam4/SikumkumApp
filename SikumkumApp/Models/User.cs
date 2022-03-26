@@ -9,6 +9,8 @@ namespace SikumkumApp.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool IsAdmin { get; set; }
+        public int UserID { get; set; }
 
         public User()
         {
@@ -20,6 +22,8 @@ namespace SikumkumApp.Models
             this.Username = username;
             this.Email = email;
             this.Password = password;
+            this.IsAdmin = false;
+            this.UserID = 0;
         }
 
         public User(User u)
@@ -27,6 +31,8 @@ namespace SikumkumApp.Models
             this.Username = u.Username;
             this.Email = u.Email;
             this.Password = u.Password;
+            this.IsAdmin = u.IsAdmin;
+            this.UserID = u.UserID;
         }
 
 

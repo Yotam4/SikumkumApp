@@ -13,6 +13,7 @@ using SikumkumApp.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using SikumkumApp.Views;
+using System.Linq;
 
 namespace SikumkumApp.ViewModels
 {
@@ -67,36 +68,36 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        private string subjectName { get; set; }
-        public string SubjectName
+        private int subjectChosen { get; set; }
+        public int SubjectChosen
         {
-            get { return this.subjectName; }
+            get { return this.subjectChosen; }
             set
             {
-                this.subjectName = value;
-                this.OnPropertyChanged("SubjectName");
+                this.subjectChosen = value;
+                this.OnPropertyChanged("SubjectChosen");
             }
         }
 
-        private string typeName { get; set; }
-        public string TypeName
+        private int typeChosen { get; set; }
+        public int TypeChosen
         {
-            get { return this.typeName; }
+            get { return this.typeChosen; }
             set
             {
-                this.typeName = value;
-                this.OnPropertyChanged("TypeName");
+                this.typeChosen = value;
+                this.OnPropertyChanged("TypeChosen");
             }
         }
 
-        private string yearName { get; set; }
-        public string YearName
+        private int yearChosen { get; set; }
+        public int YearChosen
         {
-            get { return this.yearName; }
+            get { return this.yearChosen; }
             set
             {
-                this.yearName = value;
-                this.OnPropertyChanged("YearName");
+                this.yearChosen = value;
+                this.OnPropertyChanged("YearChosen");
             }
         }
 
@@ -211,24 +212,33 @@ namespace SikumkumApp.ViewModels
         public UploadFileVM()
         {
             this.currentApp = (App)App.Current;
+            this.Username = this.currentApp.CurrentUser.Username;
 
-            this.typeNamesList = new List<string>();
-            this.typeNamesList.Add("סיכום"); this.typeNamesList.Add("מטלה"); this.typeNamesList.Add("תרגול"); //Adds the 3 type values in DB. If changed DB, must change it here!
+            this.typeNamesList = new List<string>(); //Adding file types to picker.
+            foreach(FileType ft in this.currentApp.OpeningObj.FileTypeList)
+            {
+                this.typeNamesList.Add(ft.TypeName);
+            }
 
-            this.yearNamesList = new List<string>();
-            this.yearNamesList.Add("יסודי"); this.yearNamesList.Add("חטיבה"); this.yearNamesList.Add("תיכון"); this.yearNamesList.Add("אוניברסיטה"); //Adds the 4 year values in DB. If changed DB, must change it here!
+            this.yearNamesList = new List<string>(); //Adding year names to picker.
+            foreach(StudyYear studyYear in this.currentApp.OpeningObj.StudyYearList)
+            {
+                this.yearNamesList.Add(studyYear.YearName);
+            }
 
-            this.subjectNamesList = new List<string>();
-            foreach(Subject s in this.currentApp.SubjectsList)
+            this.subjectNamesList = new List<string>(); //Adding subject names to picker.
+            foreach(Subject s in this.currentApp.OpeningObj.SubjectsList)
             {
                 this.subjectNamesList.Add(s.SubjectName);
             }
 
+            //Booleans to set.
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
             this.ShowUploadError = false;
             this.UploadError = "";
 
+            //Lists to set,
             this.FileResultsList = new List<FileResult>(); //Creates new lists.
             this.SikumListSrc = new List<ImageSource>();
 
@@ -332,11 +342,12 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                string username = currentApp.CurrentUser.Username;
-                this.uploadSikumFile = new SikumFile(username, this.Headline, "", this.YearName, this.TypeName, this.SubjectName, this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+                int userId = currentApp.CurrentUser.UserID;
+                //The Picker returns an integer of the person's choice, starting with 0. to get the correct ID for the chosen thing, I parsed the input and added +1. Neat.
+                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
 
                 
-                if (this.uploadSikumFile == null)
+                if (this.uploadSikumFile == null) //File creation didn't work.
                     return false;
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
@@ -344,8 +355,9 @@ namespace SikumkumApp.ViewModels
                 return uploaded;
             }
 
-            catch
+            catch (Exception e)
             {
+                string message = e.Message;
                 return false;
             }
         }
@@ -366,7 +378,7 @@ namespace SikumkumApp.ViewModels
                 }
                 FileInfo[] filesInfoArr = filesInfoList.ToArray(); //Function gets array, so conversion is needed.
 
-                bool uploadedFiles = await API.UploadFiles(filesInfoArr, $"{ this.Username}-{this.Headline}-", this.contentType);
+                bool uploadedFiles = await API.UploadFiles(filesInfoArr, $"{this.Username}-{this.Headline}-", this.contentType);
 
                 if (!uploadedFiles) //Something didn't work.
                 {

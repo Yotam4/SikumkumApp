@@ -14,12 +14,22 @@ namespace SikumkumApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
+        UserPageVM upVM;
         public UserPage()
         {
-            UserPageVM upVM = new UserPageVM();
+            upVM = new UserPageVM();
             this.BindingContext = upVM;
 
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            App currentApp = (App)App.Current;
+            if (currentApp.CurrentUser.IsAdmin)
+            {
+                upVM.IsAdmin = true;
+            }
         }
     }
 }

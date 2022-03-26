@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.SubjectPage"
+             FlowDirection="RightToLeft"
              x:Name="SubjectPageName">
     <ContentPage.Content>
         <StackLayout>
@@ -20,19 +21,33 @@
                 <Label Text="מטלות" FontSize="12" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" />
                 <CheckBox IsChecked="{Binding GetEssay}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" />
 
-                <Button Text="חפש" Style="{StaticResource ButtonStyle}" Grid.Column="3" Grid.Row="1" Command="{Binding SearchCommand}" HeightRequest="50"  />
+                <Button Text="חפש" Grid.RowSpan="2" Style="{StaticResource ButtonStyle}" Grid.Column="3" Grid.Row="0" Command="{Binding SearchCommand}"/>
             </Grid>
             
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding IsEmpty}" Style="{StaticResource WarningsStyle}" />
-            
-            <CollectionView ItemsSource="{Binding files}" >
+
+            <CollectionView ItemsSource="{Binding files}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Button Text="{Binding files.Headline}" Command="{Binding Source={x:Reference SubjectPageName}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}"  />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Text="{Binding files.Headline}"  Command="{Binding Source={x:Reference SubjectPageName}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}" HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  />
+                            <Label Grid.Row="1" Grid.Column="0" Text="זהו - "  />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding files.TypeName}" />
+
+                            <Label Grid.Row="2" Grid.Column="0" Text="הועלה על די משתמש -  "  />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding files.Username}" />
+                            
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
+                       
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

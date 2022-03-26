@@ -17,9 +17,9 @@ namespace SikumkumApp.Views
     public partial class Opening : ContentPage
     {
         OpeningVM oV;
-        public Opening(List<Subject> subjects)
+        public Opening()
         {
-            oV = new OpeningVM(subjects);
+            oV = new OpeningVM();
 
             this.BindingContext = oV;
 

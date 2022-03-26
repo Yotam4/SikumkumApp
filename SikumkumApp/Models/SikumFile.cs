@@ -7,22 +7,26 @@ namespace SikumkumApp.Models
     public partial class SikumFile
     {
         public string Username { get; set; }
-        public string TypeName { get; set; }
-        public string YearName { get; set; }
-        public string SubjectName { get; set; }
+        public int UserID { get; set; }
+        public int TypeID { get; set; }
+        public int YearID { get; set; }
+        public int SubjectID { get; set; }
         public string Headline { get; set; }
         public string TextDesc { get; set; }
         public string Url { get; set; }
 
-        public SikumFile(string username, string headline, string url, string yearName, string typeName, string subjectName, string textDesc)
+        public SikumFile() { }
+
+        public SikumFile(int userID, string username, string headline, string url, int yearID, int typeID, int subjectID, string textDesc)
         {
+            this.UserID = userID;
             this.Username = username;
             this.Headline = headline;
-            this.Url = url;
-            this.YearName = yearName;
-            this.TypeName = typeName;
             this.TextDesc = textDesc;
-            this.SubjectName = subjectName;
+            this.Url = url;
+            this.YearID = yearID;
+            this.TypeID = typeID;
+            this.SubjectID = subjectID;
 
         }
 

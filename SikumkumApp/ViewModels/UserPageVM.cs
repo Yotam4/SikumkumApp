@@ -111,7 +111,16 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-
+        private bool isAdmin{ get; set; } //User's new password to set.
+        public bool IsAdmin
+        {
+            get => isAdmin;
+            set
+            {
+                isAdmin = value;
+                OnPropertyChanged("IsAdmin");
+            }
+        }
 
         #endregion
         #region Constructor
@@ -123,6 +132,7 @@ namespace SikumkumApp.ViewModels
 
             this.ShowPasswordChanged = false;
             this.ShowPasswordError = false;
+            this.IsAdmin = false;
         }
         #endregion
         #region Commands
@@ -163,6 +173,13 @@ namespace SikumkumApp.ViewModels
         {
             UploadFile uf = new UploadFile();
             App.Current.MainPage.Navigation.PushAsync(uf);
+        }
+
+        public Command GoToConfirmUploadsCommand => new Command(GoToConfirmUploads);
+        private void GoToConfirmUploads()
+        {
+            ConfirmUploads cu = new ConfirmUploads();
+            App.Current.MainPage.Navigation.PushAsync(cu);
         }
         #endregion
 

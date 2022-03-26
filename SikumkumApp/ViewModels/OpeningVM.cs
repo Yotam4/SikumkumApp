@@ -45,9 +45,10 @@ namespace SikumkumApp.ViewModels
             }
         }
         #endregion
-        public OpeningVM(List<Subject> subjectsL)
+        public OpeningVM()
         {
-            this.subjectsCollec = new ObservableCollection<Subject>(subjectsL);
+            App currentApp = (App)App.Current;
+            this.subjectsCollec = new ObservableCollection<Subject>(currentApp.OpeningObj.SubjectsList);
             this.CanLogIn = true;
             this.IsLoggedIn = false;
         }

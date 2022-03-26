@@ -23,6 +23,8 @@
 
             <Button Text="העלה קובץ" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" />
 
+            <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

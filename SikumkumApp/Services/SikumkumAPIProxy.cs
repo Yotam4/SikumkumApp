@@ -100,6 +100,7 @@ namespace SikumkumApp.Services
                     User u = JsonSerializer.Deserialize<User>(content, options);
                     return u;
                 }
+
                 else
                 {
                     return null;
@@ -145,11 +146,11 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<List<Subject>> GetSubjects()
+        public async Task<OpeningObject> GetOpeningObject()
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetSubjects");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetOpeningObject");
 
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
@@ -157,14 +158,18 @@ namespace SikumkumApp.Services
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
                     PropertyNameCaseInsensitive = true
                 };
-
-                string content = await response.Content.ReadAsStringAsync();
-                List<Subject> subjects = JsonSerializer.Deserialize<List<Subject>>(content, options);
-                return subjects;
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    OpeningObject openingOb = JsonSerializer.Deserialize<OpeningObject>(content, options);
+                    return openingOb;
+                }
+                return null;
             }
 
-            catch
+            catch (Exception e)
             {
+                string error = e.Message;
                 return null;
             }
         }

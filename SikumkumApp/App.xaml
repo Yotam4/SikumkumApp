@@ -5,14 +5,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="BorderWidth" Value="2"/>
-                <Setter Property="BorderColor" Value="Black"/>
-                <Setter Property="BackgroundColor" Value="Beige"/>
+                <Setter Property="BorderWidth" Value="1.75"/>
+                <Setter Property="BorderColor" Value="#5F634F"/>
+                <Setter Property="BackgroundColor" Value="#CFEBDF"/>
                 <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="WidthRequest" Value="175"/>
-                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="WidthRequest" Value="150"/>
+                <Setter Property="HeightRequest" Value="42"/>
                 <Setter Property="FontFamily" Value="MiriamLibre"/>
-                <Setter Property="CornerRadius" Value="17" />
+                <Setter Property="CornerRadius" Value= "12" />
             </Style>
             <Style x:Key="WarningsStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="IndianRed"/>
@@ -24,17 +24,23 @@
             <Style x:Key="Headers" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily"  Value="RubikItalic" />
+                <Setter Property="FontFamily"  Value="RubikRegular" />
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextDecorations" Value="Underline"/>
             </Style>
 
             <Style x:Key="Subjects" TargetType="Button">
-                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="275" />
+                <Setter Property="TextColor" Value="#001219"/>
+                <Setter Property="BorderWidth" Value="1.75"/>
+                <Setter Property="BorderColor" Value="#F4D06F"/>
+                <Setter Property="BackgroundColor" Value="#FFF8F0"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="FontFamily"  Value="RubikRegular" />
                 <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="CornerRadius" Value= "6" />
+
             </Style>
 
             <Style x:Key="AssuranceStyle" TargetType="Label">

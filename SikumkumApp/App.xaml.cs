@@ -15,7 +15,7 @@ namespace SikumkumApp
     {
         public static bool IsDevEnv { get; internal set; }
         public User CurrentUser { get; set; }
-        public List<Subject> SubjectsList { get; set; }
+        public OpeningObject OpeningObj { get; set; }
 
         public App()
         {
@@ -27,12 +27,20 @@ namespace SikumkumApp
         protected async override void OnStart()
         {
             SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-            this.SubjectsList = await API.GetSubjects();
+
+            //this.SubjectsList = new List<Subject>(); //For testing purposes while server is down.
+            //Subject s = new Subject("חשבון", 100);
+            //Subject s1 = new Subject("מדעים", 100);
+            //Subject s2 = new Subject("פיזיקה", 100);
+            //Subject s3 = new Subject("לשון", 100);
+
+            //this.SubjectsList.Add(s); this.SubjectsList.Add(s1); this.SubjectsList.Add(s2); this.SubjectsList.Add(s3 );
 
             try
             {
-                this.SubjectsList = await API.GetSubjects();
-                Opening openingPage = new Opening(SubjectsList);
+                this.OpeningObj = await API.GetOpeningObject();
+
+                Opening openingPage = new Opening();
                 MainPage = new NavigationPage(openingPage);
             }
             catch (Exception e)

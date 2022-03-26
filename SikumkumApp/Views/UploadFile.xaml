@@ -15,13 +15,13 @@
             <Entry Placeholder="תיאור הקובץ" Text="{Binding TextDesc}"/>
 
             <Label Text="נושא הקובץ "/>
-            <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectName}"/>
+            <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectChosen}"/>
 
             <Label Text="סוג קובץ"/>
-            <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeName}"/>
+            <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeChosen}"/>
 
             <Label Text="מיועד ל - "/>
-            <Picker ItemsSource="{Binding yearNamesList}" SelectedIndex ="{Binding YearName}"/>
+            <Picker ItemsSource="{Binding yearNamesList}" SelectedIndex ="{Binding YearChosen}"/>
 
 
 
