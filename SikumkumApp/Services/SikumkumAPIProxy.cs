@@ -174,11 +174,11 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<List<SikumFile>> GetSikumFiles(bool getSummary, bool getEssay, bool getPractice, string subjectName)
+        public async Task<List<SikumFile>> GetSikumFiles(bool getSummary, bool getEssay, bool getPractice, string subjectName, int yearID)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetFiles?getSummary={getSummary}&getEssay={getEssay}&getPractice={getPractice}&subjectName={subjectName}");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetFiles?getSummary={getSummary}&getEssay={getEssay}&getPractice={getPractice}&subjectName={subjectName}&yearID={yearID}");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) //Returned more than one file.
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -207,11 +207,11 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<List<SikumFile>> GetUserSikumFiles(string username)
+        public async Task<List<SikumFile>> GetUserSikumFiles(User u)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUserFiles?username={username}");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUserFiles?username={u.UserID}");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) 
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions

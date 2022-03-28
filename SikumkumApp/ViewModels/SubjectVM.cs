@@ -32,6 +32,8 @@ namespace SikumkumApp.ViewModels
         #region Variables
         private Subject currentSubject;
         public ObservableCollection<SikumFile> files { get; set; }
+        public List<string> StudyYearList {get; set; }
+
 
         private bool getSummary { get; set; }
         public bool GetSummary
@@ -43,7 +45,7 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("GetSummary");
             }
         }
-
+        
         private bool getPractice { get; set; }
         public bool GetPractice
         {
@@ -63,6 +65,17 @@ namespace SikumkumApp.ViewModels
             {
                 this.getEssay = value;
                 this.OnPropertyChanged("GetEssay");
+            }
+        }
+
+        private int studyYear { get; set; }
+        public int StudyYear
+        {
+            get { return this.studyYear; }
+            set
+            {
+                this.studyYear = value;
+                this.OnPropertyChanged("StudyYear");
             }
         }
 
@@ -94,12 +107,20 @@ namespace SikumkumApp.ViewModels
 
         public SubjectVM(Subject chosen)
         {
+            App currentApp = (App)App.Current;
             this.IsEmpty = false;
 
             this.currentSubject = chosen;
             this.GetSummary = true; //Only lookup summaries when page gets opened.
             this.GetEssay = false;
             this.GetPractice = false;
+
+            this.StudyYearList = new List<string>();
+            foreach(StudyYear year in currentApp.OpeningObj.StudyYearList)
+            {
+                this.StudyYearList.Add(year.YearName);
+            }
+            this.StudyYear = 2;
 
             GetSikumFiles();
         }
@@ -122,11 +143,10 @@ namespace SikumkumApp.ViewModels
                 if (!this.getSummary && !this.getPractice && !this.getEssay)
                 { //If user checked no boxes, lookup nothing.
                     return;
-                    this.files = new ObservableCollection<SikumFile>();
                 }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName );
+                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName, (this.StudyYear + 1));
                 if (listFiles != null)
                 {
                     this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list.
@@ -136,7 +156,7 @@ namespace SikumkumApp.ViewModels
                 if(files == null) //If search found nothing.
                 {
                     this.IsEmpty = true;
-                    this.ErrorEmpty = "We're sorry! There are currently no matches.";
+                    this.ErrorEmpty = "אין קבצים בקומקום מהסוג הזה כרגע..";
                     return;
                 }                    
             }

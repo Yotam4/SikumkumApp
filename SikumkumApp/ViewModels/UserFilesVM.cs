@@ -58,7 +58,7 @@ namespace SikumkumApp.ViewModels
         {
             try 
             {
-                this.userFiles = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser.Username);
+                this.userFiles = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser);
 
                 if(this.userFiles == null)
                 {
