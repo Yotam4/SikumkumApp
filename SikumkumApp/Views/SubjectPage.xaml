@@ -14,7 +14,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="תקופת לימוד" FontSize="12" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" HorizontalOptions="CenterAndExpand"/>
-                <Picker  ItemsSource="{Binding StudyYearList}" SelectedIndex ="{Binding StudyYears}" Grid.Column="0" Grid.RowSpan="2" Grid.Row="1" FontSize="12"  />
+                <Picker  ItemsSource="{Binding StudyYearList}" SelectedIndex ="{Binding StudyYear}" Grid.Column="0" Grid.RowSpan="2" Grid.Row="1" FontSize="12"  />
 
                 <Label Text="סיכומים" FontSize="12" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" IsEnabled="True" HorizontalOptions="Center" />
                 <CheckBox IsChecked="{Binding GetSummary}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalOptions="Center"/>
@@ -29,28 +29,21 @@
             </Grid>
             
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding IsEmpty}" Style="{StaticResource WarningsStyle}" />
-            <CollectionView ItemsSource="{Binding files}">
+
+            <CollectionView ItemsSource="{Binding Files}" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="20"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                            </Grid.ColumnDefinitions>
-
-                            <Button Text="{Binding files.Headline}"  Command="{Binding Source={x:Reference SubjectPageName}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}" HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  />
-                            <Label Grid.Row="1" Grid.Column="0" Text="זהו - "  />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding files.TypeName}" />
-
-                            <Label Grid.Row="2" Grid.Column="0" Text="הועלה על די משתמש -  "  />
-                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding files.Username}" />
-                            
-                        </Grid>
+                    <DataTemplate >
+                        <Button Text="{Binding Headline}" CommandParameter="{Binding}" Command="{Binding Source={x:Reference OpenPage}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}" />
                     </DataTemplate>
+
                 </CollectionView.ItemTemplate>
             </CollectionView>
-                       
+
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -31,9 +31,19 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
         private Subject currentSubject;
-        public ObservableCollection<SikumFile> files { get; set; }
+        public List<SikumFile> listOfFiles { get; set; }
         public List<string> StudyYearList {get; set; }
 
+        private ObservableCollection<SikumFile> files { get; set; }
+        public ObservableCollection<SikumFile> Files
+        {
+            get { return this.files; }
+            set
+            {
+                this.files = value;
+                this.OnPropertyChanged("Files");
+            }
+        }
 
         private bool getSummary { get; set; }
         public bool GetSummary
@@ -146,15 +156,16 @@ namespace SikumkumApp.ViewModels
                 }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                List<SikumFile> listFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName, (this.StudyYear + 1));
-                if (listFiles != null)
+                this.listOfFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName, (this.StudyYear + 1));
+                if (listOfFiles != null)
                 {
-                    this.files = new ObservableCollection<SikumFile>(listFiles); //Creates new list.
+                    this.Files = new ObservableCollection<SikumFile>(listOfFiles); //Creates new list.
                     this.IsEmpty = false;
                 }
 
-                if(files == null) //If search found nothing.
+                if(listOfFiles == null) //If search found nothing.
                 {
+                    this.Files = new ObservableCollection<SikumFile>();
                     this.IsEmpty = true;
                     this.ErrorEmpty = "אין קבצים בקומקום מהסוג הזה כרגע..";
                     return;
