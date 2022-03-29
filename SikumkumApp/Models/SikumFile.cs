@@ -16,10 +16,12 @@ namespace SikumkumApp.Models
         public string Headline { get; set; }
         public string TextDesc { get; set; }
         public string Url { get; set; }
+        public bool HasPdf { get; set; }
+        public bool HasImage { get; set; }
 
         public SikumFile() { }
 
-        public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc)
+        public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc, bool hasPDF, bool hasImage)
         {
             this.UserID = userID;
             this.Username = username;
@@ -31,6 +33,8 @@ namespace SikumkumApp.Models
             this.YearID = yearID;
             this.TypeID = typeID;
             this.SubjectID = subjectID;
+            this.HasPdf = HasPdf;
+            this.HasImage = HasImage;
 
         }
 

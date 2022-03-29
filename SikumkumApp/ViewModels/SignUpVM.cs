@@ -155,9 +155,14 @@ namespace SikumkumApp.ViewModels
         }
         private void ValidateName()
         {
-            this.ShowNameError = string.IsNullOrEmpty(Username); //Checks that password is not null.
+            this.ShowNameError = string.IsNullOrEmpty(this.Username); //Checks that password is not null.
             if (this.ShowNameError)
                 this.NameError = "שם משתמש לא יכול להיות ריק.";
+            if(this.Username.Length > 16)
+            {
+                this.ShowNameError = true;
+                this.NameError = "שם משתמש יכול להיות עד 16 תווים";
+            }
         }
         public void ValidatePassword() //Also Exists in change password. DO NOT FORGOT, IF CHANGED HERE.
         {

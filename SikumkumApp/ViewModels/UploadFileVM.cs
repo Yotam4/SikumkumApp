@@ -56,6 +56,9 @@ namespace SikumkumApp.ViewModels
         private bool clickedOnPDF; //No use of it so far. might be needed for UI purposes.
         private bool clickdOnImages;
 
+        private bool hasImage { get; set; }
+        private bool hasPdf { get; set; }
+
 
         private string username { get; set; }
         public string Username
@@ -236,6 +239,8 @@ namespace SikumkumApp.ViewModels
             this.clickdOnImages = false;
             this.clickedOnPDF = false;
             this.ShowUploadError = false;
+            this.hasPdf = false;
+            this.hasImage = false;
             this.UploadError = "";
 
             //Lists to set,
@@ -272,6 +277,8 @@ namespace SikumkumApp.ViewModels
                         this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
                     }
                     this.contentType = FileTypeNames.PDF_TYPE;
+                    this.hasPdf = true; //Sets sikum to have pdfs, and not images.
+                    this.hasImage = false;
                 }
             }
 
@@ -306,6 +313,8 @@ namespace SikumkumApp.ViewModels
 
                     this.contentType = FileTypeNames.IMAGE_TYPE;
 
+                    this.hasImage = true;
+                    this.hasPdf = false;
                 }
             }
 
@@ -329,7 +338,7 @@ namespace SikumkumApp.ViewModels
 
                 if (await TryUploadFiles() == false) //File didn't upload to server.
                     return;
-                
+                await App.Current.MainPage.Navigation.PopAsync();
             }
 
             catch (Exception e)
@@ -344,7 +353,7 @@ namespace SikumkumApp.ViewModels
             {
                 int userId = currentApp.CurrentUser.UserID;
                 //The Picker returns an integer of the person's choice, starting with 0. to get the correct ID for the chosen thing, I parsed the input and added +1. Neat.
-                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", "", "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", "", "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc, this.hasPdf, this.hasImage); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
 
                 
                 if (this.uploadSikumFile == null) //File creation didn't work.
@@ -400,27 +409,46 @@ namespace SikumkumApp.ViewModels
         private bool ValidateForm() //Validates that all credentials are correct.
         {
             //Work in progress.
-           // return (ValidateHeadline());
+            this.ShowUploadError = false; //Resets the upload error.
+            if( !this.hasPdf && !this.hasImage)
+            {
+                this.ShowUploadError = true;
+                this.UploadError = "אנא בחר קובץ להעלאה.";
+                return false;
+            }
+            return (ValidateHeadline());
+
             return true;
             
         }
-
-        private bool ValidateHeadline(string val)
+        private bool ValidateHeadline() //overload function for when used by submitting.
         {
-            if (val.Length > 32)
+            if (this.Headline.Length > 48)
             {
                 this.ShowHeadlineError = true;
-                this.HeadlineError = "אורך הכותרת עד 32 תווים";
+                this.HeadlineError = "אורך הכותרת עד 48 תווים";
+                return false;
+            }
+
+
+
+            this.ShowHeadlineError = false;
+            this.HeadlineError = "";
+            return true;
+        }
+        private bool ValidateHeadline(string val) //Overload for function for when user inputs headline.
+        {
+            if (val.Length > 48)
+            {
+                this.ShowHeadlineError = true;
+                this.HeadlineError = "אורך הכותרת עד 48 תווים";
                 return false;                
             }
 
-/*            if(Headline.Contains("/") || Headline.Contains("'") || Headline.Contains("*")) //Prevent sql injections, might not be necessary.
-            {
-                this.ShowHeadlineError = true;
-                this.HeadlineError = "אורך הכותרת עד 32 תווים";
-                return false;
-            }*/
 
+
+            this.ShowHeadlineError = false;
+            this.HeadlineError = "";
             return true;
         }
 

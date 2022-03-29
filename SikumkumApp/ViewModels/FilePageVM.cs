@@ -16,7 +16,7 @@ using SikumkumApp.Views;
 
 namespace SikumkumApp.ViewModels
 {
-    class FilePageVM
+    class FilePageVM : BaseVM
     {
         #region INotify
         public event PropertyChangedEventHandler PropertyChanged;

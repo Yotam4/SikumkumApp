@@ -10,10 +10,11 @@
             
             <Label Text="כותרת:"/>
             <Entry Placeholder="כותרת" Text="{Binding Headline}"/>
+            <Label Text="{Binding HeadlineError}" IsVisible="{Binding ShowHeadlineError}" Style="{StaticResource WarningsStyle}"/>
 
             <Label Text="תיאור"/>
             <Entry Placeholder="תיאור הקובץ" Text="{Binding TextDesc}"/>
-
+            
             <Label Text="נושא הקובץ "/>
             <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectChosen}"/>
 
