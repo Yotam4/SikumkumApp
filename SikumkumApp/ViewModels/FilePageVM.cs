@@ -30,7 +30,29 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
 
-        public SikumFile chosenFile { get; }
+        public SikumFile chosenFile { get; set; }
+
+        private string username { get; set; }
+        public string Username
+        {
+            get { return this.username; }
+            set
+            {
+                this.username = value;
+                this.OnPropertyChanged("Username");
+            }
+        }
+
+        private string headline { get; set; }
+        public string Headline
+        {
+            get { return this.headline; }
+            set
+            {
+                this.headline = value;
+                this.OnPropertyChanged("Headline");
+            }
+        }
         #endregion
 
         #region Constructor
