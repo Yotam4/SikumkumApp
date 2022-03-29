@@ -30,7 +30,8 @@
             
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding IsEmpty}" Style="{StaticResource WarningsStyle}" />
 
-            <CollectionView ItemsSource="{Binding Files}"  >
+
+            <CollectionView ItemsSource="{Binding Files}"   >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
