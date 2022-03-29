@@ -36,7 +36,14 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
-                        <Button Text="{Binding Headline}" CommandParameter="{Binding}" Command="{Binding Source={x:Reference OpenPage}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=Subjects}" />
+                        <Grid Padding="10">
+                            <Label Text="{Binding Username}" Grid.Row="0" Grid.Column="0" Style="{StaticResource Key=Headers}" />
+                            <Label Text="{Binding TypeName}" Grid.Row="0" Grid.Column="1" Style="{StaticResource Key=Headers}" />
+                            <Label Text="{Binding YearName}" Grid.Row="0" Grid.Column="2" Style="{StaticResource Key=Headers}" />
+                            <Button Text="{Binding Headline}" CommandParameter="{Binding}" Command="{Binding Source={x:Reference SubjectPageName}, Path=BindingContext.ClickedOnFile}" Style="{StaticResource Key=ButtonStyle}" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" />
+
+                        </Grid>
+
                     </DataTemplate>
 
                 </CollectionView.ItemTemplate>

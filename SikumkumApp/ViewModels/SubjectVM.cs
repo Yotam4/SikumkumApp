@@ -150,13 +150,13 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                if (!this.getSummary && !this.getPractice && !this.getEssay)
+                if (!this.GetSummary && !this.GetPractice && !this.GetEssay)
                 { //If user checked no boxes, lookup nothing.
                     return;
                 }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                this.listOfFiles = await API.GetSikumFiles(this.getSummary, this.getPractice, this.getEssay, this.currentSubject.SubjectName, (this.StudyYear + 1));
+                this.listOfFiles = await API.GetSikumFiles(this.GetSummary, this.GetEssay, this.GetPractice, this.currentSubject.SubjectName, (this.StudyYear + 1));
                 if (listOfFiles != null)
                 {
                     this.Files = new ObservableCollection<SikumFile>(listOfFiles); //Creates new list.

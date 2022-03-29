@@ -8,6 +8,8 @@ namespace SikumkumApp.Models
     {
         public string Username { get; set; }
         public int UserID { get; set; }
+        public string TypeName { get; set; }
+        public string YearName { get; set; }
         public int TypeID { get; set; }
         public int YearID { get; set; }
         public int SubjectID { get; set; }
@@ -17,13 +19,15 @@ namespace SikumkumApp.Models
 
         public SikumFile() { }
 
-        public SikumFile(int userID, string username, string headline, string url, int yearID, int typeID, int subjectID, string textDesc)
+        public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc)
         {
             this.UserID = userID;
             this.Username = username;
             this.Headline = headline;
             this.TextDesc = textDesc;
             this.Url = url;
+            this.TypeName = typeName;
+            this.YearName = yearName;
             this.YearID = yearID;
             this.TypeID = typeID;
             this.SubjectID = subjectID;

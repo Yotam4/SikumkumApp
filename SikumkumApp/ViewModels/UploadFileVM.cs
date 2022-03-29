@@ -344,7 +344,7 @@ namespace SikumkumApp.ViewModels
             {
                 int userId = currentApp.CurrentUser.UserID;
                 //The Picker returns an integer of the person's choice, starting with 0. to get the correct ID for the chosen thing, I parsed the input and added +1. Neat.
-                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", "", "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
 
                 
                 if (this.uploadSikumFile == null) //File creation didn't work.
