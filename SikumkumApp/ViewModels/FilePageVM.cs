@@ -30,7 +30,8 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
 
-        public SikumFile chosenFile { get; set; }
+        public SikumFile ChosenFile { get; set; }
+        public List<FileInfo> FileInfosList { get; set; } 
 
         private string username { get; set; }
         public string Username
@@ -58,11 +59,17 @@ namespace SikumkumApp.ViewModels
         #region Constructor
         public FilePageVM(SikumFile chosen)
         {
-            this.chosenFile = chosen;
+            this.ChosenFile = chosen;
         }
         #endregion
 
+        #region Commands
 
+        #endregion
+
+        #region Validations
+
+        #endregion
 
     }
 }
