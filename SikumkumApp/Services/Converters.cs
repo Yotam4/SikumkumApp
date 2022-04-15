@@ -11,8 +11,7 @@ using Xamarin.Forms;
 
 namespace SikumkumApp.Services
 {
-    public class Converters
-    {
+
         public class ImageSourceConverter : IValueConverter
         {
             static WebClient Client = new WebClient();
@@ -39,5 +38,5 @@ namespace SikumkumApp.Services
                 throw new NotImplementedException();
             }
         }
-    }
+    
 }
