@@ -1,17 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
+             xmlns:converter="clr-namespace:SikumkumApp.Services;assembly=SikumkumApp"
              x:Class="SikumkumApp.App">
     <Application.Resources>
-
-
-
         <ResourceDictionary>
-
-
-
-                <Style x:Key="ButtonStyle" TargetType="Button">
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+            <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="BorderWidth" Value="1.75"/>
                 <Setter Property="BorderColor" Value="#5F634F"/>
                 <Setter Property="BackgroundColor" Value="#CFEBDF"/>
