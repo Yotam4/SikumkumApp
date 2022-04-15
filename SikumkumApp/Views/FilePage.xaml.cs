@@ -20,6 +20,7 @@ namespace SikumkumApp.Views
         {
             this.sf = sf;
             this.fpVM = new FilePageVM(sf);
+            this.BindingContext = fpVM;
 
             InitializeComponent();
         }

@@ -31,7 +31,7 @@ namespace SikumkumApp.ViewModels
         #region Variables
 
         public SikumFile ChosenFile { get; set; }
-        public List<FileInfo> FileInfosList { get; set; } 
+        public List<string> s  { get; set; } 
 
         private string username { get; set; }
         public string Username
@@ -41,6 +41,16 @@ namespace SikumkumApp.ViewModels
             {
                 this.username = value;
                 this.OnPropertyChanged("Username");
+            }
+        }
+        private string fileTest { get; set; }
+        public string FileTest
+        {
+            get { return this.fileTest; }
+            set
+            {
+                this.fileTest = value;
+                this.OnPropertyChanged("FileTest");
             }
         }
 
@@ -54,17 +64,34 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Headline");
             }
         }
+
+        private List<string> fileBits { get; set; }
+        public List<string> FileBits
+        {
+            get { return this.fileBits; }
+            set
+            {
+                this.fileBits = value;
+                this.OnPropertyChanged("FileBits");
+            }
+        }
         #endregion
 
         #region Constructor
         public FilePageVM(SikumFile chosen)
         {
             this.ChosenFile = chosen;
+            this.Headline = chosen.Headline;
+            this.Username = chosen.Username;
+            this.FileTest = $"{API.baseUri}/imgs/{chosen.Url}1";
         }
         #endregion
 
         #region Commands
+        private void GetFilesOfSikum()
+        {
 
+        }
         #endregion
 
         #region Validations
