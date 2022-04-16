@@ -8,11 +8,18 @@
             <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
             <Label Text="{Binding Username}" Style="{x:StaticResource Headers}"/>
 
-            <Image Source="{Binding tryMaybe, Converter={StaticResource ImageSourceConverter}}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
 
-            <Image Source="Kapit.PNG" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+            <CollectionView ItemsSource="{Binding Sources}" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Image Source="{Binding source, Converter={StaticResource ImageSourceConverter}}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                    </DataTemplate>
 
-
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

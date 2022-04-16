@@ -43,16 +43,6 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Username");
             }
         }
-        private string fileTest { get; set; }
-        public string FileTest
-        {
-            get { return this.fileTest; }
-            set
-            {
-                this.fileTest = value;
-                this.OnPropertyChanged("FileTest");
-            }
-        }
 
         private string headline { get; set; }
         public string Headline
@@ -64,30 +54,37 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Headline");
             }
         }
-        public string tryMaybe { get; set; }
 
-        private List<string> fileBits { get; set; }
-        public List<string> FileBits
+
+
+        private ObservableCollection<ImgSrc> sources { get; set; }
+        public ObservableCollection<ImgSrc> Sources
         {
-            get { return this.fileBits; }
+            get { return this.sources; }
             set
             {
-                this.fileBits = value;
-                this.OnPropertyChanged("FileBits");
+                this.sources = value;
+                this.OnPropertyChanged("Sources");
             }
         }
+
         #endregion
 
         #region Constructor
         public FilePageVM(SikumFile chosen)
         {
-            this.ChosenFile = chosen;
+            this.ChosenFile = chosen; 
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
-            this.FileTest = $"{API.basePhotosUri}yotam-cool-1"; //Work in progress. Kos Amec.
-            this.tryMaybe = "http://127.0.0.1:60047/Images/yotam_newnew_1";
 
-            int a = 1;
+            this.Sources = new ObservableCollection<ImgSrc>();
+            for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all photo urls to thingy.
+            {
+                string source = $"{API.basePhotosUri}{chosen.Url}{i}.jpg"; //Current image source.
+                ImgSrc imgsrc = new ImgSrc(source);
+                this.Sources.Add(imgsrc);
+            }
+
         }
         #endregion
 
@@ -102,5 +99,18 @@ namespace SikumkumApp.ViewModels
 
         #endregion
 
+    }
+
+    public class ImgSrc //class for storing sources, needed for collectionview, it doesn't let me just do "Binding,"
+    {
+        public string source { get; set; }
+        public ImgSrc()
+        {
+
+        }
+        public ImgSrc(string source)
+        {
+            this.source = source; 
+        }
     }
 }
