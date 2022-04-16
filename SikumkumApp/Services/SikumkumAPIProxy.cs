@@ -22,13 +22,13 @@ namespace SikumkumApp.Services
         private const string DEV_ANDROID_EMULATOR_URL = "http://10.0.2.2:60047/SikumkumAPIController"; //API url when using emulator on android
         private const string DEV_ANDROID_PHYSICAL_URL = "http://192.168.1.14:60047/SikumkumAPIController"; //API url when using physucal device on android
         private const string DEV_WINDOWS_URL = "https://localhost:44390/SikumkumAPIController"; //API url when using windoes on development
-        private const string DEV_ANDROID_EMULATOR_PHOTOS_URL = "http://10.0.2.2:60047/Images/"; //API url when using emulator on android
+        private const string DEV_ANDROID_EMULATOR_PHOTOS_URL = "http://10.0.2.2:60047/images/"; //API url when using emulator on android
         private const string DEV_ANDROID_PHYSICAL_PHOTOS_URL = "http://192.168.1.14:60047/Images/"; //API url when using physucal device on android
         private const string DEV_WINDOWS_PHOTOS_URL = "https://localhost:44390/Images/"; //API url when using windoes on development
 
         private HttpClient client;
         public string baseUri;
-        private string basePhotosUri;
+        public string basePhotosUri;
         private static SikumkumAPIProxy proxy = null;
 
         public static SikumkumAPIProxy CreateProxy()
@@ -56,11 +56,12 @@ namespace SikumkumApp.Services
                     basePhotosUri = DEV_WINDOWS_PHOTOS_URL;
                 }
             }
-            else
+            else //Should not enter here when debugging, check with Ofer. Work in progress.
             {
                 baseUri = DEV_ANDROID_EMULATOR_URL; //Using android 
+                basePhotosUri = DEV_ANDROID_EMULATOR_PHOTOS_URL;
                 //baseUri = CLOUD_URL;
-                basePhotosUri = CLOUD_PHOTOS_URL;
+                //basePhotosUri = CLOUD_PHOTOS_URL;
             }
 
             if (proxy == null)

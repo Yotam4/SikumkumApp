@@ -8,9 +8,11 @@
             <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
             <Label Text="{Binding Username}" Style="{x:StaticResource Headers}"/>
 
+            <Image Source="{Binding tryMaybe, Converter={StaticResource ImageSourceConverter}}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
 
-                    
-                    
+            <Image Source="Kapit.PNG" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

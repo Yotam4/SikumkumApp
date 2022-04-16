@@ -64,6 +64,7 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Headline");
             }
         }
+        public string tryMaybe { get; set; }
 
         private List<string> fileBits { get; set; }
         public List<string> FileBits
@@ -83,7 +84,10 @@ namespace SikumkumApp.ViewModels
             this.ChosenFile = chosen;
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
-            this.FileTest = $"{API.baseUri}/imgs/{chosen.Url}1";
+            this.FileTest = $"{API.basePhotosUri}yotam-cool-1"; //Work in progress. Kos Amec.
+            this.tryMaybe = "http://127.0.0.1:60047/Images/yotam_newnew_1";
+
+            int a = 1;
         }
         #endregion
 

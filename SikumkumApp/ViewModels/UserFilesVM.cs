@@ -19,8 +19,16 @@ namespace SikumkumApp.ViewModels
     class UserFilesVM : BaseVM
     {
         #region Variables
-        public List<SikumFile> userFiles { get; set; }
-
+        private List<SikumFile> userFiles { get; set; }
+        public List<SikumFile> UserFiles
+        {
+            get => userFiles;
+            set
+            {
+                userFiles = value;
+                OnPropertyChanged("UserFiles");
+            }
+        }
         private string errorEmpty { get; set; }
         public string ErrorEmpty
         {
@@ -49,7 +57,7 @@ namespace SikumkumApp.ViewModels
         {
             this.ShowErrorEmpty = false;
 
-            this.userFiles = new List<SikumFile>();
+            this.UserFiles = new List<SikumFile>();
         }
         #endregion
 
@@ -58,9 +66,9 @@ namespace SikumkumApp.ViewModels
         {
             try 
             {
-                this.userFiles = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser);
+                this.UserFiles = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser);
 
-                if(this.userFiles == null)
+                if(this.UserFiles == null)
                 {
                     this.ShowErrorEmpty = true;
                     this.ErrorEmpty = "עוד לא העלת פריטים לסיקומקום.";
