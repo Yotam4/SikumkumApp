@@ -57,6 +57,21 @@
 
             </Style>
 
+            <Style x:Key="MessageButton" TargetType="Button">
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="TextColor" Value="#001219"/>
+                <Setter Property="BorderWidth" Value="1.3"/>
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="BorderColor" Value="#131112"/>
+                <Setter Property="BackgroundColor" Value="#A9ACA9"/> 
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontFamily"  Value="RubikRegular" />
+                <Setter Property="FontAttributes" Value="Italic"/>
+                <Setter Property="CornerRadius" Value= "4" />
+
+            </Style>
+
             <Style x:Key="AssuranceStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="LightGreen"/>
                 <Setter Property="Opacity" Value="90"/>

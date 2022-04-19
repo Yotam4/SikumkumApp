@@ -5,6 +5,14 @@
              x:Class="SikumkumApp.Views.FilePage">
     <ContentPage.Content>
         <StackLayout>
+
+
+            <Grid IsVisible="{Binding NeedApproval}" >
+                <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
+                <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteUploadCommand}" Grid.Row="0" Grid.Column="0"  />
+            </Grid>
+            
+            
             <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
             <Label Text="{Binding Username}" Style="{x:StaticResource Headers}"/>
 

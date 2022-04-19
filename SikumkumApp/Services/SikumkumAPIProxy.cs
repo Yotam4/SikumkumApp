@@ -346,5 +346,71 @@ namespace SikumkumApp.Services
                 return false;
             }
         }
+
+        public async Task<bool> TryAcceptUpload(SikumFile sikum)
+        {
+            try
+            {
+
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string sikumFileJson = JsonSerializer.Serialize<SikumFile>(sikum, options);
+                StringContent content = new StringContent(sikumFileJson, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/TryAcceptUpload", content);
+
+                if (response.IsSuccessStatusCode) //If sikumfile was sucessfully accepted.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<SikumFile>> GetPendingFiles()
+        {
+                try
+                {
+                    HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetPendingFiles");
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK) //Returned more than one file.
+                    {
+                        JsonSerializerOptions options = new JsonSerializerOptions
+                        {
+                            ReferenceHandler = ReferenceHandler.Preserve,
+                            Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                            PropertyNameCaseInsensitive = true
+                        };
+
+                        string content = await response.Content.ReadAsStringAsync();
+                        List<SikumFile> pendingFiles = JsonSerializer.Deserialize<List<SikumFile>>(content, options);
+                        return pendingFiles;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent) //No files were found.
+                    {
+                        return null;
+                    }
+
+                    return null;
+                }
+
+                catch (Exception e)
+                {
+                    string a = e.Message;
+                    return null;
+                }
+        }
     }
 }

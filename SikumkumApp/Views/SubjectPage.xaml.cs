@@ -15,13 +15,19 @@ namespace SikumkumApp.Views
     public partial class SubjectPage : ContentPage
     {
         private Subject chosenSubject;
+        private SubjectVM subjectvm;
         public SubjectPage(Subject chosenSub)
         {
             this.chosenSubject = chosenSub;
-            SubjectVM subjectVM = new SubjectVM(chosenSub);
-            this.BindingContext = subjectVM;
+            this.subjectvm = new SubjectVM(chosenSub);
+            this.BindingContext = subjectvm;
 
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            this.subjectvm.GetSikumFiles();
         }
     }
 }

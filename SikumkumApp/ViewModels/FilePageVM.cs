@@ -18,20 +18,11 @@ namespace SikumkumApp.ViewModels
 {
     class FilePageVM : BaseVM
     {
-        #region INotify
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
 
         #region Variables
 
         public SikumFile ChosenFile { get; set; }
-        public List<string> s  { get; set; } 
 
         private string username { get; set; }
         public string Username
@@ -54,7 +45,16 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("Headline");
             }
         }
-
+        private bool needApproval { get; set; }
+        public bool NeedApproval
+        {
+            get { return this.needApproval; }
+            set
+            {
+                this.needApproval = value;
+                this.OnPropertyChanged("NeedApproval");
+            }
+        }
 
 
         private ObservableCollection<ImgSrc> sources { get; set; }
@@ -76,9 +76,16 @@ namespace SikumkumApp.ViewModels
             this.ChosenFile = chosen; 
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
+            this.NeedApproval = false; //Set approval initially to false.
+
+            if(this.currentApp.CurrentUser != null && this.currentApp.CurrentUser.IsAdmin && !chosen.Approved) //If sikumfile needs approval, only admin can approve.
+            {
+                this.NeedApproval = true;
+            }
+
 
             this.Sources = new ObservableCollection<ImgSrc>();
-            for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all photo urls to thingy.
+            for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all imageSources urls to list.
             {
                 string source = $"{API.basePhotosUri}{chosen.Url}{i}.jpg"; //Current image source.
                 ImgSrc imgsrc = new ImgSrc(source);
@@ -89,9 +96,26 @@ namespace SikumkumApp.ViewModels
         #endregion
 
         #region Commands
-        private void GetFilesOfSikum()
+        public Command ConfirmUploadCommand => new Command(ConfirmUpload);
+        private async void ConfirmUpload()
         {
+            try
+            {
+                bool uploadAccepted = await API.TryAcceptUpload(this.ChosenFile);
+                if (uploadAccepted)
+                {
+                    this.NeedApproval = false;
+                    //Add Validation message. Work in progress.
+                }
+                else
+                {
+                    //Add error message.
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
         }
         #endregion
 

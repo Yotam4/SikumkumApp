@@ -146,7 +146,7 @@ namespace SikumkumApp.ViewModels
         }
 
         public Command SearchCommand => new Command(GetSikumFiles);
-        private async void GetSikumFiles() 
+        public async void GetSikumFiles() 
         {
             try
             {
