@@ -7,25 +7,23 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid ColumnSpacing="0" RowSpacing="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="12"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                </Grid.ColumnDefinitions>
 
-                <Label Text="תקופת לימוד" FontSize="12" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" HorizontalOptions="CenterAndExpand"/>
-                <Picker  ItemsSource="{Binding StudyYearList}" SelectedIndex ="{Binding StudyYear}" Grid.Column="0" Grid.RowSpan="2" Grid.Row="1" FontSize="12"  />
 
-                <Label Text="סיכומים" FontSize="12" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" IsEnabled="True" HorizontalOptions="Center" />
+                <Label Text="תקופת לימוד" FontSize="14" Style="{StaticResource Headers}" Grid.Column="0" Grid.Row="0" HorizontalOptions="CenterAndExpand"/>
+                <Picker  ItemsSource="{Binding StudyYearList}" SelectedIndex ="{Binding StudyYear}" Grid.Column="0" Grid.RowSpan="2" Grid.Row="1" FontSize="14"   />
+
+                <Label Text="סיכומים" FontSize="14" Style="{StaticResource Headers}" Grid.Column="1" Grid.Row="0" IsEnabled="True" HorizontalOptions="Center" />
                 <CheckBox IsChecked="{Binding GetSummary}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalOptions="Center"/>
 
-                <Label Text="תרגולים" FontSize="12" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
+                <Label Text="תרגולים" FontSize="14" Style="{StaticResource Headers}" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
                 <CheckBox IsChecked="{Binding GetPractice}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" HorizontalOptions="Center" />
 
-                <Label Text="מטלות" FontSize="12" Style="{StaticResource Headers}" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" />
+                <Label Text="מטלות" FontSize="14" Style="{StaticResource Headers}" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" />
                 <CheckBox IsChecked="{Binding GetEssay}" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" HorizontalOptions="Center" />
 
-                <Button Text="חפש"  Style="{StaticResource ButtonStyle}" FontSize="12" Grid.Column="4" Grid.Row="0" Grid.RowSpan="2"  Command="{Binding SearchCommand}" CornerRadius="6"/>
+                <Entry Text="{Binding HeadlineSearch}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Placeholder="חיפוש לפי כותרת" FontSize="14" Grid.RowSpan="2" VerticalOptions="EndAndExpand"/>
+
+                <Button Text="חפש"  Style="{StaticResource ButtonStyle}" FontSize="15" Grid.Column="4" Grid.Row="0" Grid.RowSpan="2"  Command="{Binding SearchCommand}" CornerRadius="6"/>
             </Grid>
             
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding IsEmpty}" Style="{StaticResource WarningsStyle}" />

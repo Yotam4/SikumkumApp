@@ -89,6 +89,17 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private string headlineSearch { get; set; }
+        public string HeadlineSearch
+        {
+            get { return this.headlineSearch; }
+            set
+            {
+                this.headlineSearch = value;
+                this.OnPropertyChanged("HeadlineSearch");
+            }
+        }
+
         //Errors
         private bool isEmpty { get; set; }
         public bool IsEmpty
@@ -124,6 +135,7 @@ namespace SikumkumApp.ViewModels
             this.GetSummary = true; //Only lookup summaries when page gets opened.
             this.GetEssay = false;
             this.GetPractice = false;
+            this.HeadlineSearch = "";
 
             this.StudyYearList = new List<string>();
             foreach(StudyYear year in currentApp.OpeningObj.StudyYearList)
@@ -156,7 +168,7 @@ namespace SikumkumApp.ViewModels
                 }
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
-                this.listOfFiles = await API.GetSikumFiles(this.GetSummary, this.GetEssay, this.GetPractice, this.currentSubject.SubjectName, (this.StudyYear + 1));
+                this.listOfFiles = await API.GetSikumFiles(this.GetSummary, this.GetEssay, this.GetPractice, this.currentSubject.SubjectName, (this.StudyYear + 1), HeadlineSearch);
                 if (listOfFiles != null)
                 {
                     this.Files = new ObservableCollection<SikumFile>(listOfFiles); //Creates new list.
