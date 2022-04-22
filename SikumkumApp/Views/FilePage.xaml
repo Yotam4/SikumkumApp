@@ -9,15 +9,16 @@
 
             <Grid IsVisible="{Binding NeedApproval}" >
                 <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
-                <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteUploadCommand}" Grid.Row="0" Grid.Column="0"  />
+                <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
             </Grid>
-            
-            
+
+            <Button Text="Delete" Command="{Binding DeleteCommand}" Style="{StaticResource ButtonStyle}"/>
             <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
             <Label Text="{Binding Username}" Style="{x:StaticResource Headers}"/>
+            <Label Text="{Binding ChosenFile.TextDesc}" FontSize="16" FontFamily="Arial" /> 
 
 
-            <CollectionView ItemsSource="{Binding Sources}" >
+            <CollectionView ItemsSource="{Binding Sources}"  >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" />
                 </CollectionView.ItemsLayout>

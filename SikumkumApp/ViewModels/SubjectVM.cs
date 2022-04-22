@@ -144,7 +144,6 @@ namespace SikumkumApp.ViewModels
             }
             this.StudyYear = 2;
 
-            GetSikumFiles();
         }
 
         #endregion

@@ -85,11 +85,19 @@ namespace SikumkumApp.ViewModels
 
 
             this.Sources = new ObservableCollection<ImgSrc>();
-            for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all imageSources urls to list.
+            if (this.ChosenFile.HasImage) //If sikum contains images, add them to the collection.
             {
-                string source = $"{API.basePhotosUri}{chosen.Url}{i}.jpg"; //Current image source.
-                ImgSrc imgsrc = new ImgSrc(source);
-                this.Sources.Add(imgsrc);
+                for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all imageSources urls to list.
+                {
+                    string source = $"{API.basePhotosUri}{chosen.Url}{i}.jpg"; //Current image source.
+                    ImgSrc imgsrc = new ImgSrc(source);
+                    this.Sources.Add(imgsrc);
+                }
+            }
+
+            if (this.ChosenFile.HasPdf) //If sikum contain pdf files, work with them.
+            {
+                //Work in progress.
             }
 
         }
@@ -105,6 +113,28 @@ namespace SikumkumApp.ViewModels
                 if (uploadAccepted)
                 {
                     this.NeedApproval = false;
+                    //Add Validation message. Work in progress.
+                }
+                else
+                {
+                    //Add error message.
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public Command DeleteCommand => new Command(DeleteSikum);
+        private async void DeleteSikum()
+        {
+            try
+            {
+                bool sikumDeleted = await API.TryDeleteSikum(this.ChosenFile);
+                if (sikumDeleted)
+                {
+                    await this.currentApp.MainPage.Navigation.PopAsync();
                     //Add Validation message. Work in progress.
                 }
                 else

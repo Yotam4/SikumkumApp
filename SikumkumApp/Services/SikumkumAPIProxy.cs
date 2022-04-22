@@ -412,5 +412,38 @@ namespace SikumkumApp.Services
                     return null;
                 }
         }
+
+        public async Task<bool> TryDeleteSikum(SikumFile sikum)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string jsonUser = JsonSerializer.Serialize<SikumFile>(sikum, options);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/DeleteSikumFile", content);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully signed up.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

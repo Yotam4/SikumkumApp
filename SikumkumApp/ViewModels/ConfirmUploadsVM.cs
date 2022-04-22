@@ -57,7 +57,7 @@ namespace SikumkumApp.ViewModels
         #region Constructor
         public ConfirmUploadsVM()
         {
-            GetPendingFiles();
+
         }
         #endregion
 
@@ -68,7 +68,11 @@ namespace SikumkumApp.ViewModels
             {
 
                 List<SikumFile> files = await API.GetPendingFiles();
-                this.PendingFiles = new ObservableCollection<SikumFile>(files);
+                this.PendingFiles = new ObservableCollection<SikumFile>();
+                foreach (SikumFile file in files)
+                {
+                    this.PendingFiles.Add(file);
+                }
 
                 if (PendingFiles == null) //If empty.
                 {
