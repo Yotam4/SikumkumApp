@@ -1,19 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             FlowDirection="RightToLeft"
-             x:Class="SikumkumApp.Views.FilePage">
+             x:Class="SikumkumApp.Views.DisplayImages">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout >
 
-
-            <Grid IsVisible="{Binding NeedApproval}" >
-                <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
-                <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
-            </Grid>
-
-            <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
-            <Label Text="{Binding ChosenFile.TextDesc}" FontSize="14" Style="{x:StaticResource LongText}"  />
             <CollectionView ItemsSource="{Binding Sources}"  >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"  />
@@ -36,8 +27,8 @@
 
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="{Binding SikumBy}" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}" />
 
+            <Button Text="יציאה" Command="{Binding ExitPageCommand}" Style="{StaticResource ButtonStyle}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

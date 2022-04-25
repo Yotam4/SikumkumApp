@@ -23,7 +23,7 @@ namespace SikumkumApp.ViewModels
         #region Variables
 
         public SikumFile ChosenFile { get; set; }
-
+        public string SikumBy { get; set; }
         private string username { get; set; }
         public string Username
         {
@@ -57,8 +57,8 @@ namespace SikumkumApp.ViewModels
         }
 
 
-        private ObservableCollection<ImgSrc> sources { get; set; }
-        public ObservableCollection<ImgSrc> Sources
+        private List<ImgSrc> sources { get; set; }
+        public List<ImgSrc> Sources
         {
             get { return this.sources; }
             set
@@ -77,6 +77,7 @@ namespace SikumkumApp.ViewModels
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
             this.NeedApproval = false; //Set approval initially to false.
+            this.SikumBy = "העלאה של " + chosen.Username;
 
             if(this.currentApp.CurrentUser != null && this.currentApp.CurrentUser.IsAdmin && !chosen.Approved) //If sikumfile needs approval, only admin can approve.
             {
@@ -84,7 +85,7 @@ namespace SikumkumApp.ViewModels
             }
 
 
-            this.Sources = new ObservableCollection<ImgSrc>();
+            this.Sources = new List<ImgSrc>();
             if (this.ChosenFile.HasImage) //If sikum contains images, add them to the collection.
             {
                 for (int i = 1; i <= chosen.NumOfFiles; i++) //Adds all imageSources urls to list.
@@ -125,7 +126,12 @@ namespace SikumkumApp.ViewModels
 
             }
         }
-
+        public Command UploadedUserCommand => new Command(UploadedUser);
+        private async void UploadedUser()
+        {
+            //Work in progress.
+        }
+        
         public Command DeleteCommand => new Command(DeleteSikum);
         private async void DeleteSikum()
         {
@@ -146,6 +152,15 @@ namespace SikumkumApp.ViewModels
             {
 
             }
+        }
+
+        public Command DisplayImagesCommand => new Command(DisplayImages);
+        private async void DisplayImages()
+        {
+            DisplayImages displayImgs = new DisplayImages(this.Sources);
+            displayImgs.WidthRequest = 300;
+            displayImgs.HeightRequest = 300;
+            await this.currentApp.MainPage.Navigation.PushModalAsync(displayImgs);
         }
         #endregion
 

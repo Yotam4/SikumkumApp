@@ -143,7 +143,8 @@ namespace SikumkumApp.ViewModels
             {
 
                 if (!ValidateInput() ) //Stops function if input was incorrect.           
-                    return;                
+                    return;
+
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();                
                 if (await API.TryChangePassword(this.currentApp.CurrentUser, this.NewPassword))

@@ -19,7 +19,7 @@
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" />
             <Label Text="{Binding PasswordError}"/>
 
-            <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Command="{Binding ChangePassCommand}" />
+            <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" />
 
             <Button Text="העלה קובץ" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" />
 

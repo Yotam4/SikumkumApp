@@ -42,6 +42,19 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextDecorations" Value="Underline"/>
             </Style>
+            
+            <Style x:Key="DisplayUsername" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontFamily"  Value="Arial" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            
+            <Style x:Key="LongText" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily"  Value="Arial" />
+            </Style>
 
             <Style x:Key="Subjects" TargetType="Button">
                 <Setter Property="HeightRequest" Value="50" />
