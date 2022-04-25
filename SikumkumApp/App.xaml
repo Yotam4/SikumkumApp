@@ -27,14 +27,24 @@
                 <Setter Property="FontFamily" Value="MiriamLibre"/>
                 <Setter Property="CornerRadius" Value= "6" />
             </Style>
-            
+
+            <Style x:Key="UploadButtonsStyle" TargetType="Button">
+                <Setter Property="BorderWidth" Value="1.2"/>
+                <Setter Property="BackgroundColor" Value="#E7BBE3"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="WidthRequest" Value="200"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="FontFamily" Value="MiriamLibre"/>
+                <Setter Property="CornerRadius" Value= "6" />
+            </Style>
+
             <Style x:Key="WarningsStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="IndianRed"/>
                 <Setter Property="Opacity" Value="90"/>
                 <Setter Property="FontFamily" Value="Helvetica"/>
                 <Setter Property="FontAttributes" Value="Italic"/>
             </Style>
-
+            
             <Style x:Key="Headers" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="16" />

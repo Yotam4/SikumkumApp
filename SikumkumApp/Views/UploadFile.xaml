@@ -26,11 +26,18 @@
 
 
 
-            <Button Text="בחר תמונות" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
-            <Button Text="בחר קובץ PDF" HorizontalOptions="Center" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickPDFCommand}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Button Text="בחר תמונות"  Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}" Style="{StaticResource UploadButtonsStyle}" />
+                <Button Text="בחר קובץ PDF" Grid.Column="1" Grid.Row="0" Command="{Binding PickPDFCommand}" Style="{StaticResource UploadButtonsStyle}"/>
+                <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" HeightRequest="80"/>
+
+            </Grid>
 
 
-            <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+
             <Label Text="{Binding UploadError}" IsVisible="{Binding ShowUploadError}" Style="{StaticResource WarningsStyle}"/>
 
         </StackLayout>
