@@ -28,7 +28,7 @@
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Button Text="בחר תמונות"  Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}" Style="{StaticResource UploadButtonsStyle}" />
                 <Button Text="בחר קובץ PDF" Grid.Column="1" Grid.Row="0" Command="{Binding PickPDFCommand}" Style="{StaticResource UploadButtonsStyle}"/>

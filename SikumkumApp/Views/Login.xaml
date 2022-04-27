@@ -20,11 +20,11 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="הכנס שם משתמש:" TextDecorations="Underline"/>
+            <Label Text="שם משתמש:" TextDecorations="Underline"/>
             <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource WarningsStyle}"/>
             <Entry Placeholder="שם משתמש" Text="{Binding Username}"/>
 
-            <Label Text="הכנס סיסמה:" TextDecorations="Underline"/>
+            <Label Text="סיסמה:" TextDecorations="Underline"/>
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
             <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
 
