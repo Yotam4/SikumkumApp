@@ -23,10 +23,9 @@
             <Label Text="{Binding PasswordError}"/>
             
             <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" VerticalOptions="End" />
-            <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="60"  />
+            <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60"  />
 
-
-            <Button Text="העלה קובץ" Margin="0, 270, 0, 0" FontSize="18" FontFamily="Times Roman" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" VerticalOptions="End" Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HeightRequest="60" CornerRadius="0" BackgroundColor="#9be1e8" />
+            <Button Text="העלה קובץ" Margin="0, 200, 0, 0" FontSize="18" FontFamily="Times Roman" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" VerticalOptions="End" HeightRequest="60" CornerRadius="0" BackgroundColor="#9be1e8" />
 
 
         </StackLayout>

@@ -33,7 +33,7 @@
                 <Button Text="להתחברות" Style="{StaticResource ButtonStyle}" Grid.Column="0" Command="{Binding ClickedOnLogin}" />
                 <Button Text="להרשמה" Style="{StaticResource ButtonStyle}" Grid.Column="1" Command="{Binding ClickedOnSignUp}" />
             </Grid>
-            <Button Text="לדף המשתמש" Style="{StaticResource ButtonStyle}" Command="{Binding ToUserPageCommand}" IsVisible="{Binding IsLoggedIn}" CornerRadius="8" />
+            <Button Text="לדף המשתמש" Style="{StaticResource ButtonStyle}" Command="{Binding ToUserPageCommand}" IsVisible="{Binding IsLoggedIn}" CornerRadius="4"/>
 
         </StackLayout>
         

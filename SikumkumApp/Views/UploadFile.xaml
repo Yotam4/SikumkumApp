@@ -18,7 +18,7 @@
             <Label Text="נושא הקובץ "/>
             <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectChosen}"/>
 
-            <Label Text="סוג קובץ"/>
+            <Label Text="סוג ההעלאה"/>
             <Picker ItemsSource="{Binding typeNamesList}" SelectedIndex ="{Binding TypeChosen}"/>
 
             <Label Text="מיועד ל - "/>
@@ -26,15 +26,16 @@
 
 
 
-            <Grid>
+            <Grid HeightRequest="100" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Button Text="בחר תמונות"  Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}" Style="{StaticResource UploadButtonsStyle}" />
-                <Button Text="בחר קובץ PDF" Grid.Column="1" Grid.Row="0" Command="{Binding PickPDFCommand}" Style="{StaticResource UploadButtonsStyle}"/>
-                <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" HeightRequest="80"/>
+                <Label Text="סוג הקובץ:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="16" />
+                <ImageButton Source="imageicon.png" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickImageCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center"  />
+                <ImageButton Source="pdficon.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center" />
 
             </Grid>
+            <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black"  HeightRequest="60" Margin="0,40,0,0"/>
 
 
 
