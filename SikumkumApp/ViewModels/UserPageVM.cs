@@ -193,7 +193,7 @@ namespace SikumkumApp.ViewModels
             if (this.NewPassword == this.currentApp.CurrentUser.Password) //User's new password matches his current one.
             {
                 this.ShowPasswordError = true;
-                this.PasswordError = "אנא הכנס סיסמה חדשה שונה";
+                this.PasswordError = "אנא הכנס סיסמה חדשה שונה.";
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace SikumkumApp.ViewModels
             if (this.NewPassword != this.NewConfirm) //Check that the new passwords match.
             {
                 this.ShowPasswordError = true;
-                this.PasswordError = "הסיסמאות לא מתאימות.";
+                this.PasswordError = "הסיסמאות לא תואמות.";
                 return false;
             }
             if (!ValidatePassword()) //Validates the characters in the password.

@@ -16,7 +16,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
-                        <Button Text="{Binding SubjectName}" CommandParameter="{Binding}" Command="{Binding Source={x:Reference OpenPage}, Path=BindingContext.ClickedOnSubject}" Style="{StaticResource Key=Subjects}" />
+                        <Button Text="{Binding SubjectName}" CommandParameter="{Binding}" Command="{Binding Source={x:Reference OpenPage}, Path=BindingContext.ClickedOnSubject}" Style="{StaticResource Key=Subjects}" FontFamily="Calibri" />
                     </DataTemplate>
                     
                 </CollectionView.ItemTemplate>

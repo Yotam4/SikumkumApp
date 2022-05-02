@@ -20,8 +20,7 @@
             <Entry IsPassword="True" Text="{Binding NewConfirm}" Placeholder="אשר סיסמה"/>
 
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" />
-            <Label Text="{Binding PasswordError}"/>
-            
+             
             <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" VerticalOptions="End" />
             <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60"  />
 

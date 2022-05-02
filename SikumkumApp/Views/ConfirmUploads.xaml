@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SikumkumApp.Views.ConfirmUploads"
              FlowDirection="RightToLeft"
-             x:Name="ConfirmPage">
+             x:Name="ConfirmPage"
+             Title="אישור קבצים"
+             >
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="קבצים לאישור" Style="{StaticResource Headers}" HorizontalOptions="CenterAndExpand" FontSize="20" Margin="0,2,0,0" TextDecorations="None"/>
+            <Label Text="                                                                                                                                                                   " TextDecorations="Underline" />
             <CollectionView ItemsSource="{Binding PendingFiles}"   >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10"/>
