@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SikumkumApp.Views.LoadingPage">
+             x:Class="SikumkumApp.Views.LoadingPage"
+             FlowDirection="RightToLeft">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Loading Sikumkum..."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="White">
+
+            
+            <Image Source="logoFull.png" VerticalOptions="Start" WidthRequest="400" HeightRequest="400" Margin="15,0,0,0"
+                HorizontalOptions="Center"/>
+
+            <Label Text="הקומקום מתחמם..." FontSize="18" Margin="0,140,0,0" Style="{StaticResource Headers}" TextDecorations="None"
+                VerticalOptions="Start" 
+                HorizontalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
