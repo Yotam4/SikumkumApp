@@ -7,6 +7,8 @@
         <StackLayout>
 
 
+
+            
             <Grid IsVisible="{Binding NeedApproval}" >
                 <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
                 <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
@@ -36,6 +38,20 @@
 
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Grid>
+                <Grid.RowDefinitions>
+
+                </Grid.RowDefinitions>
+
+                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="0" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="1" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="2" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="3" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="4" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+
+            </Grid>
+
             <Button Text="{Binding SikumBy}" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}" />
 
         </StackLayout>
