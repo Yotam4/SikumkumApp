@@ -39,18 +39,28 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Grid>
-                <Grid.RowDefinitions>
+            <CollectionView ItemsSource="{Binding StarColors}"  >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Horizontal" VerticalItemSpacing="5"  />
+                </CollectionView.ItemsLayout>
 
-                </Grid.RowDefinitions>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height ="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*" />
+                            </Grid.ColumnDefinitions>
 
-                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="0" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
-                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="1" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
-                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="2" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
-                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="3" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
-                <ImageButton Source="starTranspColor.png" Grid.Row="0" Grid.Column="4" WidthRequest="45" HeightRequest="45" BackgroundColor="#0000" />
+                            <ImageButton Source="{Binding}" Command="{Binding RateCommand}" CommandParameter="{Binding}"/>
 
-            </Grid>
+                        </Grid>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button Text="{Binding SikumBy}" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}" />
 

@@ -31,7 +31,11 @@ namespace SikumkumApp.ViewModels
         #endregion
         #region Variables
         public string Username { get; set; }
+        private const string STAR_EMPTY  = "StarTransp.png";
+        private const string STAR_COLOR = "starTranspColor.png";
+
         private App currentApp { get; set; }
+
 
         private string newPassword { get; set; } //User's new password to set.
         public string NewPassword
@@ -65,8 +69,64 @@ namespace SikumkumApp.ViewModels
                 OnPropertyChanged("NewConfirm");
             }
         }
+        #region StarImages
+        //Sets all star colors recursiouvly (sorta), cool beans.
+        private string starImageOne { get; set; } //User's new password to set.
+        public string StarImageOne
+        {
+            get => starImageOne;
+            set
+            {
+                starImageOne = value;
+                OnPropertyChanged("StarImageOne");
+            }
+        }
+        private string starImageTwo { get; set; } //User's new password to set.
+        public string StarImageTwo
+        {
+            get => starImageTwo;
+            set
+            {
+                StarImageOne = value;
+                starImageTwo = value;
+                OnPropertyChanged("StarImageTwo");
+            }
+        }
+        private string starImageThree { get; set; } //User's new password to set.
+        public string StarImageThree
+        {
+            get => starImageThree;
+            set
+            {
+                StarImageTwo = value;
+                starImageThree = value;
+                OnPropertyChanged("StarImageThree");
+            }
+        }
+        private string starImageFour { get; set; } //User's new password to set.
+        public string StarImageFour
+        {
+            get => starImageFour;
+            set
+            {
+                StarImageThree = value;
+                starImageFour = value;
+                OnPropertyChanged("StarImageFour");
+            }
+        }
+        private string starImageFive { get; set; } //User's new password to set.
+        public string StarImageFive
+        {
+            get => starImageFour;
+            set
+            {
+                StarImageFour = value;
+                starImageFive = value;
+                OnPropertyChanged("StarImageFive");
+            }
+        }
 
-
+        #endregion
         private string passwordError { get; set; } //User's new password to set.
         public string PasswordError
         {
@@ -133,6 +193,8 @@ namespace SikumkumApp.ViewModels
             this.ShowPasswordChanged = false;
             this.ShowPasswordError = false;
             this.IsAdmin = false;
+
+
         }
         #endregion
         #region Commands
@@ -181,6 +243,12 @@ namespace SikumkumApp.ViewModels
         {
             ConfirmUploads cu = new ConfirmUploads();
             App.Current.MainPage.Navigation.PushAsync(cu);
+        }
+
+        public Command RateCommand => new Command<string>(RateSikum); //Work in progress.
+        private void RateSikum(string wgat)
+        {
+
         }
         #endregion
 
