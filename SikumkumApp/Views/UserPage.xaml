@@ -23,6 +23,8 @@
              
             <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" VerticalOptions="End" />
             <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60"  />
+            <Button Text="מסך קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUserFilesCommand}" HeightRequest="60"  />
+
 
             <Button Text="העלה קובץ" Margin="0, 200, 0, 0" FontSize="18" FontFamily="Times Roman" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" VerticalOptions="End" HeightRequest="60" CornerRadius="0" BackgroundColor="#9be1e8" />
 

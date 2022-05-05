@@ -208,11 +208,11 @@ namespace SikumkumApp.Services
             }
         }
 
-        public async Task<List<SikumFile>> GetUserSikumFiles(User u)
+        public async Task<List<SikumFile>> GetUserSikumFiles(User u, int isAppr)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUserFiles?username={u.UserID}");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUserFiles?userID={u.UserID}&isApproved={isAppr}");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) 
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions

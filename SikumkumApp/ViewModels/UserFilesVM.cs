@@ -19,14 +19,24 @@ namespace SikumkumApp.ViewModels
     class UserFilesVM : BaseVM
     {
         #region Variables
-        private List<SikumFile> userFiles { get; set; }
-        public List<SikumFile> UserFiles
+        private ObservableCollection<SikumFile> userFiles { get; set; }
+        public ObservableCollection<SikumFile> UserFiles
         {
             get => userFiles;
             set
             {
                 userFiles = value;
                 OnPropertyChanged("UserFiles");
+            }
+        }
+        private int numApproved { get; set; }
+        public int NumApproved
+        {
+            get => numApproved;
+            set
+            {
+                numApproved = value;
+                OnPropertyChanged("NumApproved");
             }
         }
         private string errorEmpty { get; set; }
@@ -57,7 +67,10 @@ namespace SikumkumApp.ViewModels
         {
             this.ShowErrorEmpty = false;
 
-            this.UserFiles = new List<SikumFile>();
+            this.UserFiles = new ObservableCollection<SikumFile>();
+            this.NumApproved = 1; //Sets the opening's num to retrieve files that were approved.
+
+            SetUserFiles();
         }
         #endregion
 
@@ -66,14 +79,15 @@ namespace SikumkumApp.ViewModels
         {
             try 
             {
-                this.UserFiles = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser);
-
-                if(this.UserFiles == null)
+                List<SikumFile> sikumList = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser, this.NumApproved);
+                if (sikumList == null || sikumList.Count <= 0)
                 {
                     this.ShowErrorEmpty = true;
                     this.ErrorEmpty = "עוד לא העלת פריטים לסיקומקום.";
                     return;
                 }
+
+                this.UserFiles = new ObservableCollection<SikumFile>(sikumList);
             }
 
             catch
@@ -82,10 +96,11 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        public Command OpenSikumFilesCommand => new Command(OpenSikumFile);
-        private void OpenSikumFile()
+        public Command OpenSikumFilesCommand => new Command<SikumFile>(OpenSikumFile);
+        private void OpenSikumFile(SikumFile sikum)
         {
-            //Work in progress.
+            FilePage fp = new FilePage(sikum);
+            App.Current.MainPage.Navigation.PushAsync(fp);
         }
 
         public Command DeleteSikumFilesCommand => new Command(DeleteSikumFile);

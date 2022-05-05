@@ -230,12 +230,19 @@ namespace SikumkumApp.ViewModels
                 this.PasswordError = e.Message;
             }
         }
-
+        
         public Command GoToUploadFileCommand => new Command(UploadFileFunc);
         private void UploadFileFunc()
         {
             UploadFile uf = new UploadFile();
             App.Current.MainPage.Navigation.PushAsync(uf);
+        }
+
+        public Command GoToUserFilesCommand => new Command(GoToUserFiles);
+        private void GoToUserFiles()
+        {
+            UserFiles userFilesPage = new UserFiles();
+            App.Current.MainPage.Navigation.PushAsync(userFilesPage);
         }
 
         public Command GoToConfirmUploadsCommand => new Command(GoToConfirmUploads);
