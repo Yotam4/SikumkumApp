@@ -114,6 +114,39 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<bool> LogoutAsync(User loggingOut)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string jsonUser = JsonSerializer.Serialize<User>(loggingOut, options);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/Logout", content);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully logged out up.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> SignUpAsync(User signingUp)
         {
             try

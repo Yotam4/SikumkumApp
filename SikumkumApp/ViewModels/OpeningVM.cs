@@ -17,7 +17,7 @@ using SikumkumApp.Views;
 
 namespace SikumkumApp.ViewModels
 {
-    class OpeningVM : INotifyPropertyChanged
+    class OpeningVM : BaseVM 
     {
 
 #region Variables
@@ -47,20 +47,12 @@ namespace SikumkumApp.ViewModels
         #endregion
         public OpeningVM()
         {
-            App currentApp = (App)App.Current;
-            this.subjectsCollec = new ObservableCollection<Subject>(currentApp.OpeningObj.SubjectsList);
+            this.subjectsCollec = new ObservableCollection<Subject>(this.currentApp.OpeningObj.SubjectsList);
             this.CanLogIn = true;
             this.IsLoggedIn = false;
         }
 
-        #region INotify
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
 
 
@@ -93,6 +85,26 @@ namespace SikumkumApp.ViewModels
         {
             SubjectPage subjectPage = new SubjectPage(chosen);
             App.Current.MainPage.Navigation.PushAsync(subjectPage); 
+        }
+
+        public Command ClickedOnLogout => new Command(Logout);
+        private async void Logout()
+        {
+            try
+            {
+                bool loggedOut = await API.LogoutAsync(this.currentApp.CurrentUser);
+                if (!loggedOut) //User didn't log out.
+                    return;
+
+                this.currentApp.CurrentUser = null;
+                this.CanLogIn = true;
+                this.IsLoggedIn = false;
+            }
+
+            catch
+            {
+
+            }
         }
 
         #endregion

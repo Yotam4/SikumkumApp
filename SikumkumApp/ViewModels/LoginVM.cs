@@ -150,10 +150,6 @@ namespace SikumkumApp.ViewModels
                     currentApp.CurrentUser = loggingUser;
 
                     await App.Current.MainPage.Navigation.PopAsync(); //Maybe add screen that says sucessfully Logged in. Work in progress.
-
-                    //UserPage up = new UserPage();
-                    //App.Current.MainPage.Navigation.PushAsync(up);
-
                 }
                 else
                 {

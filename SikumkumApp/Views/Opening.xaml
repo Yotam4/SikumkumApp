@@ -9,6 +9,7 @@
         <StackLayout Margin="10">
 
             <Label Text="בחר מקצוע:" HorizontalOptions="Center" Style="{StaticResource Key=Headers}" FontSize="21" />
+            <Button Text="התנתקות" Style="{StaticResource ButtonStyle}" Command="{Binding ClickedOnLogout}"  IsVisible="{Binding IsLoggedIn}" />
 
             <CollectionView ItemsSource="{Binding subjectsCollec}" >
                 <CollectionView.ItemsLayout>
@@ -34,7 +35,7 @@
                 <Button Text="להרשמה" Style="{StaticResource ButtonStyle}" Grid.Column="1" Command="{Binding ClickedOnSignUp}" />
             </Grid>
             <Button Text="לדף המשתמש" Style="{StaticResource ButtonStyle}" Command="{Binding ToUserPageCommand}" IsVisible="{Binding IsLoggedIn}" CornerRadius="4"/>
-
+            
         </StackLayout>
         
     </ContentPage.Content>
