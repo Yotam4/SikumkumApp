@@ -19,6 +19,8 @@ namespace SikumkumApp.ViewModels
     class UserFilesVM : BaseVM
     {
         #region Variables
+        const string APPROVED_NAME = "סיכומים מאושרים";
+        const string DISAPPROVED_NAME = "סיכומים לא מאושרים או דחויים";
         private ObservableCollection<SikumFile> userFiles { get; set; }
         public ObservableCollection<SikumFile> UserFiles
         {
@@ -37,6 +39,17 @@ namespace SikumkumApp.ViewModels
             {
                 numApproved = value;
                 OnPropertyChanged("NumApproved");
+            }
+        }
+
+        private string sikumGetName { get; set; }
+        public string SikumGetName
+        {
+            get => sikumGetName;
+            set
+            {
+                sikumGetName = value;
+                OnPropertyChanged("SikumGetName");
             }
         }
         private string errorEmpty { get; set; }
@@ -69,6 +82,7 @@ namespace SikumkumApp.ViewModels
 
             this.UserFiles = new ObservableCollection<SikumFile>();
             this.NumApproved = 1; //Sets the opening's num to retrieve files that were approved.
+            this.SikumGetName = DISAPPROVED_NAME;
 
             SetUserFiles();
         }
@@ -83,7 +97,7 @@ namespace SikumkumApp.ViewModels
                 if (sikumList == null || sikumList.Count <= 0)
                 {
                     this.ShowErrorEmpty = true;
-                    this.ErrorEmpty = "עוד לא העלת פריטים לסיקומקום.";
+                    this.ErrorEmpty = "אין לך פריטים מסוג זה.";
                     return;
                 }
 
@@ -103,11 +117,47 @@ namespace SikumkumApp.ViewModels
             App.Current.MainPage.Navigation.PushAsync(fp);
         }
 
+        public Command ChangeApprovedCommand => new Command<SikumFile>(ChangeApproved);
+        private async void ChangeApproved(SikumFile sikum) //Changes type to be approved or non approved.
+        {
+            try
+            {
+                if (this.NumApproved == 0) //Currently displays Disapproved
+                {
+                    this.NumApproved = 1;
+                    this.SikumGetName = APPROVED_NAME;
+                }
+                else if (this.NumApproved == 1) //Currently displays Approved
+                {
+                    this.NumApproved = 0;
+                    this.SikumGetName = DISAPPROVED_NAME;
+                }
+
+                List<SikumFile> sikumList = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser, this.NumApproved);
+
+                if (sikumList == null || sikumList.Count <= 0)
+                {
+                    this.ShowErrorEmpty = true;
+                    this.ErrorEmpty = "אין לך פריטים מסוג זה.";
+                    return;
+                }
+                this.UserFiles = new ObservableCollection<SikumFile>(sikumList);
+            }
+
+            catch
+            {
+
+            }
+        }
+
         public Command DeleteSikumFilesCommand => new Command(DeleteSikumFile);
         private void DeleteSikumFile()
         {
             //Work in progress.
         }
+        #endregion
+
+        #region Validations
         #endregion
     }
 }

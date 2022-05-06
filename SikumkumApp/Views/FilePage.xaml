@@ -9,7 +9,10 @@
 
 
             
-            <Grid IsVisible="{Binding NeedApproval}" >
+            <Grid IsVisible="{Binding NeedApproval}"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
                 <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
                 <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
             </Grid>
