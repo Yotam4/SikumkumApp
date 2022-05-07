@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SikumkumApp.Models;
 using SikumkumApp.ViewModels;
+using SikumkumApp.Services;
+using Xamarin.Essentials;
 
 namespace SikumkumApp.Views
 {
@@ -24,6 +26,7 @@ namespace SikumkumApp.Views
 
             InitializeComponent();
         }
+
 
 
     }

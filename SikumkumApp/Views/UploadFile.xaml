@@ -32,7 +32,7 @@
                 </Grid.RowDefinitions>
                 <Label Text="סוג הקובץ:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="16" />
                 <ImageButton Source="imageicon.png" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickImageCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center"  />
-                <ImageButton Source="pdficon.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center" />
+                <ImageButton Source="iconPdf.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center" />
 
             </Grid>
             <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black"  HeightRequest="60" Margin="0,40,0,0"/>

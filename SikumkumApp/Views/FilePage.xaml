@@ -19,7 +19,7 @@
 
             <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
             <Label Text="{Binding ChosenFile.TextDesc}" FontSize="14" Style="{x:StaticResource LongText}"  />
-            <CollectionView ItemsSource="{Binding Sources}"  >
+            <CollectionView ItemsSource="{Binding Sources}" IsVisible="{Binding ChosenFile.HasImage}"  >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"  />
                 </CollectionView.ItemsLayout>
@@ -42,28 +42,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <CollectionView ItemsSource="{Binding StarColors}"  >
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" VerticalItemSpacing="5"  />
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height ="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="8*" />
-                            </Grid.ColumnDefinitions>
-
-                            <ImageButton Source="{Binding}" Command="{Binding RateCommand}" CommandParameter="{Binding}"/>
-
-                        </Grid>
-                    </DataTemplate>
-
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <ImageButton Source="pdfDownload.png" Command="{Binding ClickedOnPdfCommand}" IsVisible="{Binding ChosenFile.HasPdf}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#0000" WidthRequest="60" HeightRequest="60" />
+            <Label Text="{Binding ChosenFile.PdfFileName}" Style="{StaticResource Headers}" FontSize="15" HorizontalOptions="Center" IsVisible="{Binding ChosenFile.HasPdf}" />
 
             <Button Text="{Binding SikumBy}" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}" />
 

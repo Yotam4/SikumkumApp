@@ -116,6 +116,16 @@ namespace SikumkumApp.ViewModels
                     this.OnPropertyChanged("Headline");                
             }
         }
+        private string pdfFileName { get; set; }
+        public string PdfFileName
+        {
+            get { return this.pdfFileName; }
+            set
+            {
+                this.pdfFileName = value;
+                this.OnPropertyChanged("PdfFileName");
+            }
+        }
 
         private string headlineError { get; set; }
         public string HeadlineError
@@ -242,6 +252,7 @@ namespace SikumkumApp.ViewModels
             this.hasPdf = false;
             this.hasImage = false;
             this.UploadError = "";
+            this.PdfFileName = ""; //Empty until user uploads Pdf, then it recives the pdf file name.
 
             //Lists to set,
             this.FileResultsList = new List<FileResult>(); //Creates new lists.
@@ -259,7 +270,7 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                var pickResult = await FilePicker.PickMultipleAsync(new PickOptions() //Maybe only let user pick one? WORK IN PROGRESS.
+                var pickResult = await FilePicker.PickAsync(new PickOptions() //Maybe only let user pick one? WORK IN PROGRESS.
                 {
                     FileTypes = FilePickerFileType.Pdf,
                     PickerTitle = "Pick PDF"
@@ -270,13 +281,13 @@ namespace SikumkumApp.ViewModels
                     this.SikumListSrc.Clear(); //Delete old values.
                     this.FileResultsList.Clear();
 
-                    foreach (var pdf in pickResult)
-                    {
-                        this.FileResultsList.Add(pdf);
-                        var stream = await pdf.OpenReadAsync();                        
-                        this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
-                    }
+                    var pdf = pickResult;
+                    this.FileResultsList.Add(pdf);
+                    var stream = await pdf.OpenReadAsync();
+                    this.SikumListSrc.Add(ImageSource.FromStream(() => stream));
+
                     this.contentType = FileTypeNames.PDF_TYPE;
+                    this.PdfFileName = pickResult.FileName; //Sets file name for later use.
                     this.hasPdf = true; //Sets sikum to have pdfs, and not images.
                     this.hasImage = false;
                 }
@@ -355,7 +366,7 @@ namespace SikumkumApp.ViewModels
             {
                 int userId = currentApp.CurrentUser.UserID;
                 //The Picker returns an integer of the person's choice, starting with 0. to get the correct ID for the chosen thing, I parsed the input and added +1. Neat.
-                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", "", "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc, this.FileResultsList.Count, this.hasPdf, this.hasImage); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
+                this.uploadSikumFile = new SikumFile(userId, this.Username, this.Headline, "", "", "", (this.YearChosen + 1), (this.TypeChosen + 1), (this.SubjectChosen + 1), this.TextDesc, this.FileResultsList.Count, this.hasPdf, this.hasImage, this.PdfFileName); //Create new Sikum File to send to server. Change SikumFileSrc WORK IN PROGRESS.
 
                 
                 if (this.uploadSikumFile == null) //File creation didn't work.

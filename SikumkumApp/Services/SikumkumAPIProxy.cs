@@ -23,18 +23,22 @@ namespace SikumkumApp.Services
         private const string DEV_ANDROID_PHYSICAL_URL = "http://192.168.1.14:60047/SikumkumAPIController"; //API url when using physucal device on android
         private const string DEV_WINDOWS_URL = "https://localhost:44390/SikumkumAPIController"; //API url when using windoes on development
         private const string DEV_ANDROID_EMULATOR_PHOTOS_URL = "http://10.0.2.2:60047/images/"; //API url when using emulator on android
+        private const string DEV_ANDROID_EMULATOR_PDFS_URL = "http://10.0.2.2:60047/pdfs/"; //API url when using emulator on android
+
         private const string DEV_ANDROID_PHYSICAL_PHOTOS_URL = "http://192.168.1.14:60047/Images/"; //API url when using physucal device on android
         private const string DEV_WINDOWS_PHOTOS_URL = "https://localhost:44390/Images/"; //API url when using windoes on development
 
         private HttpClient client;
         public string baseUri;
         public string basePhotosUri;
+        public string basePdfsUri;
         private static SikumkumAPIProxy proxy = null;
 
-        public static SikumkumAPIProxy CreateProxy()
+        public static SikumkumAPIProxy CreateProxy() //Added base Pdfs uri, not sure it is needed.
         {
             string baseUri;
             string basePhotosUri;
+            string basePdfUri = "";
             if (App.IsDevEnv)
             {
                 if (Device.RuntimePlatform == Device.Android)
@@ -60,17 +64,18 @@ namespace SikumkumApp.Services
             {
                 baseUri = DEV_ANDROID_EMULATOR_URL; //Using android 
                 basePhotosUri = DEV_ANDROID_EMULATOR_PHOTOS_URL;
+                basePdfUri = DEV_ANDROID_EMULATOR_PDFS_URL;
                 //baseUri = CLOUD_URL;
                 //basePhotosUri = CLOUD_PHOTOS_URL;
             }
 
             if (proxy == null)
-                proxy = new SikumkumAPIProxy(baseUri, basePhotosUri);
+                proxy = new SikumkumAPIProxy(baseUri, basePhotosUri, basePdfUri);
             return proxy;
         }
 
 
-        private SikumkumAPIProxy(string baseUri, string basePhotosUri)
+        private SikumkumAPIProxy(string baseUri, string basePhotosUri, string basePdfsUri)
         {
             //Set client handler to support cookies!!
             HttpClientHandler handler = new HttpClientHandler();
@@ -80,6 +85,7 @@ namespace SikumkumApp.Services
             this.client = new HttpClient(handler, true);
             this.baseUri = baseUri;
             this.basePhotosUri = basePhotosUri;
+            this.basePdfsUri = basePdfsUri;
         }
 
         //public string GetBasePhotoUri() { return this.basePhotosUri; }
@@ -378,6 +384,28 @@ namespace SikumkumApp.Services
                 Console.WriteLine(e.Message);
                 return false;
             }
+        }
+        public async Task<string> DownloadPdfFileAsync(string url, string fileName) //Downloads from servr file to AppDataDirectory
+        {
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+            if (File.Exists(filePath))
+                return filePath;
+
+            var pdfBytes = await this.client.GetByteArrayAsync(url);
+
+            try
+            {
+                File.WriteAllBytes(filePath, pdfBytes);
+
+                return filePath;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+            }
+
+            return null;
         }
 
         public async Task<bool> TryAcceptUpload(SikumFile sikum)

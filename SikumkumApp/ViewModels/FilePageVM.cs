@@ -56,7 +56,6 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-
         private List<ImgSrc> sources { get; set; }
         public List<ImgSrc> Sources
         {
@@ -68,12 +67,23 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private PdfSrc pdfFile { get; set; } //List of pdf files, with name and URL.
+        public PdfSrc PdfFile
+        {
+            get { return this.pdfFile; }
+            set
+            {
+                this.pdfFile = value;
+                this.OnPropertyChanged("PdfFile");
+            }
+        }
+
         #endregion
 
         #region Constructor
         public FilePageVM(SikumFile chosen)
         {
-            this.ChosenFile = chosen; 
+            this.ChosenFile = chosen;
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
             this.NeedApproval = false; //Set approval initially to false.
@@ -83,7 +93,6 @@ namespace SikumkumApp.ViewModels
             {
                 this.NeedApproval = true;
             }
-
 
             this.Sources = new List<ImgSrc>();
             if (this.ChosenFile.HasImage) //If sikum contains images, add them to the collection.
@@ -98,7 +107,9 @@ namespace SikumkumApp.ViewModels
 
             if (this.ChosenFile.HasPdf) //If sikum contain pdf files, work with them.
             {
-                //Work in progress.
+                string source = $"{API.basePdfsUri}{chosen.Url}{"1"}.pdf"; //Current pdf source. always has 1.
+                PdfSrc pdfSrc = new PdfSrc(source, chosen.Url + "1"); //Source = url to photo. url = the name. It will be ugly so maybe change URL name.
+                this.PdfFile = pdfSrc;
             }
 
         }
@@ -109,7 +120,7 @@ namespace SikumkumApp.ViewModels
         private async void ConfirmUpload()
         {
             try
-            {
+            {                
                 bool uploadAccepted = await API.TryAcceptUpload(this.ChosenFile);
                 if (uploadAccepted)
                 {
@@ -131,7 +142,19 @@ namespace SikumkumApp.ViewModels
         {
             //Work in progress.
         }
-        
+        public Command ClickedOnPdfCommand => new Command(ClickedOnPdf);
+        private async void ClickedOnPdf()
+        {
+            var filePath = await API.DownloadPdfFileAsync(this.PdfFile.Url, this.PdfFile.PdfName);
+
+            if (filePath != null)
+            {
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath)
+                });
+            }
+        }
         public Command DeleteCommand => new Command(DeleteSikum);
         private async void DeleteSikum()
         {
@@ -180,6 +203,21 @@ namespace SikumkumApp.ViewModels
         public ImgSrc(string source)
         {
             this.source = source; 
+        }
+    }
+    public class PdfSrc //class for storing sources, needed for collectionview, it doesn't let me just do "Binding,"
+    {
+        public string Url { get; set; }
+        public string PdfName { get; set; }
+
+        public PdfSrc()
+        {
+
+        }
+        public PdfSrc(string url, string pdfName)
+        {
+            this.Url = url;
+            this.PdfName = pdfName;
         }
     }
 }

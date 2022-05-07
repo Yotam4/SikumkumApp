@@ -22,10 +22,12 @@ namespace SikumkumApp.Models
         public int NumOfFiles { get; set; }
         public bool HasPdf { get; set; }
         public bool HasImage { get; set; }
+        public string PdfFileName { get; set; }
+
 
         public SikumFile() { }
 
-        public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc, int numOfFiles, bool hasPdf, bool hasImage)
+        public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc, int numOfFiles, bool hasPdf, bool hasImage, string PdfFileName)
         {
             this.FileId = -1; //dumb value to preset.
             this.UserID = userID;
@@ -42,6 +44,7 @@ namespace SikumkumApp.Models
             this.HasPdf = hasPdf;
             this.HasImage = hasImage;
             this.Approved = false;
+            this.PdfFileName = PdfFileName;
         }
 
     }
