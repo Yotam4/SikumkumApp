@@ -4,9 +4,19 @@
              x:Class="SikumkumApp.Views.MessagesView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton Source="{Binding StarImageOne}" Grid.Column="0" Grid.Row="0" Style="{StaticResource StarsStyle}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarOne}"/>
+                <ImageButton Source="{Binding StarImageTwo}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarTwo}" Style="{StaticResource StarsStyle}" Grid.Row="0" Grid.Column="1" />
+                <ImageButton Source="{Binding StarImageThree}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarThree}" Grid.Column="2" Grid.Row="0" Style="{StaticResource StarsStyle}"   />
+                <ImageButton Source="{Binding StarImageFour}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFour}" Grid.Column="3" Grid.Row="0" Style="{StaticResource StarsStyle}" />
+                <ImageButton Source="{Binding StarImageFive}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFive}" Grid.Column="4" Grid.Row="0" Style="{StaticResource StarsStyle}" />
+            </Grid>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

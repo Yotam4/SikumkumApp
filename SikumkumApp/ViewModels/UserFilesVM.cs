@@ -19,8 +19,14 @@ namespace SikumkumApp.ViewModels
     class UserFilesVM : BaseVM
     {
         #region Variables
-        const string APPROVED_NAME = "סיכומים מאושרים";
-        const string DISAPPROVED_NAME = "סיכומים לא מאושרים או דחויים";
+        const string APPROVED_NAME = "הצג סיכומים מאושרים";
+        const string DISAPPROVED_NAME = "הצג סיכומים לא מאושרים";
+        const string APPROVED_DISPLAY = "סיכומים שאושרו";
+        const string DISAPPROVED_APPROVED_DISPLAY = "סיכומים שטרם אושרו";
+        const int NUM_APPROVED = 1;
+        const int NUM_DISAPPROVED = 0;
+
+
         private ObservableCollection<SikumFile> userFiles { get; set; }
         public ObservableCollection<SikumFile> UserFiles
         {
@@ -29,6 +35,28 @@ namespace SikumkumApp.ViewModels
             {
                 userFiles = value;
                 OnPropertyChanged("UserFiles");
+            }
+        }
+
+        private ObservableCollection<SikumFile> rejectedFiles { get; set; }
+        public ObservableCollection<SikumFile> RejectedFiles
+        {
+            get => rejectedFiles;
+            set
+            {
+                rejectedFiles = value;
+                OnPropertyChanged("RejectedFiles");
+            }
+        }
+
+        private bool displayRejected { get; set; }
+        public bool DisplayRejected
+        {
+            get => displayRejected;
+            set
+            {
+                displayRejected = value;
+                OnPropertyChanged("DisplayRejected");
             }
         }
         private int numApproved { get; set; }
@@ -52,6 +80,17 @@ namespace SikumkumApp.ViewModels
                 OnPropertyChanged("SikumGetName");
             }
         }
+        private string currentDisplayText { get; set; }
+        public string CurrentDisplayText
+        {
+            get => currentDisplayText;
+            set
+            {
+                currentDisplayText = value;
+                OnPropertyChanged("CurrentDisplayText");
+            }
+        }
+        
         private string errorEmpty { get; set; }
         public string ErrorEmpty
         {
@@ -78,11 +117,19 @@ namespace SikumkumApp.ViewModels
         #region Constructor
         public UserFilesVM()
         {
+            //Setting booleans
             this.ShowErrorEmpty = false;
+            this.DisplayRejected = false;
 
-            this.UserFiles = new ObservableCollection<SikumFile>();
-            this.NumApproved = 1; //Sets the opening's num to retrieve files that were approved.
+            //Setting strings
+            this.CurrentDisplayText = APPROVED_DISPLAY;
             this.SikumGetName = DISAPPROVED_NAME;
+
+            //Creating collections
+            this.UserFiles = new ObservableCollection<SikumFile>();
+            this.RejectedFiles = new ObservableCollection<SikumFile>();
+
+            this.NumApproved = NUM_APPROVED; //Sets the opening's num to retrieve files that were approved.
 
             SetUserFiles();
         }
@@ -122,15 +169,18 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                if (this.NumApproved == 0) //Currently displays Disapproved
+                this.DisplayRejected = false; //Sets it to false until proven otherwise in function. 
+
+                if (this.NumApproved == 0) //Changes to approved.
                 {
-                    this.NumApproved = 1;
-                    this.SikumGetName = APPROVED_NAME;
+                    this.NumApproved = NUM_APPROVED;
+                    this.SikumGetName = DISAPPROVED_NAME; //Shows goto disaaproved items
                 }
-                else if (this.NumApproved == 1) //Currently displays Approved
+                else if (this.NumApproved == 1) //Changes to non-Approved
                 {
-                    this.NumApproved = 0;
-                    this.SikumGetName = DISAPPROVED_NAME;
+                    this.NumApproved = NUM_DISAPPROVED;
+                    this.SikumGetName = APPROVED_NAME;
+
                 }
 
                 List<SikumFile> sikumList = await BaseVM.API.GetUserSikumFiles(this.currentApp.CurrentUser, this.NumApproved);
@@ -141,7 +191,25 @@ namespace SikumkumApp.ViewModels
                     this.ErrorEmpty = "אין לך פריטים מסוג זה.";
                     return;
                 }
+                else
+                {
+                    this.ShowErrorEmpty = false;
+                }
+
+
                 this.UserFiles = new ObservableCollection<SikumFile>(sikumList);
+
+                if (this.NumApproved == 0) //Sets Rejected items in list to display.
+                {
+                    foreach (SikumFile sikumFile in sikumList)
+                    {
+                        if (sikumFile.Disapproved)
+                        {
+                            this.DisplayRejected = true;
+                            this.RejectedFiles.Add(sikumFile);
+                        }
+                    }
+                }
             }
 
             catch

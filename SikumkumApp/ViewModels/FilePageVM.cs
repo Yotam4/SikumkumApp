@@ -125,7 +125,32 @@ namespace SikumkumApp.ViewModels
                 if (uploadAccepted)
                 {
                     this.NeedApproval = false;
+                    await App.Current.MainPage.Navigation.PopAsync();
                     //Add Validation message. Work in progress.
+                }
+                else
+                {
+                    //Add error message.
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public Command RejectUploadCommand => new Command(RejectUpload);
+        private async void RejectUpload()
+        {
+            try
+            {
+                
+                bool uploadRejected = await API.TryRejectUpload(this.ChosenFile);
+                if (uploadRejected)
+                {
+                    this.NeedApproval = false;
+                    //Maybe send admin to add a message of what is wrong with sikum, before the screen pops. Work in progress.
+                    await App.Current.MainPage.Navigation.PopAsync();
                 }
                 else
                 {
@@ -140,6 +165,8 @@ namespace SikumkumApp.ViewModels
         public Command UploadedUserCommand => new Command(UploadedUser);
         private async void UploadedUser()
         {
+            MessagesView messagesView = new MessagesView(this.ChosenFile);
+            App.Current.MainPage.Navigation.PushAsync(messagesView);
             //Work in progress.
         }
         public Command ClickedOnPdfCommand => new Command(ClickedOnPdf);

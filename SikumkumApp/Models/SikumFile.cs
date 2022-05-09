@@ -15,7 +15,7 @@ namespace SikumkumApp.Models
         public int YearID { get; set; }
         public int SubjectID { get; set; }
         public bool Approved { get; set; }
-
+        public bool Disapproved { get; set; }
         public string Headline { get; set; }
         public string TextDesc { get; set; }
         public string Url { get; set; }
@@ -44,6 +44,7 @@ namespace SikumkumApp.Models
             this.HasPdf = hasPdf;
             this.HasImage = hasImage;
             this.Approved = false;
+            this.Disapproved = false;
             this.PdfFileName = PdfFileName;
         }
 

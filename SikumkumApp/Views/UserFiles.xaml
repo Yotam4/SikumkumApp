@@ -8,7 +8,29 @@
         <StackLayout>
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding ShowErrorEmpty}" Style="{StaticResource WarningsStyle}" />
 
+            <Label Text="{Binding CurrentDisplayText}" IsVisible="{Binding DisplayRejected}" Style="{StaticResource Headers}" />
             <CollectionView ItemsSource="{Binding UserFiles}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding TypeName}" Grid.Row="0" Grid.Column="0" Style="{StaticResource Key=Headers}" HorizontalOptions="Start" />
+                            <Label Text="הועלה על ידי -" FontSize="15" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Key=Headers}" HorizontalOptions="Start" TextDecorations="None" Margin="0,0,25,0" />
+                            <Label Text="{Binding Username}" FontSize="15" Grid.Row="0" Grid.Column="2" Style="{StaticResource Key=Headers}" HorizontalOptions="CenterAndExpand" TextDecorations="None"  />
+                            <Button Text="{Binding Headline}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="13"  CommandParameter="{Binding}" Command="{Binding Source={x:Reference UserFilesPage}, Path=BindingContext.OpenSikumFilesCommand}" Style="{StaticResource Key= SikumButtonStyle}" Margin="0,-5,0,0" />
+                            <Label Text="                                                                                                                                                                   " Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextDecorations="Underline" VerticalOptions="End"/>
+                        </Grid>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="סיכומים שנדחו" IsVisible="{Binding DisplayRejected}" Style="{StaticResource Headers}" />
+            <CollectionView ItemsSource="{Binding RejectedFiles}" IsVisible="{Binding DisplayRejected}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid >

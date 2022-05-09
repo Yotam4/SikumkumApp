@@ -441,6 +441,39 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<bool> TryRejectUpload(SikumFile sikum)
+        {
+            try
+            {
+
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string sikumFileJson = JsonSerializer.Serialize<SikumFile>(sikum, options);
+                StringContent content = new StringContent(sikumFileJson, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/TryRejectUpload", content);
+
+                if (response.IsSuccessStatusCode) //If sikumfile was sucessfully accepted.
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public async Task<List<SikumFile>> GetPendingFiles()
         {
                 try
@@ -506,5 +539,39 @@ namespace SikumkumApp.Services
                 return false;
             }
         }
+        public async Task<double> RateSikum(Rating rating) //Change to boolean? Work in progress.
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string jsonRating = JsonSerializer.Serialize<Rating>(rating, options);
+                StringContent content = new StringContent(jsonRating, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddRating", content);
+                double returnRating = double.Parse(response.Content);
+                if (response.IsSuccessStatusCode) //If user sucessfully signed up.
+                {
+                    return returnRating;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            catch
+            {
+                return -1;
+            }
+        }
+
     }
+
 }

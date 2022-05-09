@@ -103,7 +103,13 @@
                 <Setter Property="FontFamily" Value="Helvetica"/>
                 <Setter Property="FontAttributes" Value="Italic"/>
             </Style>
-            
+
+            <Style x:Key="StarsStyle" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="#0000"/>
+                <Setter Property="WidthRequest" Value="40"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
