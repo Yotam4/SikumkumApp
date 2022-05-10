@@ -23,10 +23,12 @@ namespace SikumkumApp.Models
         public bool HasPdf { get; set; }
         public bool HasImage { get; set; }
         public string PdfFileName { get; set; }
+        public double FileRating { get; set; }
 
 
         public SikumFile() { }
 
+        //Constructor that happens when you create a sikumfile to send to server for upload, it will handle the rest of the logic.
         public SikumFile(int userID, string username, string headline, string url, string typeName, string yearName, int yearID, int typeID, int subjectID, string textDesc, int numOfFiles, bool hasPdf, bool hasImage, string PdfFileName)
         {
             this.FileId = -1; //dumb value to preset.
@@ -46,6 +48,7 @@ namespace SikumkumApp.Models
             this.Approved = false;
             this.Disapproved = false;
             this.PdfFileName = PdfFileName;
+            this.FileRating = 0.00; //Initially rating starts at 0.
         }
 
     }

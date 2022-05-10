@@ -15,7 +15,7 @@
                 <ImageButton Source="{Binding StarImageFour}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFour}" Grid.Column="3" Grid.Row="0" Style="{StaticResource StarsStyle}" />
                 <ImageButton Source="{Binding StarImageFive}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFive}" Grid.Column="4" Grid.Row="0" Style="{StaticResource StarsStyle}" />
             </Grid>
-
+            <Button Text="Submit" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" />
 
         </StackLayout>
     </ContentPage.Content>

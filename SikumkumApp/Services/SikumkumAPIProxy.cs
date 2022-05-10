@@ -555,20 +555,23 @@ namespace SikumkumApp.Services
 
 
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddRating", content);
-                double returnRating = double.Parse(response.Content);
+
+                string returnContent = await response.Content.ReadAsStringAsync();
+                double returnRating = double.Parse(returnContent); //Function returns double.
+
                 if (response.IsSuccessStatusCode) //If user sucessfully signed up.
                 {
                     return returnRating;
                 }
                 else
                 {
-                    return -1;
+                    return -1.00;
                 }
             }
 
             catch
             {
-                return -1;
+                return -1.00;
             }
         }
 

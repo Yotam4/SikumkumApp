@@ -17,6 +17,8 @@ namespace SikumkumApp
         public User CurrentUser { get; set; }
         public OpeningObject OpeningObj { get; set; }
 
+        public SikumFile CurrentFile { get; set; }
+
         public App()
         {
             InitializeComponent();

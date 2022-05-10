@@ -123,7 +123,12 @@ namespace SikumkumApp.ViewModels
         {
             Rating newRating = new Rating(this.ChosenFile.FileId, this.currentApp.CurrentUser.UserID, this.RatingGiven);
             double totalRating = await API.RateSikum(newRating);
-            if(newRating == -1) //Make new rating appear in SikumFile Page after you open it. Work in progress.
+            if (totalRating == -1) 
+            {  //Rating failed.
+                return;
+            }
+            this.currentApp.CurrentFile.FileRating = totalRating;
+             //Make new rating appear in SikumFile Page after you open it. Work in progress.
         }
         public Command ClickedOnStarCommand => new Command<int>(ClickedOnStar); 
         private void ClickedOnStar(int starNumber) //This code is ugly. I am aware.

@@ -22,9 +22,19 @@ namespace SikumkumApp.ViewModels
 
         #region Variables
 
-        public SikumFile ChosenFile { get; set; }
+
         public string SikumBy { get; set; }
         private string username { get; set; }
+        private SikumFile chosenFile { get; set; }
+        public SikumFile ChosenFile
+        {
+            get { return this.chosenFile; }
+            set
+            {
+                this.chosenFile = value;
+                this.OnPropertyChanged("ChosenFile");
+            }
+        }
         public string Username
         {
             get { return this.username; }
@@ -43,6 +53,16 @@ namespace SikumkumApp.ViewModels
             {
                 this.headline = value;
                 this.OnPropertyChanged("Headline");
+            }
+        }
+        private double fileRating { get; set; }
+        public double FileRating
+        {
+            get { return this.fileRating; }
+            set
+            {
+                this.fileRating = value;
+                this.OnPropertyChanged("FileRating");
             }
         }
         private bool needApproval { get; set; }
@@ -84,8 +104,11 @@ namespace SikumkumApp.ViewModels
         public FilePageVM(SikumFile chosen)
         {
             this.ChosenFile = chosen;
+            this.currentApp.CurrentFile = chosen;
+
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
+            this.FileRating = chosen.FileRating;
             this.NeedApproval = false; //Set approval initially to false.
             this.SikumBy = "העלאה של " + chosen.Username;
 

@@ -189,6 +189,7 @@ namespace SikumkumApp.ViewModels
                 {
                     this.ShowErrorEmpty = true;
                     this.ErrorEmpty = "אין לך פריטים מסוג זה.";
+                    this.UserFiles.Clear(); 
                     return;
                 }
                 else

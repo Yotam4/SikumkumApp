@@ -27,8 +27,6 @@ namespace SikumkumApp.Views
             InitializeComponent();
         }
 
-
-
     }
 
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SikumkumApp.Models
 {
-    public class Rating
+    public partial class Rating
     {
         public int RatingId { get; set; }
         public int FileId { get; set; }
@@ -14,7 +14,7 @@ namespace SikumkumApp.Models
         public Rating() { }
         public Rating(int fileId, int userId, double ratingGiven)
         {
-            this.RatingId = -1; //Dumb value to preset.
+           this.RatingId = -1; //Dumb value to preset.
            this.FileId = fileId;
            this.UserId = userId;
            this.RatingGiven = ratingGiven;            
