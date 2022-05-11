@@ -7,13 +7,12 @@
               >
     <ContentPage.Content>
         <StackLayout Padding="0,20,0,0">
-            
             <Label Text="כותרת:"/>
             <Entry Placeholder="כותרת" Text="{Binding Headline}"/>
             <Label Text="{Binding HeadlineError}" IsVisible="{Binding ShowHeadlineError}" Style="{StaticResource WarningsStyle}"/>
 
             <Label Text="תיאור"/>
-            <Entry Placeholder="תיאור הקובץ" Text="{Binding TextDesc}"/>
+            <Editor Placeholder="תיאור הקובץ" Text="{Binding TextDesc}" MaxLength="240"/>
             
             <Label Text="נושא הקובץ "/>
             <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectChosen}"/>
@@ -30,7 +29,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Label Text="סוג הקובץ:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="16" />
+                <Label Text="בחר:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="17" />
                 <ImageButton Source="imageicon.png" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickImageCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center"  />
                 <ImageButton Source="iconPdf.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center" />
 

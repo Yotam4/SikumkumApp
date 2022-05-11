@@ -575,6 +575,68 @@ namespace SikumkumApp.Services
             }
         }
 
+        public async Task<bool> AddMessage(Message msg)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string jsonMsg = JsonSerializer.Serialize<Message>(msg, options);
+                StringContent content = new StringContent(jsonMsg, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddMessage", content);
+
+                if (response.IsSuccessStatusCode) //If message was added
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<List<Message>> GetMessages(int fileId)
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetMessages?fileID={fileId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Message> messages = JsonSerializer.Deserialize<List<Message>>(content, options);
+                    return messages;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
+
+
     }
 
 }

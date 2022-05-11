@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SikumkumApp.Views.MessagesView">
+             x:Class="SikumkumApp.Views.MessagesView"
+             FlowDirection="RightToLeft"
+             >
     <ContentPage.Content>
         <StackLayout>
+            
+            
+            <Label Text="{Binding ErrorRating}" IsVisible="{Binding ShowErrorRating}" Style="{StaticResource WarningsStyle}" />
+            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -17,6 +23,42 @@
             </Grid>
             <Button Text="Submit" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" />
 
+            
+            <Label Text="{Binding ErrorMessages}" IsVisible="{Binding ShowErrorMessages}" Style="{StaticResource WarningsStyle}" />
+            
+            <CollectionView ItemsSource="{Binding Messages}"  >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"  />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height ="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding Username}" FontSize="12" Style="{StaticResource Headers}" />
+                            <Label Text="{Binding Date,StringFormat='{0:MM/dd/yy}'}" FontSize="11" Style="{StaticResource Headers}" Grid.Column="1" />
+
+                            <Editor Text="{Binding TheMessage}" Style="{StaticResource LongText}" FontSize="14" IsReadOnly="True" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="{Binding ErrorUploadMessage}" IsVisible="{Binding ShowErrorUpload}" Style="{StaticResource WarningsStyle}" />
+
+            <Grid>
+                <Editor Text="{Binding NewMessage}" FontSize="14" MaxLength="128" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" />
+                <ImageButton Source="Kapit.PNG" Command="{Binding AddMessageComand}" Grid.Column="3" Grid.Row="0" HeightRequest="100" WidthRequest="100" />
+            </Grid>
+            
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
