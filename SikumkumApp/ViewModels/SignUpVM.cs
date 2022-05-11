@@ -216,9 +216,7 @@ namespace SikumkumApp.ViewModels
 
                 if (isSigned) 
                 {
-                    App currentApp = (App)App.Current;
-                    currentApp.CurrentUser = signingUp;
-
+                    await App.Current.MainPage.DisplayAlert("ההרשמה עברה בהצלחה", "חזרה למסך הבית", "סגור" );
                     await App.Current.MainPage.Navigation.PopAsync(); //Maybe add screen that says successfully signed up. Work in progress.
 
                 }

@@ -12,7 +12,7 @@
             
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
 
                 <ImageButton Source="{Binding StarImageOne}" Grid.Column="0" Grid.Row="0" Style="{StaticResource StarsStyle}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarOne}"/>
@@ -20,15 +20,16 @@
                 <ImageButton Source="{Binding StarImageThree}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarThree}" Grid.Column="2" Grid.Row="0" Style="{StaticResource StarsStyle}"   />
                 <ImageButton Source="{Binding StarImageFour}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFour}" Grid.Column="3" Grid.Row="0" Style="{StaticResource StarsStyle}" />
                 <ImageButton Source="{Binding StarImageFive}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFive}" Grid.Column="4" Grid.Row="0" Style="{StaticResource StarsStyle}" />
+                <Button Text="דרג" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" Grid.Column="5" BackgroundColor="LightGoldenrodYellow" CornerRadius="3"  />
+
             </Grid>
-            <Button Text="Submit" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" />
 
             
             <Label Text="{Binding ErrorMessages}" IsVisible="{Binding ShowErrorMessages}" Style="{StaticResource WarningsStyle}" />
             
             <CollectionView ItemsSource="{Binding Messages}"  >
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"  />
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="6"  />
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
@@ -36,15 +37,16 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height ="Auto" />
+
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="8*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Text="{Binding Username}" FontSize="12" Style="{StaticResource Headers}" />
-                            <Label Text="{Binding Date,StringFormat='{0:MM/dd/yy}'}" FontSize="11" Style="{StaticResource Headers}" Grid.Column="1" />
+                            <Label Text="{Binding Username}" FontSize="14" Style="{StaticResource Headers}" Grid.Row="0" />
+                            <Label Text="{Binding Date,StringFormat='{0:MM/dd/yy}'}" FontSize="11" Style="{StaticResource Headers}" Grid.Column="1"  />
 
-                            <Editor Text="{Binding TheMessage}" Style="{StaticResource LongText}" FontSize="14" IsReadOnly="True" Grid.ColumnSpan="2" />
+                            <Editor Text="{Binding TheMessage}" Style="{StaticResource LongText}" FontSize="14" IsReadOnly="True" Grid.ColumnSpan="2" Grid.Row="1" />
                         </Grid>
                     </DataTemplate>
 
@@ -52,10 +54,15 @@
             </CollectionView>
 
             <Label Text="{Binding ErrorUploadMessage}" IsVisible="{Binding ShowErrorUpload}" Style="{StaticResource WarningsStyle}" />
+            <Label Text="{Binding MessageUploaded}" IsVisible="{Binding ShowMessageUploaded}" Style="{StaticResource AssuranceStyle}" />
 
             <Grid>
-                <Editor Text="{Binding NewMessage}" FontSize="14" MaxLength="128" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" />
-                <ImageButton Source="Kapit.PNG" Command="{Binding AddMessageComand}" Grid.Column="3" Grid.Row="0" HeightRequest="100" WidthRequest="100" />
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Editor Text="{Binding NewMessage}" Placeholder="כתוב הודעה" FontSize="14" MaxLength="128" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" IsTabStop="True"  />
+                <ImageButton Source="WriteMessageLogo.png" Command="{Binding AddMessageComand}" Style="{StaticResource LogosTrans }" Grid.Column="3" Grid.Row="0" Padding="3" IsTabStop="True"  />
             </Grid>
             
             

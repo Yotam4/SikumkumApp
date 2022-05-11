@@ -87,7 +87,7 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-                private string errorUploadMessage;
+        private string errorUploadMessage;
         public string ErrorUploadMessage //Displays when there are issue with displaying Messages.
         {
             get => errorUploadMessage;
@@ -100,11 +100,32 @@ namespace SikumkumApp.ViewModels
         private bool showErrorUpload;
         public bool ShowErrorUpload
         {
-            get => showErrorMessages;
+            get => showErrorUpload;
             set
             {
                 showErrorUpload = value;
                 OnPropertyChanged("ShowErrorUpload");
+            }
+        }
+
+        private string messageUploaded;
+        public string MessageUploaded //Displays when there are issue with displaying Messages.
+        {
+            get => messageUploaded;
+            set
+            {
+                messageUploaded = value;
+                OnPropertyChanged("MessageUploaded");
+            }
+        }
+        private bool showMessageUploaded;
+        public bool ShowMessageUploaded
+        {
+            get => showMessageUploaded;
+            set
+            {
+                showMessageUploaded = value;
+                OnPropertyChanged("ShowMessageUploaded");
             }
         }
 
@@ -202,6 +223,9 @@ namespace SikumkumApp.ViewModels
             this.ShowErrorUpload = false;
             this.ErrorUploadMessage = "";
 
+            this.ShowMessageUploaded = false;
+            this.MessageUploaded = "";
+
             //Star numbers for the function.
             this.StarOne = 1;
             this.StarTwo = 2;
@@ -269,7 +293,7 @@ namespace SikumkumApp.ViewModels
             catch //Something went wrong with settings the messages.
             {
                 this.ShowErrorMessages = true;
-                this.ErrorMessages = "היה בעיה בהצגת ההודעות, אנא נסה מאוחר יותר";
+                this.ErrorMessages = "היה בעיה בהצגת ההודעות, אנא נסה מאוחר יותר.";
             }
         }
 
@@ -289,9 +313,11 @@ namespace SikumkumApp.ViewModels
             }
             else //Message was added
             {
-                this.Messages.Add(newMessage);
-                this.Messages = this.Messages;
-                //Add Success confirmation. Work in progress.
+
+                this.ShowMessageUploaded = true;
+                this.MessageUploaded = "הודעה הועלתה בהצלחה";
+
+                GetMessages(); //Sets new messages.
             }
         }
         #endregion
@@ -299,16 +325,17 @@ namespace SikumkumApp.ViewModels
         #region Validations
         private bool ValidateTheMessage()
         {
+
+            if(this.currentApp.CurrentUser == null)
+            {
+                this.ShowErrorUpload = true;
+                this.ErrorUploadMessage = "רק משתמשים מחוברים יכולים לכתוב הודעות.";
+                return false;
+            }
             if (String.IsNullOrEmpty(this.NewMessage))
             {
                 this.ShowErrorUpload = true;
-                this.ErrorUploadMessage = "הודעה לא יכולה להיות ריקה";
-                return false;
-            }
-            if(this.currentApp.CurrentUser == null)
-            {
-                this.ShowErrorMessages = true;
-                this.ErrorUploadMessage = "רק משתמשים מחוברים יכולים לכתוב הודעות";
+                this.ErrorUploadMessage = ".הודעה לא יכולה להיות ריקה";
                 return false;
             }
 
@@ -324,7 +351,7 @@ namespace SikumkumApp.ViewModels
             if (this.currentApp.CurrentUser == null)
             {
                 this.ShowErrorRating = true;
-                this.ErrorRating = "רק משתמשים מחוברים יכולים לדרג";
+                this.ErrorRating = "רק משתמשים מחוברים יכולים לדרג.";
                 return false;
             }
 
