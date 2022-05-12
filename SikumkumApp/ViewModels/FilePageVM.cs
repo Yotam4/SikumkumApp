@@ -108,7 +108,11 @@ namespace SikumkumApp.ViewModels
 
             this.Headline = chosen.Headline;
             this.Username = chosen.Username;
-            this.FileRating = chosen.FileRating;
+
+            string fileRatingStr = GetRatingStr(chosen.FileRating.ToString()); 
+
+            this.FileRating = double.Parse(fileRatingStr);
+
             this.NeedApproval = false; //Set approval initially to false.
             this.SikumBy = "העלאה של " + chosen.Username;
 
@@ -238,7 +242,16 @@ namespace SikumkumApp.ViewModels
         #endregion
 
         #region Validations
-
+        private string GetRatingStr(string ratingStr) //Sets the rating, to prevent from errors and also getting a number such as 3.6667, etc.
+        {
+            int couter = 0;
+            string returnString = "";
+            while(couter < ratingStr.Length && couter < 3) //Sets the number to be either (for example) 3 or 3.5
+            {
+                returnString += ratingStr[couter++];
+            }
+            return returnString;
+        }
         #endregion
 
     }

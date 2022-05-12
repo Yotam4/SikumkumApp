@@ -16,14 +16,17 @@
                 <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
             </Grid>
 
-            <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" HorizontalOptions="Center"/>
+            <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" FontSize="22" HorizontalOptions="Center"/>
             
             <Grid  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
-                <Label Text="{Binding FileRating}" HorizontalOptions="End" FontSize="16" Grid.Column="0" Margin="5,0,0,0" />
-                <Image Source="StarTranspColor.png" Grid.Column="0" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" Margin="30,0,0,0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding FileRating}" FontSize="16" Grid.Column="1"  />
+                <Image Source="StarTranspColor.png" Grid.Column="0"  />
             </Grid>
             
             <Label Text="{Binding ChosenFile.TextDesc}" FontSize="14" Style="{x:StaticResource LongText}"  />

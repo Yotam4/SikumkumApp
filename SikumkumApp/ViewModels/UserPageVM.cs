@@ -193,8 +193,28 @@ namespace SikumkumApp.ViewModels
             ConfirmUploads cu = new ConfirmUploads();
             App.Current.MainPage.Navigation.PushAsync(cu);
         }
+        public Command LogoutCommand => new Command(Logout);
+        private async void Logout()
+        {
+            try
+            {
+                bool logout = await App.Current.MainPage.DisplayAlert("אתה עומד להתנתק", "האם אתה בטוח?", "התנתק", "בטל");
+                if (logout == false)
+                    return;
+                SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
+                bool loggedOut = await API.LogoutAsync(this.currentApp.CurrentUser);
+                if (!loggedOut) //User didn't log out.
+                    return;
+                
+                this.currentApp.CurrentUser = null;
+                await App.Current.MainPage.Navigation.PopToRootAsync();
+            }
 
+            catch
+            {
 
+            }
+        }
         #endregion
 
         #region Validations

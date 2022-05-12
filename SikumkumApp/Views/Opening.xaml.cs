@@ -34,6 +34,11 @@ namespace SikumkumApp.Views
                 oV.CanLogIn = false; //No longer shcws signup and log in.
                 oV.IsLoggedIn = true; //Shows user page button. 
             }
+            if(currentApp.CurrentUser == null) //If user logged out.
+            {
+                oV.CanLogIn = true;
+                oV.IsLoggedIn = false;
+            }
             
         }
     }

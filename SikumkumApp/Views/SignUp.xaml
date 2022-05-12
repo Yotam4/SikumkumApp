@@ -35,7 +35,12 @@
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
             <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
 
-            <Button Text="הרשמה" Command="{Binding SignUpCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="2" BorderColor="Black"/>
+            <Button Text="הרשמה" Command="{Binding SignUpCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="CenterAndExpand"  BorderWidth="2" BorderColor="Black"/>
+
+            <Image Source="Kettle_Transp" Style="{StaticResource LogosImages}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,130,0,0"  />
+
+            <Label Text="ברוך הבא לסיקומקום" Style="{StaticResource Headers}" FontSize="Large" HorizontalOptions="Center" TextDecorations="None" /> 
+
 
         </StackLayout>
         

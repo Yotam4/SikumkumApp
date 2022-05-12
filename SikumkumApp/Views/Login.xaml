@@ -20,18 +20,21 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="שם משתמש:" TextDecorations="Underline"/>
+            <Label Text="שם משתמש:"  Style="{StaticResource Headers}"/>
             <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource WarningsStyle}"/>
             <Entry Placeholder="שם משתמש" Text="{Binding Username}"/>
 
-            <Label Text="סיסמה:" TextDecorations="Underline"/>
+            <Label Text="סיסמה:"  Style="{StaticResource Headers}"/>
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}"/>
             <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
 
-            <Button Text="התחבר" Command="{Binding LoginCommand}" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="0" Style="{StaticResource ButtonStyle}"/>
+            <Button Text="התחבר" Command="{Binding LoginCommand}" HorizontalOptions="Center" VerticalOptions="Center"  Style="{StaticResource ButtonStyle}"/>
 
-            <Button Text="להרשמה" Command="{Binding ToSignUp}" HorizontalOptions="Center" VerticalOptions="End" BorderWidth="2" BackgroundColor="Gray" BorderColor="Beige" Style="{StaticResource ButtonStyle}"/>
+            <Button Text="הרשם עכשיו - " Command="{Binding ToSignUp}" FontSize="15" HorizontalOptions="Start" TextColor="MediumBlue"  BackgroundColor="#0000" BorderWidth="0" Margin="0,5,0,0"/>
 
+            <Image Source="Kettle_Transp" Style="{StaticResource LogosImages}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,130,0,0"  />
+
+            <Label Text="ברוכים השבים!" Style="{StaticResource Headers}" FontSize="Large" HorizontalOptions="Center" TextDecorations="None" />
 
         </StackLayout>
     </ContentPage.Content>

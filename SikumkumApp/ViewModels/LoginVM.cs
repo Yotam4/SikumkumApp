@@ -149,7 +149,8 @@ namespace SikumkumApp.ViewModels
                     App currentApp = (App)App.Current;
                     currentApp.CurrentUser = loggingUser;
 
-                    await App.Current.MainPage.Navigation.PopAsync(); //Maybe add screen that says sucessfully Logged in. Work in progress.
+                    await App.Current.MainPage.DisplayAlert("אתה כעת מחובר לסיקומקום", "", "סגור");
+                    await App.Current.MainPage.Navigation.PopAsync();
                 }
                 else
                 {
