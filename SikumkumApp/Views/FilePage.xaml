@@ -12,11 +12,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="33" />
                 </Grid.RowDefinitions>
-                <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1"  />
-                <Button Text="מחק" Style="{StaticResource MessageButton}" Command="{Binding DeleteCommand}" Grid.Row="0" Grid.Column="0"  />
+                <Button Text="אשר" Style="{StaticResource MessageButton}" Command="{Binding ConfirmUploadCommand}" Grid.Row="0" Grid.Column="1" BackgroundColor="#aaf683"  />
+                <Button Text="דחה" Style="{StaticResource MessageButton}" Command="{Binding RejectUploadCommand}" Grid.Row="0" Grid.Column="0" BackgroundColor="#d7263d"  />
             </Grid>
-
-            <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" FontSize="22" HorizontalOptions="Center"/>
+            <Grid  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Label Text="{Binding Headline}" Style="{x:StaticResource Headers}" FontSize="22" HorizontalOptions="Center" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
+                <ImageButton Source="DeleteIcon.png" IsVisible="{Binding IsOwner}" HeightRequest="18" WidthRequest="18" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalOptions="End" />
+            </Grid>
             
             <Grid  >
                 <Grid.RowDefinitions>
@@ -27,9 +33,11 @@
                 </Grid.ColumnDefinitions>
                 <Label Text="{Binding FileRating}" FontSize="16" Grid.Column="1"  />
                 <Image Source="StarTranspColor.png" Grid.Column="0"  />
+                <Label Text="{Binding SikumBy}" Grid.Column="2" HorizontalTextAlignment="End"/>
             </Grid>
             
             <Label Text="{Binding ChosenFile.TextDesc}" FontSize="14" Style="{x:StaticResource LongText}"  />
+            
             <CollectionView ItemsSource="{Binding Sources}" IsVisible="{Binding ChosenFile.HasImage}"  >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"  />
@@ -52,11 +60,23 @@
 
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            
+            <Grid IsVisible="{Binding ChosenFile.HasPdf}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height ="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                
+                <ImageButton Source="iconPdf" Command="{Binding ClickedOnPdfCommand}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#0000" WidthRequest="100" HeightRequest="100" Grid.Row="4"/>
+                <Label Text="{Binding ChosenFile.PdfFileName}" Style="{StaticResource Headers}" FontSize="15" HorizontalOptions="Center" Grid.Row="5"/>
 
-            <ImageButton Source="pdfDownload.png" Command="{Binding ClickedOnPdfCommand}" IsVisible="{Binding ChosenFile.HasPdf}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#0000" WidthRequest="60" HeightRequest="60" />
-            <Label Text="{Binding ChosenFile.PdfFileName}" Style="{StaticResource Headers}" FontSize="15" HorizontalOptions="Center" IsVisible="{Binding ChosenFile.HasPdf}" />
+            </Grid>
+            
+            <Button Text="להודעות ודירוגים" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}"  CornerRadius="3" HeightRequest="50" BackgroundColor="Aqua" />
 
-            <Button Text="{Binding SikumBy}" Command="{Binding UploadedUserCommand}" Style="{StaticResource ButtonStyle}" />
 
         </StackLayout>
     </ContentPage.Content>

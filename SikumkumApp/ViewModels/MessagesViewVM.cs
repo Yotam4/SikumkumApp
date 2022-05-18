@@ -316,6 +316,7 @@ namespace SikumkumApp.ViewModels
 
                 this.ShowMessageUploaded = true;
                 this.MessageUploaded = "הודעה הועלתה בהצלחה";
+                this.NewMessage = "";
 
                 GetMessages(); //Sets new messages.
             }

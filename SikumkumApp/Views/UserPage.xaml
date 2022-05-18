@@ -16,6 +16,7 @@
                 <Label Text="{Binding Username}" Grid.Column="1" Grid.Row="0" FontSize="16"/>
                 <Button Text="התנתק" TextColor="Black" FontSize="15" HorizontalOptions="End" BackgroundColor="#0000" Command="{Binding LogoutCommand}"   Grid.Column="2" Grid.Row="0" />
             </Grid>
+                        
 
             <Label Text="שנה סיסמה:" HorizontalOptions="Start" Style="{StaticResource Headers}" />
 
@@ -24,13 +25,25 @@
             <Entry IsPassword="True" Text="{Binding NewConfirm}" Placeholder="אשר סיסמה"/>
 
             <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" />
-             
-            <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" VerticalOptions="End" />
-            <Button Text="מסך אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60"  />
-            <Button Text="מסך קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUserFilesCommand}" HeightRequest="60"  />
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Text="שנה סיסמה" Style="{StaticResource ButtonStyle}" Clicked="ChangePassword" VerticalOptions="End" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center"   />
+                <Button Text="אל מסך הקבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUserFilesCommand}" HeightRequest="40" Grid.Row="3" Grid.ColumnSpan="2"  />
+                <Button Text="אישורי קבצים" Style="{StaticResource ButtonStyle}" Command="{Binding GoToConfirmUploadsCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="LightSteelBlue"  />
 
 
-            <Button Text="העלה קובץ" Margin="0, 100, 0, 0" FontSize="18" FontFamily="Times Roman" Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" VerticalOptions="End" HeightRequest="60" CornerRadius="0" BackgroundColor="#9be1e8" />
+
+                <Button Text="העלה קובץ"  FontSize="18"  Style="{StaticResource ButtonStyle}" Command="{Binding GoToUploadFileCommand}" FontFamily="Times Roman"  HeightRequest="60" CornerRadius="0" BackgroundColor="#9be1e8" Grid.Row="5" Grid.ColumnSpan="2"  />
+            </Grid>
+
 
 
         </StackLayout>

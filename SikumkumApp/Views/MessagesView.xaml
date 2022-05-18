@@ -20,11 +20,11 @@
                 <ImageButton Source="{Binding StarImageThree}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarThree}" Grid.Column="2" Grid.Row="0" Style="{StaticResource StarsStyle}"   />
                 <ImageButton Source="{Binding StarImageFour}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFour}" Grid.Column="3" Grid.Row="0" Style="{StaticResource StarsStyle}" />
                 <ImageButton Source="{Binding StarImageFive}" Command="{Binding ClickedOnStarCommand}" CommandParameter="{Binding StarFive}" Grid.Column="4" Grid.Row="0" Style="{StaticResource StarsStyle}" />
-                <Button Text="דרג" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" Grid.Column="5" BackgroundColor="LightGoldenrodYellow" CornerRadius="3"  />
+                <Button Text="דרג" Command="{Binding RateCommand}" Style="{StaticResource ButtonStyle}" Grid.Column="5" BackgroundColor="LightGoldenrodYellow" CornerRadius="4"  />
 
             </Grid>
 
-            
+            <Label Text="לוח הודעות" Style="{StaticResource Headers}" HorizontalOptions="Center" FontSize="20" />
             <Label Text="{Binding ErrorMessages}" IsVisible="{Binding ShowErrorMessages}" Style="{StaticResource WarningsStyle}" />
             
             <CollectionView ItemsSource="{Binding Messages}"  >
@@ -54,7 +54,6 @@
             </CollectionView>
 
             <Label Text="{Binding ErrorUploadMessage}" IsVisible="{Binding ShowErrorUpload}" Style="{StaticResource WarningsStyle}" />
-            <Label Text="{Binding MessageUploaded}" IsVisible="{Binding ShowMessageUploaded}" Style="{StaticResource AssuranceStyle}" />
 
             <Grid>
 

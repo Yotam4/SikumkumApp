@@ -76,6 +76,17 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool isOwner { get; set; }
+        public bool IsOwner
+        {
+            get { return this.isOwner; }
+            set
+            {
+                this.isOwner = value;
+                this.OnPropertyChanged("IsOwner");
+            }
+        }
+
         private List<ImgSrc> sources { get; set; }
         public List<ImgSrc> Sources
         {
@@ -139,6 +150,11 @@ namespace SikumkumApp.ViewModels
                 this.PdfFile = pdfSrc;
             }
 
+            this.IsOwner = false; //Isn't owner, unless it enters the if statement.
+            if(this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID)
+            {
+                this.IsOwner = true;
+            }
         }
         #endregion
 
@@ -214,6 +230,10 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
+                bool areYouSure = await App.Current.MainPage.DisplayAlert("האם אתה בטוח?", "כל הנתונים ימחקו וגם דירוגך ישתנה בהתאם", "מחק", "בטל");
+                if (areYouSure == false) //If user doesnt want to delete, stop the function.
+                    return;
+
                 bool sikumDeleted = await API.TryDeleteSikum(this.ChosenFile);
                 if (sikumDeleted)
                 {
