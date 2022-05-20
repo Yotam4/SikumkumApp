@@ -86,6 +86,17 @@ namespace SikumkumApp.ViewModels
                 this.OnPropertyChanged("IsOwner");
             }
         }
+        private string deleteSrc { get; set; }
+        public string DeleteSrc
+        {
+            get { return this.deleteSrc; }
+            set
+            {
+                this.deleteSrc = value;
+                this.OnPropertyChanged("DeleteSrc");
+            }
+        }
+        
 
         private List<ImgSrc> sources { get; set; }
         public List<ImgSrc> Sources
@@ -149,10 +160,11 @@ namespace SikumkumApp.ViewModels
                 PdfSrc pdfSrc = new PdfSrc(source, chosen.Url + "1"); //Source = url to photo. url = the name. It will be ugly so maybe change URL name.
                 this.PdfFile = pdfSrc;
             }
-
+            this.DeleteSrc = "";
             this.IsOwner = false; //Isn't owner, unless it enters the if statement.
-            if(this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID)
+            if(this.currentApp.CurrentUser != null && this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID)
             {
+                this.DeleteSrc = "DeleteIcon.pdf";
                 this.IsOwner = true;
             }
         }

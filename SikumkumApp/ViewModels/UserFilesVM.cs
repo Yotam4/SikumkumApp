@@ -22,7 +22,7 @@ namespace SikumkumApp.ViewModels
         const string APPROVED_NAME = "הצג סיכומים מאושרים";
         const string DISAPPROVED_NAME = "הצג סיכומים לא מאושרים";
         const string APPROVED_DISPLAY = "סיכומים שאושרו";
-        const string DISAPPROVED_APPROVED_DISPLAY = "סיכומים שטרם אושרו";
+        const string DISAPPROVED_DISPLAY = "סיכומים שטרם אושרו";
         const int NUM_APPROVED = 1;
         const int NUM_DISAPPROVED = 0;
 
@@ -80,6 +80,7 @@ namespace SikumkumApp.ViewModels
                 OnPropertyChanged("SikumGetName");
             }
         }
+
         private string currentDisplayText { get; set; }
         public string CurrentDisplayText
         {
@@ -175,11 +176,13 @@ namespace SikumkumApp.ViewModels
                 {
                     this.NumApproved = NUM_APPROVED;
                     this.SikumGetName = DISAPPROVED_NAME; //Shows goto disaaproved items
+                    this.CurrentDisplayText = APPROVED_DISPLAY;
                 }
                 else if (this.NumApproved == 1) //Changes to non-Approved
                 {
                     this.NumApproved = NUM_DISAPPROVED;
                     this.SikumGetName = APPROVED_NAME;
+                    this.CurrentDisplayText = DISAPPROVED_DISPLAY;
 
                 }
 

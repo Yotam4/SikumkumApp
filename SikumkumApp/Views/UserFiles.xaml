@@ -6,7 +6,9 @@
              x:Name="UserFilesPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding CurrentDisplayText}" Style="{StaticResource Headers}" HorizontalOptions="Center" FontSize="20" Margin="0,0,0,3"  />
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding ShowErrorEmpty}" Style="{StaticResource WarningsStyle}" />
+
 
             <Label Text="{Binding CurrentDisplayText}" IsVisible="{Binding DisplayRejected}" Style="{StaticResource Headers}" />
             <CollectionView ItemsSource="{Binding UserFiles}" >
@@ -50,7 +52,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button Text="{Binding SikumGetName}" Command="{Binding ChangeApprovedCommand}" Style="{StaticResource ButtonStyle}" />
+            <Button Text="{Binding SikumGetName}" Command="{Binding ChangeApprovedCommand}" Style="{StaticResource ButtonStyle}"  WidthRequest="200" CornerRadius="2" />
 
         </StackLayout>
     </ContentPage.Content>

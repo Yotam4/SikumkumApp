@@ -8,7 +8,7 @@
              >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="קבצים לאישור" Style="{StaticResource Headers}" HorizontalOptions="CenterAndExpand" FontSize="20" Margin="0,2,0,0" TextDecorations="None"/>
+            <Label Text="קבצים לאישור" Style="{StaticResource Headers}" HorizontalOptions="CenterAndExpand" FontSize="20"/>
             <Label Text="                                                                                                                                                                   " TextDecorations="Underline" />
             <CollectionView ItemsSource="{Binding PendingFiles}"   >
                 <CollectionView.ItemsLayout>
