@@ -21,7 +21,9 @@
             </Grid>
                 
             <Label Text="{Binding Headline}" Style="{StaticResource Headers}" FontSize="22" HorizontalOptions="Center" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
-            
+
+            <Label Text="ההעלאה נדחתה, אנא פנה ללוח ההודעות כדי לראות למה." Style="{StaticResource WarningsStyle}" IsVisible="{Binding UploadRejected}" />
+
             <Grid  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />

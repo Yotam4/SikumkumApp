@@ -24,8 +24,8 @@ namespace SikumkumApp.ViewModels
         private const string STAR_COLOR_EMPTY = "StarTrans.png";
         public double RatingGiven { get; set; }
 
-        private List<Message> messages;
-        public List<Message> Messages
+        private ObservableCollection<Message> messages;
+        public ObservableCollection<Message> Messages
         {
             get => messages;
             set
@@ -208,6 +208,8 @@ namespace SikumkumApp.ViewModels
         public MessagesViewVM(SikumFile chosen)
         {
             this.ChosenFile = chosen;
+            this.Messages = new ObservableCollection<Message>();
+
             this.RatingGiven = 1; //Minumum value is always one.
             this.StarImageOne = STAR_COLOR_FILLED; //Star one is always colored.
             this.StarImageFive = STAR_COLOR_EMPTY; //Sets all of the rest to be empty. 
@@ -282,13 +284,17 @@ namespace SikumkumApp.ViewModels
         {
             try
             {
-                this.Messages = await API.GetMessages(this.ChosenFile.FileId);
-                if(this.Messages == null || this.Messages.Count == 0) //If Messages was null or empty.
+                this.Messages.Clear(); //Clears the current messages
+
+                List<Message> messageLst = await API.GetMessages(this.ChosenFile.FileId); //Gets new list of messages
+                if(messageLst == null || messageLst.Count == 0) //If Messages was null or empty.
                 {
                     this.ShowErrorMessages = true;
                     this.ErrorMessages = "אין הודעות עדיין";
-                    this.Messages = new List<Message>(); //Sets an empty list to prevent errors.
                 }
+
+                this.Messages = new ObservableCollection<Message>(messageLst); //If it isn't empty, transform it into the collection.
+
             }
             catch //Something went wrong with settings the messages.
             {
@@ -317,8 +323,7 @@ namespace SikumkumApp.ViewModels
                 this.ShowMessageUploaded = true;
                 this.MessageUploaded = "הודעה הועלתה בהצלחה";
                 this.NewMessage = "";
-
-                GetMessages(); //Sets new messages.
+                this.Messages.Add(newMessage); //Adds the message to be displayed.
             }
         }
         #endregion

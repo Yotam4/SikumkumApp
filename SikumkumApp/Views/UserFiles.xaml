@@ -10,7 +10,6 @@
             <Label Text="{Binding ErrorEmpty}" IsVisible="{Binding ShowErrorEmpty}" Style="{StaticResource WarningsStyle}" />
 
 
-            <Label Text="{Binding CurrentDisplayText}" IsVisible="{Binding DisplayRejected}" Style="{StaticResource Headers}" />
             <CollectionView ItemsSource="{Binding UserFiles}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -31,7 +30,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="סיכומים שנדחו" IsVisible="{Binding DisplayRejected}" Style="{StaticResource Headers}" />
+            <Label Text="סיכומים שנדחו" Style="{StaticResource Headers}" IsVisible="{Binding DisplayRejected}" HorizontalOptions="Center" FontSize="20" Margin="0,6,0,3"  />
             <CollectionView ItemsSource="{Binding RejectedFiles}" IsVisible="{Binding DisplayRejected}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

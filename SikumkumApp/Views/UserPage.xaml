@@ -24,7 +24,7 @@
             <Entry IsPassword="True" Text="{Binding NewPassword}" Placeholder="סיסמה חדשה"/>
             <Entry IsPassword="True" Text="{Binding NewConfirm}" Placeholder="אשר סיסמה"/>
 
-            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" />
+            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource WarningsStyle}" />
 
             <Grid>
                 <Grid.RowDefinitions>

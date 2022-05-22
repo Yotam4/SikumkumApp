@@ -205,12 +205,14 @@ namespace SikumkumApp.ViewModels
 
                 if (this.NumApproved == 0) //Sets Rejected items in list to display.
                 {
+                    this.RejectedFiles.Clear();
                     foreach (SikumFile sikumFile in sikumList)
                     {
                         if (sikumFile.Disapproved)
                         {
                             this.DisplayRejected = true;
-                            this.RejectedFiles.Add(sikumFile);
+                            this.RejectedFiles.Add(sikumFile); //Adds file to the rejected list.
+                            this.UserFiles.Remove(sikumFile); //Removes the current file from the unapproved list.
                         }
                     }
                 }

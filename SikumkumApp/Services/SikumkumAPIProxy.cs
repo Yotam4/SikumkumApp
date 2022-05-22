@@ -387,22 +387,22 @@ namespace SikumkumApp.Services
         }
         public async Task<string> DownloadPdfFileAsync(string url, string fileName) //Downloads from servr file to AppDataDirectory
         {
-            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName); //Gets path of where file will be created
 
-            if (File.Exists(filePath))
+            if (File.Exists(filePath)) //checks if file exists
                 return filePath;
 
-            var pdfBytes = await this.client.GetByteArrayAsync(url);
+            var pdfBytes = await this.client.GetByteArrayAsync(url); //turns file into bytes.
 
             try
             {
-                File.WriteAllBytes(filePath, pdfBytes);
+                File.WriteAllBytes(filePath, pdfBytes); //Writes file to path.
 
-                return filePath;
+                return filePath; //returns the path.
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+                await Application.Current.MainPage.DisplayAlert("שגיאה בהצגת פידיאף", ex.Message, "Ok"); //Displays error uploading file.
             }
 
             return null;

@@ -26,6 +26,8 @@ namespace SikumkumApp.ViewModels
         public string SikumBy { get; set; }
         private string username { get; set; }
         private SikumFile chosenFile { get; set; }
+        public bool UploadRejected { get; set; }
+
         public SikumFile ChosenFile
         {
             get { return this.chosenFile; }
@@ -160,12 +162,19 @@ namespace SikumkumApp.ViewModels
                 PdfSrc pdfSrc = new PdfSrc(source, chosen.Url + "1"); //Source = url to photo. url = the name. It will be ugly so maybe change URL name.
                 this.PdfFile = pdfSrc;
             }
-            this.DeleteSrc = "";
+
+            this.DeleteSrc = ""; //Sets it to base value to prevent errors.
             this.IsOwner = false; //Isn't owner, unless it enters the if statement.
             if(this.currentApp.CurrentUser != null && this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID)
             {
                 this.DeleteSrc = "DeleteIcon.pdf";
                 this.IsOwner = true;
+            }
+
+            if(this.ChosenFile.Disapproved == true) //If file is rejected.
+            {
+                this.UploadRejected = true; //Sets rejected to true.
+                this.NeedApproval = false; //Doesn't need to be rejected\accepted anymore.
             }
         }
         #endregion
@@ -227,14 +236,21 @@ namespace SikumkumApp.ViewModels
         public Command ClickedOnPdfCommand => new Command(ClickedOnPdf);
         private async void ClickedOnPdf()
         {
-            var filePath = await API.DownloadPdfFileAsync(this.PdfFile.Url, this.PdfFile.PdfName);
-
-            if (filePath != null)
+            var filePath = await API.DownloadPdfFileAsync(this.PdfFile.Url, this.PdfFile.PdfName); //Gets local pdf file path.
+            try
             {
-                await Launcher.OpenAsync(new OpenFileRequest
+                if (filePath != null)
                 {
-                    File = new ReadOnlyFile(filePath)
-                });
+                    await Launcher.OpenAsync(new OpenFileRequest
+                    {
+                        File = new ReadOnlyFile(filePath)
+                    });
+                }
+            }
+
+            catch(Exception ex)
+            {
+                int a = 4;
             }
         }
         public Command DeleteCommand => new Command(DeleteSikum);
