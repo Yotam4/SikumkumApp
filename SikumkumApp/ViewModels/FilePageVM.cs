@@ -165,7 +165,7 @@ namespace SikumkumApp.ViewModels
 
             this.DeleteSrc = ""; //Sets it to base value to prevent errors.
             this.IsOwner = false; //Isn't owner, unless it enters the if statement.
-            if(this.currentApp.CurrentUser != null && this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID)
+            if(this.currentApp.CurrentUser != null && this.ChosenFile.UserID == this.currentApp.CurrentUser.UserID || this.currentApp.CurrentUser != null && this.currentApp.CurrentUser.IsAdmin) //If it is the owner's file or if it's an admin.
             {
                 this.DeleteSrc = "DeleteIcon.pdf";
                 this.IsOwner = true;
@@ -279,14 +279,6 @@ namespace SikumkumApp.ViewModels
             }
         }
 
-        public Command DisplayImagesCommand => new Command(DisplayImages);
-        private async void DisplayImages()
-        {
-            DisplayImages displayImgs = new DisplayImages(this.Sources);
-            displayImgs.WidthRequest = 300;
-            displayImgs.HeightRequest = 300;
-            await this.currentApp.MainPage.Navigation.PushModalAsync(displayImgs);
-        }
         #endregion
 
         #region Validations

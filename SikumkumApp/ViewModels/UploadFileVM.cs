@@ -110,8 +110,6 @@ namespace SikumkumApp.ViewModels
             get { return this.headline; }
             set
             {
-                if (!ValidateHeadline(value))
-                    return;
                     this.headline = value;
                     this.OnPropertyChanged("Headline");                
             }
@@ -146,6 +144,27 @@ namespace SikumkumApp.ViewModels
             {
                 this.showHeadlineError = value;
                 this.OnPropertyChanged("ShowHeadlineError");
+            }
+        }
+
+        private string descError { get; set; }
+        public string DescError
+        {
+            get { return this.descError; }
+            set
+            {
+                this.descError = value;
+                this.OnPropertyChanged("DescError");
+            }
+        }
+        private bool showDescError { get; set; }
+        public bool ShowDescError
+        {
+            get { return this.showDescError; }
+            set
+            {
+                this.showDescError = value;
+                this.OnPropertyChanged("ShowDescError");
             }
         }
 
@@ -251,8 +270,10 @@ namespace SikumkumApp.ViewModels
             this.ShowUploadError = false;
             this.hasPdf = false;
             this.hasImage = false;
+            this.ShowDescError = false;
             this.UploadError = "";
             this.PdfFileName = ""; //Empty until user uploads Pdf, then it recives the pdf file name.
+            this.DescError = "";
 
             //Lists to set,
             this.FileResultsList = new List<FileResult>(); //Creates new lists.
@@ -341,7 +362,7 @@ namespace SikumkumApp.ViewModels
             try
             {
 
-                if (!ValidateForm()) //Form was not validated.
+                if (ValidateForm() == false) //Form was not validated.
                     return;
 
                 if (await TryUploadFiles() == false) //File didn't upload to server.
@@ -423,12 +444,20 @@ namespace SikumkumApp.ViewModels
         {
             //Work in progress.
             this.ShowUploadError = false; //Resets the upload error.
-            if( !this.hasPdf && !this.hasImage)
+            if(!this.hasPdf && !this.hasImage)
             {
                 this.ShowUploadError = true;
                 this.UploadError = "אנא בחר קובץ להעלאה.";
                 return false;
             }
+
+            if(this.TextDesc.Length == 0) //If Desc is empty.
+            {
+                this.ShowDescError = true;
+                this.DescError = ERROR_MESSAGES.REQUIRED_FIELD;
+                return false;
+            }
+
             return (ValidateHeadline());
 
             return true;
@@ -464,6 +493,7 @@ namespace SikumkumApp.ViewModels
             this.HeadlineError = "";
             return true;
         }
+        
 
         #endregion
 

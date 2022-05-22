@@ -26,6 +26,14 @@ namespace SikumkumApp.Models
             this.UserID = 0;
         }
 
+        public User(string username, string password) //Overload for logging in
+        {
+            this.Username = username;
+            this.Email = "";
+            this.Password = password;
+            this.IsAdmin = false;
+            this.UserID = 0;
+        }
         public User(User u)
         {
             this.Username = u.Username;

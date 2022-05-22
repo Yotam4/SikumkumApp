@@ -13,7 +13,8 @@
 
             <Label Text="תיאור"/>
             <Editor Placeholder="תיאור הקובץ" Text="{Binding TextDesc}" MaxLength="240"/>
-            
+            <Label Text="{Binding DescError}" IsVisible="{Binding ShowDescError}" Style="{StaticResource WarningsStyle}"/>
+
             <Label Text="נושא הקובץ "/>
             <Picker ItemsSource="{Binding subjectNamesList}" SelectedIndex ="{Binding SubjectChosen}"/>
 
@@ -25,20 +26,24 @@
 
 
 
-            <Grid HeightRequest="100" >
+            <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+
                 </Grid.RowDefinitions>
-                <Label Text="בחר:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="17" />
-                <ImageButton Source="imageicon.png" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickImageCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center"  />
-                <ImageButton Source="iconPdf.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Text="בחר:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Style="{StaticResource Headers}" FontSize="18" />
+                <ImageButton Source="imageicon.png" Grid.Column="0" Grid.Row="1" Command="{Binding PickImageCommand}" BackgroundColor="#00000000" HorizontalOptions="Center"  />
+                <ImageButton Source="iconPdf.png" Grid.Column="1" Grid.Row="1" Command="{Binding PickPDFCommand}" BackgroundColor="#00000000" HorizontalOptions="Center"  />
 
+                <Label  Text="{Binding UploadError}" IsVisible="{Binding ShowUploadError}" Style="{StaticResource WarningsStyle}" Grid.Row="2" VerticalOptions="End" FontSize="15"/>
+                <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black"  />
             </Grid>
-            <Button Text="העלאה" Command="{Binding UploadSikumFileCommand}" BackgroundColor="#23C9FF" FontSize="18" BorderWidth="2" BorderColor="Black"  HeightRequest="60" Margin="0,40,0,0"/>
 
 
 
-            <Label Text="{Binding UploadError}" IsVisible="{Binding ShowUploadError}" Style="{StaticResource WarningsStyle}"/>
+
+
+
 
         </StackLayout>
     </ContentPage.Content>

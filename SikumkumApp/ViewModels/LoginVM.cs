@@ -140,9 +140,9 @@ namespace SikumkumApp.ViewModels
 
                 SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
 
-                User loggingUser = new User();
+                User loggingUser = new User(this.Username, this.Password);
 
-                loggingUser = await API.LoginAsync(this.Username, this.Password);
+                loggingUser = await API.LoginAsync(loggingUser);
 
                 if (loggingUser != null) //User logged in.
                 {

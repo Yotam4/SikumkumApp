@@ -91,31 +91,38 @@ namespace SikumkumApp.Services
         //public string GetBasePhotoUri() { return this.basePhotosUri; }
 
         //Login!
-        public async Task<User> LoginAsync(string username, string pass)
+        public async Task<User> LoginAsync(User loggingIn)
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Login?username={username}&pass={pass}");
-                if (response.IsSuccessStatusCode)
+                JsonSerializerOptions options = new JsonSerializerOptions
                 {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
-                        PropertyNameCaseInsensitive = true
-                    };
-                    string content = await response.Content.ReadAsStringAsync();
-                    User u = JsonSerializer.Deserialize<User>(content, options);
-                    return u;
-                }
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
 
+                string jsonUser = JsonSerializer.Serialize<User>(loggingIn, options);
+                StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/Login", content);
+
+                string userStringJson = await response.Content.ReadAsStringAsync();
+                User loggedIn = JsonSerializer.Deserialize<User>(userStringJson, options);
+
+                if (response.IsSuccessStatusCode) //If user sucessfully signed up.
+                {
+                    return loggedIn;
+                }
                 else
                 {
                     return null;
                 }
             }
-            catch (Exception e)
-            {
 
+            catch
+            {
                 return null;
             }
         }
