@@ -22,5 +22,10 @@ namespace SikumkumApp.Views
 
             InitializeComponent();
         }
+
+        //protected override void OnAppearing()
+        //{
+        //    this.userFilesVM.
+        //}
     }
 }

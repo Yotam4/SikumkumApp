@@ -101,6 +101,28 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showLoginError { get; set; }
+        public bool ShowLoginError
+        {
+            get => showLoginError;
+            set
+            {
+                showLoginError = value;
+                OnPropertyChanged("ShowLoginError");
+            }
+        }
+
+        private string loginError { get; set; }
+        public string LoginError
+        {
+            get => loginError;
+            set
+            {
+                loginError = value;
+                OnPropertyChanged("LoginError");
+            }
+        }
+
         private bool ShowUsernameError { get; set; }
         public string UsernameError { get; set; }
 
@@ -149,12 +171,13 @@ namespace SikumkumApp.ViewModels
                     App currentApp = (App)App.Current;
                     currentApp.CurrentUser = loggingUser;
 
-                    await App.Current.MainPage.DisplayAlert("אתה כעת מחובר לסיקומקום", "", "סגור");
+                    await App.Current.MainPage.DisplayAlert("אתה כעת מחובר לסיקומקום", "", "סגור"); //Displays success alert.
                     await App.Current.MainPage.Navigation.PopAsync();
                 }
                 else
                 {
-
+                    this.ShowLoginError = true;
+                    this.LoginError = "שם משתמש או סיסמה לא נכונים.";
                 }
             }
 

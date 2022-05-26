@@ -36,6 +36,7 @@
             <Entry Placeholder="סיסמה" IsPassword="True" Text="{Binding Password}"/>
 
             <Button Text="הרשמה" Command="{Binding SignUpCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="CenterAndExpand"  BorderWidth="2" BorderColor="Black"/>
+            <Label Text="{Binding SignUpError}" IsVisible="{Binding ShowSignUpError}" Style="{StaticResource WarningsStyle}"/>
 
             <Image Source="Kettle_Transp" Style="{StaticResource LogosImages}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,130,0,0"  />
 

@@ -104,6 +104,28 @@ namespace SikumkumApp.ViewModels
             }
         }
 
+        private bool showSignUpError { get; set; }
+        public bool ShowSignUpError
+        {
+            get => showSignUpError;
+            set
+            {
+                showSignUpError = value;
+                OnPropertyChanged("ShowSignUpError");
+            }
+        }
+
+        private string signUpError { get; set; }
+        public string SignUpError
+        {
+            get => signUpError;
+            set
+            {
+                signUpError = value;
+                OnPropertyChanged("SignUpError");
+            }
+        }
+        
 
         private string email { get; set; }
         public string Email
@@ -222,7 +244,8 @@ namespace SikumkumApp.ViewModels
                 }
                 else
                 {
-                    throw new Exception("Could not sign up. Please try again");
+                    this.ShowSignUpError = true;
+                    this.SignUpError = "שם משתמש או אימייל בשימוש.";
                 }
             }
 
