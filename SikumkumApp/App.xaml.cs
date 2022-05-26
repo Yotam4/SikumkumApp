@@ -30,14 +30,6 @@ namespace SikumkumApp
         {
             SikumkumAPIProxy API = SikumkumAPIProxy.CreateProxy();
 
-            //this.SubjectsList = new List<Subject>(); //For testing purposes while server is down.
-            //Subject s = new Subject("חשבון", 100);
-            //Subject s1 = new Subject("מדעים", 100);
-            //Subject s2 = new Subject("פיזיקה", 100);
-            //Subject s3 = new Subject("לשון", 100);
-
-            //this.SubjectsList.Add(s); this.SubjectsList.Add(s1); this.SubjectsList.Add(s2); this.SubjectsList.Add(s3 );
-
             try
             {
                 this.OpeningObj = await API.GetOpeningObject();

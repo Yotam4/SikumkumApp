@@ -159,7 +159,7 @@ namespace SikumkumApp.ViewModels
             if (this.ChosenFile.HasPdf) //If sikum contain pdf files, work with them.
             {
                 string source = $"{API.basePdfsUri}{chosen.Url}{"1"}.pdf"; //Current pdf source. always has 1.
-                PdfSrc pdfSrc = new PdfSrc(source, chosen.Url + "1"); //Source = url to photo. url = the name. It will be ugly so maybe change URL name.
+                PdfSrc pdfSrc = new PdfSrc(source, this.ChosenFile.PdfFileName); //Source = url to photo. url = the name. It will be ugly so maybe change URL name.
                 this.PdfFile = pdfSrc;
             }
 

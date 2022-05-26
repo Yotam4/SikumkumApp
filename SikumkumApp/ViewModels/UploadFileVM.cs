@@ -53,9 +53,6 @@ namespace SikumkumApp.ViewModels
 
         private string contentType; //To allow the server to know which file is being uploaded.
 
-        private bool clickedOnPDF; //No use of it so far. might be needed for UI purposes.
-        private bool clickdOnImages;
-
         private bool hasImage { get; set; }
         private bool hasPdf { get; set; }
 
@@ -202,7 +199,7 @@ namespace SikumkumApp.ViewModels
         }
 
         #region מקור התמונה
-        private List<ImageSource> sikumListSrc;
+        private List<ImageSource> sikumListSrc { get; set; }
         public List<ImageSource> SikumListSrc
         {
             get => sikumListSrc;
@@ -212,7 +209,7 @@ namespace SikumkumApp.ViewModels
                 OnPropertyChanged("SikumListSrc");
             }
         }
-        private List<FileInfo> filesInfoList;
+        private List<FileInfo> filesInfoList { get; set; }
         private List<FileResult> fileResultsList;
         public List<FileResult> FileResultsList
         {
@@ -265,8 +262,6 @@ namespace SikumkumApp.ViewModels
             }
 
             //Booleans to set.
-            this.clickdOnImages = false;
-            this.clickedOnPDF = false;
             this.ShowUploadError = false;
             this.hasPdf = false;
             this.hasImage = false;

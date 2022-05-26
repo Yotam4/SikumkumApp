@@ -87,25 +87,6 @@ namespace SikumkumApp.ViewModels
             App.Current.MainPage.Navigation.PushAsync(subjectPage); 
         }
 
-        public Command ClickedOnLogout => new Command(Logout);
-        private async void Logout()
-        {
-            try
-            {
-                bool loggedOut = await API.LogoutAsync(this.currentApp.CurrentUser);
-                if (!loggedOut) //User didn't log out.
-                    return;
-
-                this.currentApp.CurrentUser = null;
-                this.CanLogIn = true;
-                this.IsLoggedIn = false;
-            }
-
-            catch
-            {
-
-            }
-        }
 
         #endregion
 

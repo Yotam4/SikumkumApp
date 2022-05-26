@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SikumkumApp.Views.UserPage" Collapsed="true">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAgAAAAAAAAAAAAADAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UserPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.UserFiles" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UserFiles.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.UploadFile" Collapsed="true">
+    <Position X="10" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UploadFile.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.SubjectPage" Collapsed="true">
+    <Position X="12.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SubjectPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.SignUp" Collapsed="true">
+    <Position X="10.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SignUp.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.Opening" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Opening.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.MessagesView" Collapsed="true">
+    <Position X="12.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Views\MessagesView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.Login" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Login.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.LoadingPage" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoadingPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.FilePage" Collapsed="true">
+    <Position X="12.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FilePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SikumkumApp.Views.ConfirmUploads" Collapsed="true">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ConfirmUploads.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
